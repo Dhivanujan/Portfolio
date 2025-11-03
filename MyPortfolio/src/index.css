@@ -2,54 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ==============================
-   Root CSS Variables & Dark Mode
-   ============================== */
-@layer base {
-  :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    --border: 214 32% 91%;
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
-    --card: 0 0% 100%;
-
-    --animate-float: float 6s ease-in-out infinite;
-    --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
-    --animate-fade-in: fade-in 0.7s ease-in forwards;
-    --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
-    --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
-    --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
-    --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
-    --animate-meteor: meteor 5s linear infinite;
-  }
-
-  .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
-    --border: 214 32% 91%;
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
-    --card: 222 47% 20%;
-  }
-
-  html {
-    @apply scroll-smooth;
-  }
-
-  body {
-    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] transition-colors duration-300;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  * {
-    @apply border-[hsl(var(--border))];
-  }
+/* -------------------- Custom Properties -------------------- */
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --border: 214 32% 91%;
+  --primary: 250 47% 60%;
+  --primary-foreground: 210 40% 98%;
+  --card: 0 0% 100%;
 }
 
-/* ==============================
-   Animations
-   ============================== */
+.dark {
+  --background: 222 47% 4%;
+  --foreground: 213 31% 91%;
+  --border: 214 32% 91%;
+  --primary: 250 65% 65%;
+  --primary-foreground: 213 31% 91%;
+  --card: 222 47% 20%;
+}
+
+/* -------------------- Keyframes -------------------- */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -71,60 +43,88 @@
   100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
 }
 
-/* ==============================
-   Utilities
-   ============================== */
+/* -------------------- Base Styles -------------------- */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  #root {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+/* -------------------- Custom Utilities -------------------- */
 @layer utilities {
   /* Container */
-  .container-custom {
+  .container {
     margin-inline: auto;
     padding-inline: 2rem;
   }
-  @media (min-width: 640px) { .container-custom { max-width: 640px; } }
-  @media (min-width: 768px) { .container-custom { max-width: 768px; } }
-  @media (min-width: 1024px) { .container-custom { max-width: 1024px; } }
-  @media (min-width: 1280px) { .container-custom { max-width: 1280px; } }
-  @media (min-width: 1400px) { .container-custom { max-width: 1400px; } }
 
-  /* Text Glow */
+  @media (min-width: 640px) { .container { max-width: 640px; } }
+  @media (min-width: 768px) { .container { max-width: 768px; } }
+  @media (min-width: 1024px) { .container { max-width: 1024px; } }
+  @media (min-width: 1280px) { .container { max-width: 1280px; } }
+  @media (min-width: 1400px) { .container { max-width: 1400px; } }
+
+  /* Text glow */
   .text-glow {
     @apply relative;
     text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
   }
 
-  /* Card Hover */
+  /* Card hover */
   .card-hover {
     @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
   }
 
-  /* Gradient Border */
+  /* Gradient border */
   .gradient-border {
-    @apply relative rounded-md border-2;
-    background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-    background-clip: padding-box;
-    border: 1px solid transparent;
+    @apply relative rounded border-2 border-transparent;
+    background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card))) padding-box;
   }
 
-  /* Cosmic Button */
+  /* Cosmic button */
   .cosmic-button {
     @apply px-6 py-2 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-medium transition-all duration-300;
-    @apply hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] hover:scale-105 active:scale-95;
+  }
+  .cosmic-button:hover {
+    @apply shadow-[0_0_10px_rgba(139,92,246,0.5)] scale-105;
+  }
+  .cosmic-button:active {
+    @apply scale-95;
   }
 
-  /* Star */
+  /* Stars */
   .star {
-    @apply absolute rounded-full;
-    background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+    @apply absolute bg-white rounded-full;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
   }
-}
+  .animate-pulse-subtle {
+    animation: pulse-subtle 4s ease-in-out infinite;
+  }
 
-/* ==============================
-   Root Layout
-   ============================== */
-#root {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
+  /* Meteors */
+  .meteor, .meteor-tail {
+    @apply absolute rounded-full;
+    @apply bg-gradient-to-r from-white via-white to-transparent;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+    transform-origin: left top;
+  }
+  .animate-meteor {
+    animation: meteor var(--meteor-duration, 5s) linear infinite;
+  }
 }
