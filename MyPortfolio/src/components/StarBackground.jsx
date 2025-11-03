@@ -4,12 +4,11 @@ export const StarBackground = () => {
   const [stars, setStars] = useState([]);
   const [meteors, setMeteors] = useState([]);
 
-  // Generate stars
+  // Generate stars once
   const generateStars = () => {
     const numberOfStars = Math.floor(
       (window.innerWidth * window.innerHeight) / 10000
     );
-
     const newStars = [];
     for (let i = 0; i < numberOfStars; i++) {
       newStars.push({
@@ -24,33 +23,39 @@ export const StarBackground = () => {
     setStars(newStars);
   };
 
-  // Generate meteors
-  const generateMeteors = () => {
-    const numberOfMeteors = 4;
-    const newMeteors = [];
-    for (let i = 0; i < numberOfMeteors; i++) {
-      newMeteors.push({
-        id: i,
-        size: Math.random() * 2 + 1,
-        x: Math.random() * 100,
-        y: Math.random() * 20,
-        delay: Math.random() * 15,
-        animationDuration: Math.random() * 3 + 3,
-      });
-    }
-    setMeteors(newMeteors);
+  // Spawn a single meteor
+  const spawnMeteor = () => {
+    const meteor = {
+      id: Date.now(), // unique id
+      size: Math.random() * 2 + 1,
+      x: Math.random() * 100,
+      y: Math.random() * 20,
+      animationDuration: Math.random() * 3 + 3,
+    };
+    setMeteors((prev) => [...prev, meteor]);
+
+    // Remove meteor after its animation ends
+    setTimeout(() => {
+      setMeteors((prev) => prev.filter((m) => m.id !== meteor.id));
+    }, meteor.animationDuration * 1000);
   };
 
   useEffect(() => {
     generateStars();
-    generateMeteors();
 
-    // Re-generate on resize
-    const handleResize = () => {
-      generateStars();
-    };
+    // Continuously spawn meteors at random intervals
+    const interval = setInterval(() => {
+      spawnMeteor();
+    }, 1500); // adjust interval for density
+
+    // Re-generate stars on resize
+    const handleResize = () => generateStars();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -82,7 +87,6 @@ export const StarBackground = () => {
             top: meteor.y + "%",
             left: meteor.x + "%",
             "--meteor-duration": meteor.animationDuration + "s",
-            animationDelay: meteor.delay + "s",
           }}
         />
       ))}
