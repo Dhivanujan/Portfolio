@@ -1,75 +1,132 @@
 import Section from "./Section";
-import { Mail, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Linkedin, Github, Send, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const Contact = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        setTimeout(() => setIsSubmitted(false), 3000);
+    };
+
     return (
-        <Section id="contact" className="bg-secondary/20">
-            <div className="grid md:grid-cols-2 gap-12 items-start">
+        <Section id="contact" className="relative pb-32">
+             {/* Decorative Background for Contact */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-[800px] bg-gradient-to-r from-neon-blue/10 via-purple-500/10 to-pink-500/10 blur-[120px] rounded-full z-0 pointer-events-none"></div>
+
+            <div className="grid md:grid-cols-2 gap-16 items-center relative z-10">
                 {/* Contact Info */}
-                <div>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Connect</h2>
-                    <p className="text-lg text-muted-foreground mb-8">
-                        I am currently looking for new opportunities as a Software Engineer. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                <motion.div 
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
+                        Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">Connect</span>
+                    </h2>
+                    <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+                        I am currently looking for new opportunities as a Software Engineer. Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
                     </p>
                     
                     <div className="space-y-6">
-                        <a href="mailto:hello@example.com" className="flex items-center space-x-4 text-muted-foreground hover:text-primary transition-colors">
-                            <div className="p-3 bg-background rounded-full border border-border">
+                        <a href="mailto:hello@example.com" className="group flex items-center space-x-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-neon-blue/50 hover:bg-neon-blue/10 transition-all duration-300">
+                            <div className="p-3 bg-obsidian rounded-full text-neon-blue group-hover:scale-110 transition-transform">
                                 <Mail className="h-6 w-6" />
                             </div>
-                            <span className="font-medium">hello@example.com</span>
+                            <span className="font-medium text-slate-300 group-hover:text-white">hello@example.com</span>
                         </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 text-muted-foreground hover:text-primary transition-colors">
-                            <div className="p-3 bg-background rounded-full border border-border">
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group flex items-center space-x-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-neon-purple/50 hover:bg-neon-purple/10 transition-all duration-300">
+                            <div className="p-3 bg-obsidian rounded-full text-neon-purple group-hover:scale-110 transition-transform">
                                 <Linkedin className="h-6 w-6" />
                             </div>
-                            <span className="font-medium">LinkedIn Profile</span>
+                            <span className="font-medium text-slate-300 group-hover:text-white">LinkedIn Profile</span>
                         </a>
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 text-muted-foreground hover:text-primary transition-colors">
-                            <div className="p-3 bg-background rounded-full border border-border">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group flex items-center space-x-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-neon-pink/50 hover:bg-neon-pink/10 transition-all duration-300">
+                            <div className="p-3 bg-obsidian rounded-full text-neon-pink group-hover:scale-110 transition-transform">
                                 <Github className="h-6 w-6" />
                             </div>
-                            <span className="font-medium">GitHub Profile</span>
+                            <span className="font-medium text-slate-300 group-hover:text-white">GitHub Profile</span>
                         </a>
                     </div>
-                </div>
+                </motion.div>
 
-                {/* Contact Form */}
-                <div className="bg-card border border-border rounded-xl p-8 shadow-sm">
-                    <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                className="w-full px-4 py-3 rounded-md bg-background border border-input focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                                placeholder="Your Name"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                className="w-full px-4 py-3 rounded-md bg-background border border-input focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                                placeholder="name@example.com"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                            <textarea 
-                                id="message" 
-                                rows="4" 
-                                className="w-full px-4 py-3 rounded-md bg-background border border-input focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-                                placeholder="Something nice..."
-                            ></textarea>
-                        </div>
-                        <button type="submit" className="w-full bg-primary text-primary-foreground font-bold py-3 px-6 rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center space-x-2">
-                            <span>Send Message</span>
-                            <Send className="h-4 w-4" />
-                        </button>
-                    </form>
-                </div>
+                {/* Contact Form - 3D Floating Effect */}
+                <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="perspective-1000"
+                >
+                    <div className="glass-card p-8 rounded-2xl border border-white/10 shadow-2xl relative transform transition-transform hover:rotate-y-2 hover:rotate-x-2 duration-500 preserve-3d">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
+                        
+                        <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
+                            <div className="space-y-2">
+                                <label htmlFor="name" className="text-sm font-medium text-slate-300">Name</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-obsidian/50 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white placeholder-slate-600 outline-none transition-all"
+                                    placeholder="Your Name"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label htmlFor="email" className="text-sm font-medium text-slate-300">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-obsidian/50 border border-white/10 focus:border-neon-purple focus:ring-1 focus:ring-neon-purple text-white placeholder-slate-600 outline-none transition-all"
+                                    placeholder="name@example.com"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label htmlFor="message" className="text-sm font-medium text-slate-300">Message</label>
+                                <textarea 
+                                    id="message" 
+                                    rows="4" 
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-obsidian/50 border border-white/10 focus:border-neon-pink focus:ring-1 focus:ring-neon-pink text-white placeholder-slate-600 outline-none transition-all resize-none"
+                                    placeholder="Something nice..."
+                                ></textarea>
+                            </div>
+                            
+                            <motion.button 
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                type="submit" 
+                                disabled={isSubmitting}
+                                className={`w-full font-bold py-4 px-6 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg ${
+                                    isSubmitted 
+                                        ? "bg-green-500 text-white" 
+                                        : "bg-gradient-to-r from-neon-blue to-neon-purple text-white hover:shadow-neon-blue/25"
+                                }`}
+                            >
+                                {isSubmitting ? (
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                ) : isSubmitted ? (
+                                    <span>Message Sent!</span>
+                                ) : (
+                                    <>
+                                        <span>Send Message</span>
+                                        <Send className="h-4 w-4" />
+                                    </>
+                                )}
+                            </motion.button>
+                        </form>
+                    </div>
+                </motion.div>
             </div>
         </Section>
     );

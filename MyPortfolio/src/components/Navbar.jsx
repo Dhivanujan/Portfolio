@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { Menu, X, Code } from "lucide-react";
+import { Menu, X, Terminal } from "lucide-react";
 import { cn } from "../lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,7 +31,7 @@ const Navbar = () => {
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border py-4"
+          ? "bg-obsidian/60 backdrop-blur-lg border-b border-white/10 py-4 shadow-lg"
           : "bg-transparent py-6"
       )}
     >
@@ -40,15 +40,17 @@ const Navbar = () => {
           to="hero"
           smooth={true}
           duration={500}
-          className="cursor-pointer flex items-center space-x-2 font-bold text-xl"
+          className="cursor-pointer flex items-center space-x-2 font-bold text-xl group"
         >
-          <Code className="text-primary" />
-          <span>DevPortfolio</span>
+          <div className="p-2 bg-gradient-to-tr from-neon-blue to-neon-purple rounded-lg group-hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-shadow">
+            <Terminal className="text-white w-6 h-6" />
+          </div>
+          <span className="text-white tracking-wide">Dev<span className="text-neon-blue">Portfolio</span></span>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-1">
             {navItems.map((item) => (
               <li key={item.name}>
                 <Link
@@ -56,22 +58,31 @@ const Navbar = () => {
                   smooth={true}
                   duration={500}
                   offset={-70}
-                  className="cursor-pointer text-muted-foreground hover:text-primary transition-colors font-medium text-sm lg:text-base"
+                  className="relative cursor-pointer px-4 py-2 text-slate-300 hover:text-white transition-colors font-medium text-sm lg:text-base group"
                 >
-                  {item.name}
+                  <span className="relative z-10">{item.name}</span>
+                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-neon-blue transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300"></span>
+                  <span className="absolute inset-0 bg-white/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity -z-0"></span>
                 </Link>
               </li>
             ))}
           </ul>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
+          <Link
+            to="contact"
+            smooth={true}
+            className="cursor-pointer px-5 py-2 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple text-white font-bold text-sm shadow-[0_0_15px_rgba(34,211,238,0.3)] hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] hover:scale-105 transition-all"
+          >
+            Hire Me
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
         <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-foreground focus:outline-none"
+            className="text-white focus:outline-none"
             aria-label="Toggle menu"
             >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -86,9 +97,9 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border overflow-hidden"
+            className="md:hidden bg-obsidian/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
           >
-            <ul className="flex flex-col items-center py-6 space-y-4">
+            <ul className="flex flex-col items-center py-8 space-y-6">
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Link
@@ -97,12 +108,22 @@ const Navbar = () => {
                     duration={500}
                     offset={-70}
                     onClick={() => setIsOpen(false)}
-                    className="cursor-pointer text-muted-foreground hover:text-primary transition-colors font-medium text-lg"
+                    className="cursor-pointer text-slate-300 hover:text-neon-blue transition-colors font-medium text-lg"
                   >
                     {item.name}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="contact"
+                  smooth={true}
+                  onClick={() => setIsOpen(false)}
+                  className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple text-white font-bold shadow-lg"
+                >
+                  Hire Me
+                </Link>
+              </li>
             </ul>
           </motion.div>
         )}
@@ -112,3 +133,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

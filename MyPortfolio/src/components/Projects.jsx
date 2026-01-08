@@ -1,6 +1,7 @@
 import Section from "./Section";
-import { Github, ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const projects = [
     {
@@ -10,6 +11,8 @@ const projects = [
         image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
+        color: "group-hover:text-neon-blue",
+        glow: "hover:shadow-neon-blue/20"
     },
     {
         title: "E-Commerce Microservices",
@@ -18,6 +21,8 @@ const projects = [
         image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
+        color: "group-hover:text-neon-purple",
+        glow: "hover:shadow-neon-purple/20"
     },
     {
         title: "Collaborative Dashboard",
@@ -26,6 +31,8 @@ const projects = [
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
+        color: "group-hover:text-neon-pink",
+        glow: "hover:shadow-neon-pink/20"
     },
     {
         title: "Network Packet Analyzer",
@@ -34,63 +41,145 @@ const projects = [
         image: "https://images.unsplash.com/photo-1558494949-ef2bb6db8744?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
+        color: "group-hover:text-white",
+        glow: "hover:shadow-white/20"
     }
 ];
 
+const ProjectCard = ({ project, index }) => {
+    const ref = useRef(null);
+
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
+
+    const handleMouseMove = (e) => {
+        if (!ref.current) return;
+
+        const rect = ref.current.getBoundingClientRect();
+
+        const width = rect.width;
+        const height = rect.height;
+
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            style={{
+                rotateY,
+                rotateX,
+                transformStyle: "preserve-3d",
+            }}
+            className="relative h-96 w-full rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 group cursor-pointer perspective-1000"
+        >
+            <div 
+                style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}
+                className={`absolute inset-4 rounded-xl shadow-2xl ${project.glow} transition-shadow duration-500 overflow-hidden bg-obsidian/50`}
+            >
+                {/* Background Image with Zoom */}
+                <div className="absolute inset-0 overflow-hidden rounded-xl">
+                    <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-40"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent"></div>
+                </div>
+
+                {/* Content Layer */}
+                <div className="absolute bottom-0 left-0 w-full p-6 z-20 transform translate-z-10">
+                    <h3 
+                        style={{ transform: "translateZ(50px)" }}
+                        className={`text-2xl font-bold mb-2 text-white ${project.color} transition-colors`}
+                    >
+                        {project.title}
+                    </h3>
+                    <p 
+                        style={{ transform: "translateZ(30px)" }}
+                        className="text-sm text-slate-300 mb-4 line-clamp-2"
+                    >
+                        {project.description}
+                    </p>
+                    
+                    <div 
+                        style={{ transform: "translateZ(20px)" }}
+                        className="flex flex-wrap gap-2 mb-4"
+                    >
+                        {project.tags.map(tag => (
+                            <span key={tag} className="text-xs font-medium px-2 py-1 bg-white/10 text-white rounded-md backdrop-blur-md border border-white/5">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div 
+                        style={{ transform: "translateZ(40px)" }}
+                        className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0"
+                    >
+                         <a href={project.github} className="flex items-center text-sm font-bold text-white hover:text-neon-blue transition-colors bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20">
+                            <Github className="h-4 w-4 mr-2" /> Code
+                        </a>
+                        <a href={project.demo} className="flex items-center text-sm font-bold text-white hover:text-neon-pink transition-colors bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20">
+                            <ExternalLink className="h-4 w-4 mr-2" /> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
 const Projects = () => {
     return (
-        <Section id="projects" className="bg-secondary/20">
-            <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
-                Featured Projects
-            </h2>
+        <Section id="projects" className="relative">
+            <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-16"
+            >
+                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+                    Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-blue">Projects</span>
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-blue mx-auto rounded-full"></div>
+            </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto px-4">
                 {projects.map((project, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
-                        className="group relative bg-card rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-xl transition-all duration-300"
-                    >
-                        {/* Image Overlay */}
-                        <div className="relative h-48 overflow-hidden">
-                            <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10" />
-                            <img 
-                                src={project.image} 
-                                alt={project.title} 
-                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                            />
-                        </div>
-
-                        <div className="p-6">
-                            <div className="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors">{project.title}</h3>
-                                    <p className="text-sm text-muted-foreground line-clamp-2">{project.description}</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex flex-wrap gap-2 mb-6">
-                                {project.tags.map(tag => (
-                                    <span key={tag} className="text-xs font-medium px-2 py-1 bg-secondary text-secondary-foreground rounded-md">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-
-                            <div className="flex gap-4">
-                                <a href={project.github} className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                                    <Github className="h-4 w-4 mr-1" /> Code
-                                </a>
-                                <a href={project.demo} className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                                    <ExternalLink className="h-4 w-4 mr-1" /> Live Demo
-                                </a>
-                            </div>
-                        </div>
-                    </motion.div>
+                    <ProjectCard key={index} project={project} index={index} />
                 ))}
+            </div>
+            
+            <div className="text-center mt-12">
+                <a href="#" className="inline-flex items-center text-neon-blue font-semibold hover:tracking-wide transition-all group">
+                    View Full Archive <ArrowUpRight className="ml-1 w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                </a>
             </div>
         </Section>
     );

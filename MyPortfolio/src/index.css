@@ -2,128 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-/* -------------------- Custom Properties -------------------- */
-:root {
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
-  --border: 214 32% 91%;
-  --primary: 250 47% 60%;
-  --primary-foreground: 210 40% 98%;
-  --card: 0 0% 100%;
-}
-
-.dark {
-  --background: 222 47% 4%;
-  --foreground: 213 31% 91%;
-  --border: 214 32% 91%;
-  --primary: 250 65% 65%;
-  --primary-foreground: 213 31% 91%;
-  --card: 222 47% 20%;
-}
-
-/* -------------------- Keyframes -------------------- */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes meteor {
-  0% { transform: rotate(215deg) translateX(0); opacity: 1; }
-  70% { opacity: 1; }
-  100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
-}
-
-/* -------------------- Base Styles -------------------- */
 @layer base {
-  *, *::before, *::after {
-    box-sizing: border-box;
+  :root {
+    --background: 222 47% 4%; /* Obsidian */
+    --foreground: 213 31% 91%;
+    --border: 214 32% 91%;
+    --card: 222 47% 10%;
+    --card-foreground: 213 31% 91%;
+    --primary: 250 65% 65%; /* Placeholder, overridden by neon */
+    --primary-foreground: 210 40% 98%;
   }
 
-  html {
-    @apply scroll-smooth;
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 213 31% 91%;
   }
 
   body {
-    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] transition-colors duration-300;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  #root {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
+    @apply bg-obsidian text-slate-100 font-sans antialiased overflow-x-hidden;
+    background: radial-gradient(circle at top center, #1b1e2e 0%, #0b0c15 100%);
   }
 }
 
-/* -------------------- Custom Utilities -------------------- */
 @layer utilities {
-  /* Container */
-  .container {
-    margin-inline: auto;
-    padding-inline: 2rem;
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
   }
 
-  @media (min-width: 640px) { .container { max-width: 640px; } }
-  @media (min-width: 768px) { .container { max-width: 768px; } }
-  @media (min-width: 1024px) { .container { max-width: 1024px; } }
-  @media (min-width: 1280px) { .container { max-width: 1280px; } }
-  @media (min-width: 1400px) { .container { max-width: 1400px; } }
-
-  /* Text glow */
-  .text-glow {
-    @apply relative;
-    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  .glass-card {
+    @apply bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-lg border border-white/10 shadow-2xl;
   }
 
-  /* Card hover */
-  .card-hover {
-    @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
+  .text-glow-blue {
+    @apply text-neon-blue drop-shadow-[0_0_10px_rgba(34,211,238,0.5)];
+  }
+  .text-glow-purple {
+    @apply text-neon-purple drop-shadow-[0_0_10px_rgba(168,85,247,0.5)];
   }
 
-  /* Gradient border */
-  .gradient-border {
-    @apply relative rounded border-2 border-transparent;
-    background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card))) padding-box;
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  .perspective-1000 {
+    perspective: 1000px;
   }
 
-  /* Cosmic button */
-  .cosmic-button {
-    @apply px-6 py-2 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-medium transition-all duration-300;
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
-  .cosmic-button:hover {
-    @apply shadow-[0_0_10px_rgba(139,92,246,0.5)] scale-105;
+  ::-webkit-scrollbar-track {
+    @apply bg-obsidian;
   }
-  .cosmic-button:active {
-    @apply scale-95;
-  }
-
-  /* Stars */
-  .star {
-    @apply absolute bg-white rounded-full;
-    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-  }
-  .animate-pulse-subtle {
-    animation: pulse-subtle 4s ease-in-out infinite;
-  }
-
-  /* Meteors */
-  .meteor, .meteor-tail {
-    @apply absolute rounded-full;
-    @apply bg-gradient-to-r from-white via-white to-transparent;
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
-    transform-origin: left top;
-  }
-  .animate-meteor {
-    animation: meteor var(--meteor-duration, 5s) linear infinite;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full hover:bg-neon-blue/50 transition-colors;
   }
 }
