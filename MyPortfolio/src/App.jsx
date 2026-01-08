@@ -13,7 +13,7 @@ function App() {
     <div className="min-h-screen bg-obsidian text-slate-300 relative selection:bg-neon-blue/30 font-sans overflow-x-hidden">
       <StarBackground />
       <Navbar />
-      <main className="flex flex-col relative z-10 space-y-24 md:space-y-32">
+      <main className="flex flex-col relative z-10 w-full overflow-hidden">
         <Hero />
         <About />
         <Skills />

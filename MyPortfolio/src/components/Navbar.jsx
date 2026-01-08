@@ -29,10 +29,10 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed w-full z-50 transition-all duration-300",
+        "fixed z-50 transition-all duration-300",
         scrolled
-          ? "bg-obsidian/60 backdrop-blur-lg border-b border-white/10 py-4 shadow-lg"
-          : "bg-transparent py-6"
+          ? "top-4 left-1/2 -translate-x-1/2 w-[90%] md:w-[800px] rounded-full bg-obsidian/60 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.5)] py-3"
+          : "top-0 w-full bg-transparent py-6 border-transparent"
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
