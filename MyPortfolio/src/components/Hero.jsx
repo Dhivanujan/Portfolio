@@ -119,18 +119,38 @@ const Hero = () => {
                     transition={{ delay: 0.4, duration: 0.8 }}
                     className="relative order-1 md:order-2 flex justify-center items-center"
                 >
-                    <div className="relative w-full max-w-[500px] aspect-square">
+                    <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center">
                         {/* Glow effects */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-neon-purple/20 rounded-full blur-[80px] animate-pulse-slow"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-neon-blue/20 rounded-full blur-[60px] animate-spin-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-neon-purple/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-neon-blue/20 rounded-full blur-[80px] animate-spin-slow"></div>
                         
-                        <Hero3D />
+                        {/* 3D Background Element */}
+                        <div className="absolute inset-0 z-0 scale-110 opacity-60 pointer-events-none">
+                            <Hero3D />
+                        </div>
 
-                        {/* Floating Badge moved to align with 3D */}
+                        {/* Profile Image with Glass effect */}
+                        <motion.div 
+                            initial={{ scale: 0 }} 
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+                            className="relative z-10 w-72 h-72 md:w-80 md:h-80 p-2 rounded-full border-2 border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
+                        >
+                            <div className="w-full h-full rounded-full overflow-hidden border border-white/5 relative group">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-neon-blue/10 to-neon-purple/10 mix-blend-overlay z-10"></div>
+                                <img 
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                                    alt="Profile" 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
+                                />
+                            </div>
+                        </motion.div>
+
+                        {/* Floating Badge */}
                         <motion.div 
                             animate={{ y: [-10, 10, -10] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute right-0 bottom-10 z-30 bg-obsidian/60 backdrop-blur-md border border-neon-purple/30 p-4 rounded-xl shadow-[0_0_30px_rgba(168,85,247,0.2)]"
+                            className="absolute right-0 md:-right-4 bottom-10 z-30 bg-obsidian/60 backdrop-blur-md border border-neon-purple/30 p-4 rounded-xl shadow-[0_0_30px_rgba(168,85,247,0.2)]"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-neon-purple/20 rounded-lg">
