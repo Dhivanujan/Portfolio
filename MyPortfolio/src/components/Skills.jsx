@@ -65,15 +65,15 @@ const Skills = () => {
                             rotateX: 5, 
                             boxShadow: "0 20px 40px -5px rgba(0,0,0,0.4)" 
                         }}
-                        className="group relative h-full"
+                        className="group relative h-full perspective-1000"
                     >
                          {/* Card Background & Border */}
-                        <div className="card-spotlight h-full flex flex-col justify-between">
+                        <div className="glass-card h-full flex flex-col justify-between p-6 rounded-2xl transition-transform duration-300 group-hover:-translate-y-2 relative overflow-hidden">
                             {/* Decorative Gradient */}
                             <div className={`absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br ${skillGroup.color} opacity-10 blur-3xl rounded-full transition-all group-hover:opacity-20 group-hover:scale-110`}></div>
                             
                             <div>
-                                <h3 className="text-xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors relative z-10 flex items-center">
+                                <h3 className="text-xl font-bold mb-6 text-text-primary group-hover:text-neon-blue transition-colors relative z-10 flex items-center">
                                     <span className={`w-1 h-6 bg-gradient-to-b ${skillGroup.color} rounded-full mr-3`}></span>
                                     {skillGroup.category}
                                 </h3>
@@ -82,7 +82,7 @@ const Skills = () => {
                                     {skillGroup.items.map((skill, idx) => (
                                         <div
                                             key={skill}
-                                            className="px-3 py-1.5 text-xs font-medium bg-white/5 text-slate-300 rounded-md border border-white/5 group-hover:border-white/10 transition-colors"
+                                            className="px-3 py-1.5 text-sm font-medium bg-white/5 text-text-secondary rounded-md border border-white/10 group-hover:border-white/20 transition-colors backdrop-blur-md"
                                         >
                                             {skill}
                                         </div>

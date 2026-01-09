@@ -59,18 +59,18 @@ const ExperienceCard = ({ exp, index }) => {
             <div className="w-full md:w-5/12 pl-10 md:pl-0">
                 <motion.div
                     whileHover={{ y: -5, scale: 1.02 }}
-                    className="glass-panel p-6 rounded-xl border border-white/10 relative overflow-hidden group"
+                    className="glass-card p-6 rounded-2xl border border-white/10 relative overflow-hidden group shadow-lg"
                 >
                      <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${exp.type === "work" ? "from-neon-blue to-transparent" : "from-neon-pink to-transparent"}`}></div>
                      
                      <div className="flex items-center gap-3 mb-2">
                         {exp.type === "work" ? <Briefcase size={16} className="text-neon-blue" /> : <GraduationCap size={16} className="text-neon-pink" />}
-                        <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">{exp.period}</span>
+                        <span className="text-xs font-mono text-neon-blue/80 uppercase tracking-widest">{exp.period}</span>
                      </div>
 
-                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all">{exp.title}</h3>
+                    <h3 className="text-xl font-bold text-text-primary mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">{exp.title}</h3>
                     <h4 className={`text-sm font-medium ${exp.color} mb-4`}>{exp.company}</h4>
-                    <p className="text-slate-400 text-sm leading-relaxed">{exp.description}</p>
+                    <p className="text-text-secondary text-sm leading-relaxed">{exp.description}</p>
                 </motion.div>
             </div>
         </motion.div>

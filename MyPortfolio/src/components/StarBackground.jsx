@@ -1,13 +1,11 @@
-import React, { useState, useRef, Suspense } from "react";
+import React, { useState, useRef, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 
-const StarField = (props) => {
+const StarField = ({ count = 5000, ...props }) => {
   const ref = useRef();
   
   const [sphere] = useState(() => {
-     // Generate 5000 stars in a sphere of radius 1.2
-     const count = 5000;
      const coords = new Float32Array(count * 3);
      for(let i = 0; i < count; i++) {
         const u = Math.random();
@@ -26,8 +24,10 @@ const StarField = (props) => {
   });
 
   useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 10;
-    ref.current.rotation.y -= delta / 15;
+    if (ref.current) {
+        ref.current.rotation.x -= delta / 15;
+        ref.current.rotation.y -= delta / 20;
+    }
   });
 
   return (
@@ -36,10 +36,11 @@ const StarField = (props) => {
         <PointMaterial
           transparent
           color="#aaabec"
-          size={0.003}
+          size={0.002}
           sizeAttenuation={true}
           depthWrite={false}
           blending={2}
+          opacity={0.8}
         />
       </Points>
     </group>
@@ -47,14 +48,26 @@ const StarField = (props) => {
 };
 
 export const StarBackground = () => {
+  const [count, setCount] = useState(5000);
+
+  useEffect(() => {
+      const isMobile = window.innerWidth < 768;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (isMobile || reducedMotion) {
+          setCount(2500);
+      }
+  }, []);
+
   return (
     <div className="w-full h-full fixed inset-0 z-0 bg-obsidian pointer-events-none">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
-          <StarField />
+          <StarField key={count} count={count} />
         </Suspense>
         <Preload all />
       </Canvas>
+      {/* Vignette Overlay for Depth & Contrast */}
+      <div className="absolute inset-0 bg-gradient-radial from-transparent via-obsidian/40 to-obsidian/90 z-0" />
     </div>
   );
 };

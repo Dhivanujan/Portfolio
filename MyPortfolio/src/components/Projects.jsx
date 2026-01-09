@@ -1,7 +1,7 @@
 import Section from "./Section";
 import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const projects = [
     {
@@ -46,7 +46,7 @@ const projects = [
     }
 ];
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project, index, isHovered, isDimmed, onHover, onLeave }) => {
     const ref = useRef(null);
 
     const x = useMotionValue(0);
@@ -60,31 +60,32 @@ const ProjectCard = ({ project, index }) => {
 
     const handleMouseMove = (e) => {
         if (!ref.current) return;
-
         const rect = ref.current.getBoundingClientRect();
-
         const width = rect.width;
         const height = rect.height;
-
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-
         const xPct = mouseX / width - 0.5;
         const yPct = mouseY / height - 0.5;
-
         x.set(xPct);
         y.set(yPct);
+    };
+
+    const handleMouseEnter = () => {
+        onHover();
     };
 
     const handleMouseLeave = () => {
         x.set(0);
         y.set(0);
+        onLeave();
     };
 
     return (
         <motion.div
             ref={ref}
             onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,11 +96,12 @@ const ProjectCard = ({ project, index }) => {
                 rotateX,
                 transformStyle: "preserve-3d",
             }}
-            className="relative h-[28rem] w-full rounded-2xl bg-obsidian/40 border border-white/10 group cursor-pointer perspective-1000 hover:shadow-2xl hover:shadow-neon-blue/5 transition-shadow duration-500"
+            // Added conditional opacity for focus effect
+            className={`relative h-[28rem] w-full rounded-2xl glass-card group cursor-pointer perspective-1000 transition-all duration-500 ${isDimmed ? 'opacity-50 blur-[2px] scale-95' : 'opacity-100 scale-100'} ${isHovered ? 'z-20' : 'z-10'}`}
         >
             <div 
                 style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}
-                className={`absolute inset-4 rounded-xl shadow-2xl ${project.glow} transition-shadow duration-500 overflow-hidden bg-obsidian/50`}
+                className={`absolute inset-4 rounded-xl shadow-2xl ${project.glow} transition-shadow duration-500 overflow-hidden bg-obsidian/40 border border-white/5`}
             >
                 {/* Background Image with Zoom */}
                 <div className="absolute inset-0 overflow-hidden rounded-xl">
@@ -108,20 +110,20 @@ const ProjectCard = ({ project, index }) => {
                         alt={project.title}
                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-40"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/90 to-transparent"></div>
                 </div>
 
                 {/* Content Layer */}
                 <div className="absolute bottom-0 left-0 w-full p-6 z-20 transform translate-z-10">
                     <h3 
                         style={{ transform: "translateZ(50px)" }}
-                        className={`text-2xl font-bold mb-2 text-white ${project.color} transition-colors`}
+                        className={`text-2xl font-bold mb-2 text-text-primary ${project.color} transition-colors`}
                     >
                         {project.title}
                     </h3>
                     <p 
                         style={{ transform: "translateZ(30px)" }}
-                        className="text-sm text-slate-300 mb-4 line-clamp-2"
+                        className="text-base text-text-secondary mb-4 line-clamp-2 leading-relaxed font-light"
                     >
                         {project.description}
                     </p>
@@ -131,7 +133,7 @@ const ProjectCard = ({ project, index }) => {
                         className="flex flex-wrap gap-2 mb-4"
                     >
                         {project.tags.map(tag => (
-                            <span key={tag} className="text-xs font-medium px-2 py-1 bg-white/10 text-white rounded-md backdrop-blur-md border border-white/5">
+                            <span key={tag} className="text-xs font-medium px-2 py-1 bg-white/5 text-slate-200 rounded-md backdrop-blur-md border border-white/10">
                                 {tag}
                             </span>
                         ))}
@@ -155,6 +157,8 @@ const ProjectCard = ({ project, index }) => {
 };
 
 const Projects = () => {
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+
     return (
         <Section id="projects" className="relative">
             <motion.div 
@@ -164,15 +168,23 @@ const Projects = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center mb-16"
             >
-                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-text-primary">
                     Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-blue">Projects</span>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-blue mx-auto rounded-full"></div>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto px-4 perspective-1000">
                 {projects.map((project, index) => (
-                    <ProjectCard key={index} project={project} index={index} />
+                    <ProjectCard 
+                        key={index} 
+                        project={project} 
+                        index={index}
+                        isHovered={hoveredIndex === index}
+                        isDimmed={hoveredIndex !== null && hoveredIndex !== index}
+                        onHover={() => setHoveredIndex(index)}
+                        onLeave={() => setHoveredIndex(null)}
+                    />
                 ))}
             </div>
             

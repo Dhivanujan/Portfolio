@@ -17,6 +17,9 @@ export default {
         foreground: 'hsl(var(--foreground))',
         obsidian: '#0b0c15',
         charcoal: '#12141e',
+        'glass-dark': 'rgba(15, 15, 25, 0.75)',
+        'text-primary': '#EAEAF0',
+        'text-secondary': '#B5B5C5',
         neon: {
           blue: '#22d3ee',
           purple: '#a855f7',

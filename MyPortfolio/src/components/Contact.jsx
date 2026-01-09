@@ -50,11 +50,11 @@ const Contact = () => {
                             </div>
                             <span className="font-medium text-slate-300 group-hover:text-white">LinkedIn Profile</span>
                         </a>
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group flex items-center space-x-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-neon-pink/50 hover:bg-neon-pink/10 transition-all duration-300">
-                            <div className="p-3 bg-obsidian rounded-full text-neon-pink group-hover:scale-110 transition-transform">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group flex items-center space-x-4 p-4 rounded-xl glass-card hover:border-neon-blue/50 hover:bg-neon-blue/5 transition-all duration-300 shadow-md">
+                            <div className="p-3 bg-obsidian/50 rounded-full text-white group-hover:scale-110 transition-transform">
                                 <Github className="h-6 w-6" />
                             </div>
-                            <span className="font-medium text-slate-300 group-hover:text-white">GitHub Profile</span>
+                            <span className="font-medium text-text-secondary group-hover:text-white">GitHub Profile</span>
                         </a>
                     </div>
                 </motion.div>
@@ -67,37 +67,37 @@ const Contact = () => {
                     transition={{ duration: 0.6 }}
                     className="perspective-1000"
                 >
-                    <div className="card-spotlight p-8 rounded-2xl relative">
+                    <div className="glass-card p-8 rounded-2xl relative border border-white/10 shadow-2xl">
                         
                         <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
 
                             <div className="space-y-2">
-                                <label htmlFor="name" className="text-sm font-medium text-slate-300">Name</label>
+                                <label htmlFor="name" className="text-sm font-medium text-text-secondary">Name</label>
                                 <input 
                                     type="text" 
                                     id="name" 
                                     required
-                                    className="w-full px-4 py-3 rounded-lg bg-obsidian/50 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white placeholder-slate-600 outline-none transition-all"
+                                    className="w-full px-4 py-3 rounded-xl bg-obsidian/50 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white placeholder-slate-600 outline-none transition-all shadow-inner"
                                     placeholder="Your Name"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium text-slate-300">Email</label>
+                                <label htmlFor="email" className="text-sm font-medium text-text-secondary">Email</label>
                                 <input 
                                     type="email" 
                                     id="email" 
                                     required
-                                    className="w-full px-4 py-3 rounded-lg bg-obsidian/50 border border-white/10 focus:border-neon-purple focus:ring-1 focus:ring-neon-purple text-white placeholder-slate-600 outline-none transition-all"
+                                    className="w-full px-4 py-3 rounded-xl bg-obsidian/50 border border-white/10 focus:border-neon-purple focus:ring-1 focus:ring-neon-purple text-white placeholder-slate-600 outline-none transition-all shadow-inner"
                                     placeholder="name@example.com"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium text-slate-300">Message</label>
+                                <label htmlFor="message" className="text-sm font-medium text-text-secondary">Message</label>
                                 <textarea 
                                     id="message" 
                                     rows="4" 
                                     required
-                                    className="w-full px-4 py-3 rounded-lg bg-obsidian/50 border border-white/10 focus:border-neon-pink focus:ring-1 focus:ring-neon-pink text-white placeholder-slate-600 outline-none transition-all resize-none"
+                                    className="w-full px-4 py-3 rounded-xl bg-obsidian/50 border border-white/10 focus:border-neon-pink focus:ring-1 focus:ring-neon-pink text-white placeholder-slate-600 outline-none transition-all resize-none shadow-inner"
                                     placeholder="Something nice..."
                                 ></textarea>
                             </div>
@@ -107,7 +107,7 @@ const Contact = () => {
                                 whileTap={{ scale: 0.98 }}
                                 type="submit" 
                                 disabled={isSubmitting}
-                                className={`w-full font-bold py-4 px-6 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg ${
+                                className={`w-full font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg ${
                                     isSubmitted 
                                         ? "bg-green-500 text-white" 
                                         : "bg-gradient-to-r from-neon-blue to-neon-purple text-white hover:shadow-neon-blue/25"

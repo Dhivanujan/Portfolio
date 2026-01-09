@@ -65,11 +65,11 @@ const Hero = () => {
                     </motion.h1>
 
                     <motion.div
-                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-neon-blue/80 flex items-center justify-center lg:justify-start"
+                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-neon-blue/90 flex items-center justify-center lg:justify-start"
                     >
                         <Terminal className="w-5 h-5 mr-3" />
                         <span>I build </span>
-                        <span className="ml-2 font-bold text-slate-200">{text}</span>
+                        <span className="ml-2 font-bold text-text-primary">{text}</span>
                         <span className="animate-pulse ml-1 text-neon-purple">_</span>
                     </motion.div>
 
@@ -77,7 +77,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
-                        className="text-lg text-slate-400 max-w-lg mb-10 leading-relaxed"
+                        className="text-lg md:text-xl text-text-secondary max-w-lg mb-10 leading-relaxed font-light text-shadow-sm"
                     >
                         Crafting scalable, accessible, and user-centric digital experiences. I transform complex problems into elegant code.
                     </motion.p>
