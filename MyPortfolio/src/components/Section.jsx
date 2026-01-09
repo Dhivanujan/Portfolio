@@ -9,12 +9,13 @@ const Section = ({
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay: delay, ease: "easeOut" }}
-      className={`py-20 md:py-32 container mx-auto px-4 md:px-6 ${className}`}
+      transition={{ duration: 0.8, delay: delay, ease: "easeOut" }}
+      className={`py-24 md:py-36 relative z-10 container mx-auto px-6 md:px-12 max-w-7xl ${className}`}
     >
+      {/* Subtle separator/decoration could go here */}
       {children}
     </motion.section>
   );

@@ -55,8 +55,8 @@ const ProjectCard = ({ project, index }) => {
     const mouseXSpring = useSpring(x);
     const mouseYSpring = useSpring(y);
 
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7.5deg", "-7.5deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7.5deg", "7.5deg"]);
 
     const handleMouseMove = (e) => {
         if (!ref.current) return;
@@ -95,7 +95,7 @@ const ProjectCard = ({ project, index }) => {
                 rotateX,
                 transformStyle: "preserve-3d",
             }}
-            className="relative h-96 w-full rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 group cursor-pointer perspective-1000"
+            className="relative h-[28rem] w-full rounded-2xl bg-obsidian/40 border border-white/10 group cursor-pointer perspective-1000 hover:shadow-2xl hover:shadow-neon-blue/5 transition-shadow duration-500"
         >
             <div 
                 style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}

@@ -33,53 +33,55 @@ const Hero = () => {
     return (
         <section
             id="hero"
-            className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+            className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 md:pt-0"
             onMouseMove={handleMouse}
         >
-            <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 w-full max-w-7xl">
+            <div className="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-7xl">
                 {/* Text Content */}
-                <div className="flex flex-col items-center md:items-start text-center md:text-left z-10 order-2 md:order-1">
+                <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="mb-6 inline-flex items-center px-4 py-2 rounded-full border border-neon-blue/30 bg-white/5 backdrop-blur-sm shadow-[0_0_15px_rgba(34,211,238,0.1)]"
+                        className="mb-8 inline-flex items-center px-4 py-2 rounded-full border border-neon-blue/20 bg-neon-blue/5 backdrop-blur-sm"
                     >
-                        <span className="text-sm font-medium text-neon-blue">Available for work</span>
-                        <span className="ml-2 w-2 h-2 bg-neon-blue rounded-full animate-pulse shadow-[0_0_10px_#22d3ee]"></span>
+                        <span className="w-2 h-2 bg-neon-blue rounded-full animate-pulse shadow-[0_0_8px_#22d3ee] mr-2"></span>
+                        <span className="text-sm font-medium text-neon-blue tracking-wide">Available for freelance</span>
                     </motion.div>
 
                     <motion.h1
-                        style={{ rotateX, rotateY, z: 50 }}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1, duration: 0.6 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight mb-6"
+                        transition={{ delay: 0.1, duration: 0.8 }}
+                        className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight mb-6 leading-tight"
                     >
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 drop-shadow-xl">
-                             Hi, I'm <br />
+                        <span className="bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-400">
+                             Creative
                         </span>
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink animate-gradient-x drop-shadow-[0_0_25px_rgba(168,85,247,0.5)]">
-                            John Doe
+                        <br />
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink animate-gradient-x drop-shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+                            Developer
                         </span>
                     </motion.h1>
 
                     <motion.div
-                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-neon-blue/80 flex items-center"
+                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-neon-blue/80 flex items-center justify-center lg:justify-start"
                     >
-                        <Terminal className="w-5 h-5 mr-2" />
-                        <span>{text}</span>
-                        <span className="animate-pulse ml-1">|</span>
+                        <Terminal className="w-5 h-5 mr-3" />
+                        <span>I build </span>
+                        <span className="ml-2 font-bold text-slate-200">{text}</span>
+                        <span className="animate-pulse ml-1 text-neon-purple">_</span>
                     </motion.div>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.6 }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
                         className="text-lg text-slate-400 max-w-lg mb-10 leading-relaxed"
                     >
-                        Specializing in building exceptional digital experiences. Currently focused on building accessible, human-centered products at <span className="text-neon-purple">TechCorp</span>.
+                        Crafting scalable, accessible, and user-centric digital experiences. I transform complex problems into elegant code.
                     </motion.p>
+
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -102,10 +104,10 @@ const Hero = () => {
                         </Link>
                         
                         <div className="flex items-center gap-6 mt-4 sm:mt-0 sm:ml-4">
-                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-110 transition-all p-2 glass-panel rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-110 transition-all p-3 glass-panel rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                                 <Github className="h-6 w-6" />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-neon-blue hover:scale-110 transition-all p-2 glass-panel rounded-full hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]">
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-neon-blue hover:scale-110 transition-all p-3 glass-panel rounded-full hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]">
                                 <Linkedin className="h-6 w-6" />
                             </a>
                         </div>
@@ -117,48 +119,46 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="relative order-1 md:order-2 flex justify-center items-center"
+                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[400px]"
                 >
-                    <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center">
-                        {/* Glow effects */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-neon-purple/20 rounded-full blur-[100px] animate-pulse-slow"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-neon-blue/20 rounded-full blur-[80px] animate-spin-slow"></div>
+                    <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
+                        {/* Refined Glow effects */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-neon-purple/10 rounded-full blur-[80px] animate-pulse-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-neon-blue/10 rounded-full blur-[60px] animate-spin-slow"></div>
                         
                         {/* 3D Background Element */}
-                        <div className="absolute inset-0 z-0 scale-110 opacity-60 pointer-events-none">
+                        <div className="absolute inset-0 z-0 scale-100 opacity-80 pointer-events-none">
                             <Hero3D />
                         </div>
 
-                        {/* Profile Image with Glass effect */}
+                        {/* Profile Image - Cleaner Integration */}
                         <motion.div 
-                            initial={{ scale: 0 }} 
-                            animate={{ scale: 1 }}
-                            transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-                            className="relative z-10 w-72 h-72 md:w-80 md:h-80 p-2 rounded-full border-2 border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
+                            initial={{ scale: 0, opacity: 0 }} 
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.6, type: "spring", stiffness: 60 }}
+                            className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full isolate"
                         >
-                            <div className="w-full h-full rounded-full overflow-hidden border border-white/5 relative group">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-neon-blue/10 to-neon-purple/10 mix-blend-overlay z-10"></div>
-                                <img 
-                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
-                                    alt="Profile" 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
-                                />
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-neon-blue to-neon-purple p-[2px] shadow-[0_0_40px_rgba(168,85,247,0.3)]">
+                                <div className="absolute inset-0 bg-obsidian rounded-full m-[2px] overflow-hidden">
+                                     <img 
+                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                                        alt="Profile" 
+                                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105 transform"
+                                    />
+                                </div>
                             </div>
                         </motion.div>
 
-                        {/* Floating Badge */}
+                        {/* Floating Badge - More minimal */}
                         <motion.div 
                             animate={{ y: [-10, 10, -10] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute right-0 md:-right-4 bottom-10 z-30 bg-obsidian/60 backdrop-blur-md border border-neon-purple/30 p-4 rounded-xl shadow-[0_0_30px_rgba(168,85,247,0.2)]"
+                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute right-4 md:-right-4 bottom-20 z-30 glass-panel p-4 rounded-2xl border-l-4 border-l-neon-blue"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-neon-purple/20 rounded-lg">
-                                    <Terminal className="w-6 h-6 text-neon-purple" />
-                                </div>
                                 <div>
-                                    <p className="text-xs text-slate-400">Experience</p>
-                                    <p className="text-lg font-bold text-white">5+ Years</p>
+                                    <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">Experience</p>
+                                    <p className="text-2xl font-bold text-white">5+ Years</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -168,6 +168,7 @@ const Hero = () => {
         </section>
     );
 };
+
 
 export default Hero;
 

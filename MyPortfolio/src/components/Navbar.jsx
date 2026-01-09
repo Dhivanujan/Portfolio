@@ -20,7 +20,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -29,24 +29,25 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed z-50 transition-all duration-300",
+        "fixed z-50 transition-all duration-500 ease-in-out",
         scrolled
-          ? "top-4 left-1/2 -translate-x-1/2 w-[90%] md:w-[800px] rounded-full bg-obsidian/60 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.5)] py-3"
-          : "top-0 w-full bg-transparent py-6 border-transparent"
+          ? "top-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[850px] rounded-2xl bg-obsidian/70 backdrop-blur-xl border border-white/10 shadow-xl py-3"
+          : "top-0 w-full bg-transparent py-8 border-transparent"
       )}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="container mx-auto px-6 flex justify-between items-center">
         <Link
           to="hero"
           smooth={true}
           duration={500}
-          className="cursor-pointer flex items-center space-x-2 font-bold text-xl group"
+          className="cursor-pointer flex items-center gap-3 font-bold text-xl group"
         >
-          <div className="p-2 bg-gradient-to-tr from-neon-blue to-neon-purple rounded-lg group-hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-shadow">
-            <Terminal className="text-white w-6 h-6" />
+          <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-neon-blue/50 transition-colors">
+            <Terminal className="text-neon-blue w-5 h-5 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] transition-all" />
           </div>
-          <span className="text-white tracking-wide">Dev<span className="text-neon-blue">Portfolio</span></span>
+          <span className="text-white tracking-wide font-heading">Dev<span className="text-neon-blue">Portfolio</span></span>
         </Link>
+
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">

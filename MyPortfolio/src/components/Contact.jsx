@@ -67,10 +67,10 @@ const Contact = () => {
                     transition={{ duration: 0.6 }}
                     className="perspective-1000"
                 >
-                    <div className="glass-card p-8 rounded-2xl border border-white/10 shadow-2xl relative transform transition-transform hover:rotate-y-2 hover:rotate-x-2 duration-500 preserve-3d">
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
+                    <div className="card-spotlight p-8 rounded-2xl relative">
                         
                         <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
+
                             <div className="space-y-2">
                                 <label htmlFor="name" className="text-sm font-medium text-slate-300">Name</label>
                                 <input 

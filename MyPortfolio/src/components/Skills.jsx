@@ -65,32 +65,29 @@ const Skills = () => {
                             rotateX: 5, 
                             boxShadow: "0 20px 40px -5px rgba(0,0,0,0.4)" 
                         }}
-                        className="group relative preserve-3d"
+                        className="group relative h-full"
                     >
                          {/* Card Background & Border */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 rounded-xl blur-sm transform translate-z-[-20px]"></div>
-                        <div className="relative h-full bg-obsidian/60 backdrop-blur-md border border-white/10 p-6 rounded-xl overflow-hidden glass-panel">
+                        <div className="card-spotlight h-full flex flex-col justify-between">
                             {/* Decorative Gradient */}
-                            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${skillGroup.color} opacity-10 blur-2xl rounded-bl-full -mr-10 -mt-10 transition-opacity group-hover:opacity-20`}></div>
+                            <div className={`absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br ${skillGroup.color} opacity-10 blur-3xl rounded-full transition-all group-hover:opacity-20 group-hover:scale-110`}></div>
                             
-                            <h3 className="text-xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors relative z-10 flex items-center">
-                                <span className={`w-2 h-8 bg-gradient-to-b ${skillGroup.color} rounded-r-full mr-3`}></span>
-                                {skillGroup.category}
-                            </h3>
-                            
-                            <div className="flex flex-wrap gap-3 relative z-10">
-                                {skillGroup.items.map((skill, idx) => (
-                                    <motion.span
-                                        key={skill}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.2 + (idx * 0.05) }}
-                                        whileHover={{ scale: 1.05, y: -2 }}
-                                        className="px-4 py-2 text-sm font-medium bg-white/5 text-slate-300 rounded-lg border border-white/5 hover:border-white/20 hover:bg-white/10 hover:text-white transition-all cursor-default shadow-md"
-                                    >
-                                        {skill}
-                                    </motion.span>
-                                ))}
+                            <div>
+                                <h3 className="text-xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors relative z-10 flex items-center">
+                                    <span className={`w-1 h-6 bg-gradient-to-b ${skillGroup.color} rounded-full mr-3`}></span>
+                                    {skillGroup.category}
+                                </h3>
+                                
+                                <div className="flex flex-wrap gap-2 relative z-10">
+                                    {skillGroup.items.map((skill, idx) => (
+                                        <div
+                                            key={skill}
+                                            className="px-3 py-1.5 text-xs font-medium bg-white/5 text-slate-300 rounded-md border border-white/5 group-hover:border-white/10 transition-colors"
+                                        >
+                                            {skill}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </motion.div>

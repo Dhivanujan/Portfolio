@@ -35,10 +35,11 @@ const StarField = (props) => {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
-          color="#f272c8"
-          size={0.002}
+          color="#aaabec"
+          size={0.003}
           sizeAttenuation={true}
           depthWrite={false}
+          blending={2}
         />
       </Points>
     </group>
