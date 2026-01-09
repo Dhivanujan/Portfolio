@@ -94,21 +94,23 @@ const Hero = () => {
                             smooth={true}
                             duration={500}
                             offset={-70}
-                            className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-neon-blue/10 font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neon-blue border border-neon-blue/50 hover:bg-neon-blue/20 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-sm"
+                            className="relative inline-flex group items-center justify-center px-8 py-4 text-white transition-all duration-200 bg-transparent font-pj focus:outline-none cursor-pointer"
                         >
-                            <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
-                            <span className="relative flex items-center">
-                                View Projects
-                                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                            <div className="absolute inset-0 w-full h-full rounded-xl bg-neon-blue/10 border border-neon-blue/20 backdrop-blur-md transition-all duration-300 group-hover:bg-neon-blue/20 group-hover:border-neon-blue/40 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]" />
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl opacity-20 blur transition-all duration-300 group-hover:opacity-40 group-hover:blur-md" />
+                            
+                            <span className="relative flex items-center font-bold tracking-wide">
+                                View Projects 
+                                <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                             </span>
                         </Link>
                         
-                        <div className="flex items-center gap-6 mt-4 sm:mt-0 sm:ml-4">
-                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-110 transition-all p-3 glass-panel rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                                <Github className="h-6 w-6" />
+                        <div className="flex items-center gap-6 mt-6 sm:mt-0 sm:ml-4">
+                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 p-4 glass-panel rounded-full hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:border-white/40 group">
+                                <Github className="h-6 w-6 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-neon-blue hover:scale-110 transition-all p-3 glass-panel rounded-full hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-                                <Linkedin className="h-6 w-6" />
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-neon-blue transition-all duration-300 hover:scale-110 p-4 glass-panel rounded-full hover:shadow-[0_0_25px_rgba(34,211,238,0.3)] hover:border-neon-blue/40 group">
+                                <Linkedin className="h-6 w-6 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
                             </a>
                         </div>
                     </motion.div>
