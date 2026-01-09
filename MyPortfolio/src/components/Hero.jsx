@@ -1,26 +1,54 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform, useScroll, useSpring } from "framer-motion";
 import { Link } from "react-scroll";
-import { ArrowRight, Github, Linkedin, Terminal } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, Github, Linkedin, Terminal, Download } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 import Hero3D from "./Hero3D";
 
+// Text reveal animation variants
+const letterVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: i * 0.03, duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }
+    })
+};
+
 const Hero = () => {
+    const containerRef = useRef(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    const rotateX = useTransform(y, [0, window.innerHeight], [5, -5]); // Reduced rotation for 3D canvas
+    // Scroll-based parallax
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 150]);
+    const y2 = useTransform(scrollY, [0, 500], [0, -100]);
+    const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+    const scale = useTransform(scrollY, [0, 400], [1, 0.9]);
+
+    const rotateX = useTransform(y, [0, window.innerHeight], [5, -5]);
     const rotateY = useTransform(x, [0, window.innerWidth], [-5, 5]);
+    
+    // Smooth spring physics for mouse movement
+    const springConfig = { stiffness: 100, damping: 30 };
+    const mouseXSpring = useSpring(x, springConfig);
+    const mouseYSpring = useSpring(y, springConfig);
 
     const [text, setText] = useState("");
     const fullText = "Full Stack Developer";
     const [index, setIndex] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
 
     useEffect(() => {
         if (index < fullText.length) {
             const timeout = setTimeout(() => {
                 setText((prev) => prev + fullText[index]);
                 setIndex((prev) => prev + 1);
-            }, 100);
+            }, 80);
             return () => clearTimeout(timeout);
         }
     }, [index]);
@@ -32,21 +60,38 @@ const Hero = () => {
 
     return (
         <section
+            ref={containerRef}
             id="hero"
             className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 md:pt-0"
             onMouseMove={handleMouse}
         >
-            <div className="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-7xl">
+            {/* Animated gradient orbs */}
+            <motion.div 
+                style={{ y: y1 }}
+                className="absolute top-20 left-10 w-72 h-72 bg-neon-purple/20 rounded-full blur-[100px] pointer-events-none"
+            />
+            <motion.div 
+                style={{ y: y2 }}
+                className="absolute bottom-20 right-10 w-96 h-96 bg-neon-blue/15 rounded-full blur-[120px] pointer-events-none"
+            />
+            
+            <motion.div 
+                style={{ opacity, scale }}
+                className="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-7xl"
+            >
                 {/* Text Content */}
                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="mb-8 inline-flex items-center px-4 py-2 rounded-full border border-neon-blue/20 bg-neon-blue/5 backdrop-blur-sm"
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="mb-8 inline-flex items-center px-5 py-2.5 rounded-full border border-neon-blue/30 bg-neon-blue/5 backdrop-blur-md shadow-[0_0_20px_rgba(34,211,238,0.1)]"
                     >
-                        <span className="w-2 h-2 bg-neon-blue rounded-full animate-pulse shadow-[0_0_8px_#22d3ee] mr-2"></span>
-                        <span className="text-sm font-medium text-neon-blue tracking-wide">Available for freelance</span>
+                        <span className="relative flex h-2.5 w-2.5 mr-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-blue opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-blue shadow-[0_0_10px_#22d3ee]"></span>
+                        </span>
+                        <span className="text-sm font-medium text-neon-blue tracking-wide">Available for opportunities</span>
                     </motion.div>
 
                     <motion.h1
@@ -166,7 +211,24 @@ const Hero = () => {
                         </motion.div>
                     </div>
                 </motion.div>
-            </div>
+            </motion.div>
+            
+            {/* Scroll indicator */}
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5, duration: 1 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            >
+                <span className="text-xs text-slate-500 tracking-widest uppercase">Scroll</span>
+                <motion.div 
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-5 h-8 border-2 border-slate-600 rounded-full flex justify-center pt-1.5"
+                >
+                    <motion.div className="w-1 h-1.5 bg-slate-500 rounded-full" />
+                </motion.div>
+            </motion.div>
         </section>
     );
 };

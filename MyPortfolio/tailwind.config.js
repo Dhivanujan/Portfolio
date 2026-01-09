@@ -46,10 +46,20 @@ export default {
         'gradient-x': 'gradient-x 3s ease infinite',
         'shimmer': 'shimmer 2s ease-in-out infinite',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+        'morph': 'morph 8s ease-in-out infinite',
+        'float-slow': 'float 8s ease-in-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       keyframes: {
+        'morph': {
+            '0%, 100%': {
+                'border-radius': '60% 40% 30% 70%/60% 30% 70% 40%',
+            },
+            '50%': {
+                'border-radius': '30% 60% 70% 40%/50% 60% 30% 60%',
+            },
+        },
         'shimmer': {
             '0%': { 'background-position': '-200% 0' },
             '100%': { 'background-position': '200% 0' },

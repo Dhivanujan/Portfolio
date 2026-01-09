@@ -1,7 +1,48 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import Section from "./Section";
-import { Code2, Cpu, Globe, Rocket } from "lucide-react";
+import { Code2, Cpu, Globe, Rocket, Sparkles, ArrowRight } from "lucide-react";
+
+// 3D Tilt Card Component
+const TiltCard = ({ children, className }) => {
+    const ref = useRef(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
+    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
+    
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+    
+    const handleMouseMove = (e) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = mouseX / rect.width - 0.5;
+        const yPct = mouseY / rect.height - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+    
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+    
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            className={className}
+        >
+            {children}
+        </motion.div>
+    );
+};
 
 const About = () => {
     const ref = useRef(null);
@@ -39,28 +80,49 @@ const About = () => {
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-12 items-center">
-                    {/* 3D Glass Card Effect */}
+                    {/* 3D Glass Card with Tilt Effect */}
                     <motion.div
                         variants={itemVariants}
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
-                        className="relative group perspective-1000"
+                        className="perspective-1000"
                     >
-                        <div className="relative transform-style-3d transition-transform duration-700 group-hover:rotate-y-6">
-                             <div className="absolute -inset-1 bg-gradient-to-r from-neon-purple to-neon-blue rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
-                             <div className="glass-card p-8 rounded-2xl relative bg-glass-dark border border-white/10 shadow-2xl">
-                                <div className="absolute top-0 right-0 p-4 opacity-10">
-                                    <Code2 size={120} />
+                        <TiltCard className="relative group cursor-default">
+                            {/* Animated gradient border */}
+                            <div className="absolute -inset-[1px] bg-gradient-to-r from-neon-purple via-neon-blue to-neon-pink rounded-2xl opacity-30 group-hover:opacity-70 blur-sm transition-all duration-700 group-hover:blur-md animate-gradient-x" />
+                            
+                            <div 
+                                className="glass-card p-8 rounded-2xl relative border border-white/10 shadow-2xl overflow-hidden"
+                                style={{ transform: "translateZ(50px)" }}
+                            >
+                                {/* Floating particles effect */}
+                                <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                                    <Sparkles className="w-24 h-24 text-neon-blue" />
                                 </div>
-                                <h3 className="text-2xl font-bold mb-4 text-text-primary">Engineering with Passion</h3>
+                                
+                                {/* Spotlight effect on hover */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(34,211,238,0.1)_0%,transparent_50%)]" />
+                                </div>
+                                
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="p-2 rounded-lg bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-white/10">
+                                        <Code2 className="w-5 h-5 text-neon-blue" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-text-primary">Engineering with Passion</h3>
+                                </div>
+                                
                                 <p className="text-text-secondary mb-6 leading-relaxed text-lg">
                                     I am a results-oriented Software Engineer with a deep understanding of core computer science principles and a passion for building scalable, efficient systems. My journey in tech is driven by a curiosity to solve complex problems.
                                 </p>
                                 <p className="text-text-secondary leading-relaxed text-lg">
                                     With strong foundations in <strong className="text-neon-blue font-semibold">C, Java, and Python</strong>, I have expanded my expertise to modern web technologies, specializing in the <strong className="text-neon-purple font-semibold">MERN stack</strong>. I don't just write code; I design solutions.
                                 </p>
-                             </div>
-                        </div>
+                                
+                                {/* Bottom accent line */}
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink opacity-50" />
+                            </div>
+                        </TiltCard>
                     </motion.div>
 
                     {/* Features Grid */}
@@ -71,23 +133,42 @@ const About = () => {
                         className="grid grid-cols-1 gap-6"
                     >
                         {[
-                            { icon: Globe, title: "Web Development", desc: "Building responsive, modern web applications with cutting-edge frameworks.", color: "text-neon-blue" },
-                            { icon: Cpu, title: "System Architecture", desc: "Designing scalable and efficient backend systems for high-performance needs.", color: "text-neon-purple" },
-                            { icon: Rocket, title: "Innovation", desc: "Exploring AI and Machine Learning to create smarter software solutions.", color: "text-neon-pink" }
+                            { icon: Globe, title: "Web Development", desc: "Building responsive, modern web applications with cutting-edge frameworks.", color: "text-neon-blue", gradient: "from-neon-blue to-cyan-400" },
+                            { icon: Cpu, title: "System Architecture", desc: "Designing scalable and efficient backend systems for high-performance needs.", color: "text-neon-purple", gradient: "from-neon-purple to-violet-400" },
+                            { icon: Rocket, title: "Innovation", desc: "Exploring AI and Machine Learning to create smarter software solutions.", color: "text-neon-pink", gradient: "from-neon-pink to-rose-400" }
                         ].map((feature, idx) => (
                             <motion.div 
                                 key={idx}
                                 variants={itemVariants}
-                                whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.08)" }}
-                                className="flex items-start p-6 rounded-2xl transition-all border border-transparent hover:border-white/10 bg-glass-dark backdrop-blur-sm shadow-md hover:shadow-xl"
+                                whileHover={{ 
+                                    x: 12, 
+                                    scale: 1.02,
+                                    transition: { type: "spring", stiffness: 400, damping: 17 }
+                                }}
+                                className="group flex items-start p-6 rounded-2xl transition-all duration-300 border border-white/5 hover:border-white/15 bg-white/[0.02] backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-black/20 relative overflow-hidden"
                             >
-                                <div className={`p-3 rounded-xl bg-white/5 border border-white/10 mr-5 ${feature.color}`}>
-                                    <feature.icon className="w-7 h-7" />
+                                {/* Hover gradient background */}
+                                <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
+                                
+                                {/* Icon with gradient background */}
+                                <div className={`relative p-3.5 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-10 mr-5 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                                    <feature.icon className="w-6 h-6 text-white" />
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-xl opacity-20 blur-md -z-10`} />
                                 </div>
-                                <div>
-                                    <h4 className="text-xl font-bold text-text-primary mb-2">{feature.title}</h4>
+                                
+                                <div className="relative z-10">
+                                    <h4 className={`text-xl font-bold text-text-primary mb-2 group-hover:${feature.color} transition-colors duration-300`}>{feature.title}</h4>
                                     <p className="text-text-secondary text-base leading-relaxed">{feature.desc}</p>
                                 </div>
+                                
+                                {/* Subtle arrow indicator */}
+                                <motion.div 
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-50 transition-opacity"
+                                    initial={{ x: -10 }}
+                                    whileHover={{ x: 0 }}
+                                >
+                                    <ArrowRight className="w-5 h-5 text-white" />
+                                </motion.div>
                             </motion.div>
                         ))}
                     </motion.div>
