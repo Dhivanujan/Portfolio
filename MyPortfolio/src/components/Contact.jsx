@@ -59,47 +59,52 @@ const Contact = () => {
                     </div>
                 </motion.div>
 
-                {/* Contact Form - 3D Floating Effect */}
+                {/* Contact Form - Modern Glassmorphic Design */}
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="perspective-1000"
+                    className="relative group"
                 >
-                    <div className="glass-card p-8 rounded-2xl relative border border-white/10 shadow-2xl">
+                    {/* Animated border gradient */}
+                    <div className="absolute -inset-[1px] bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink rounded-2xl opacity-50 group-hover:opacity-100 blur-sm transition-all duration-500" />
+                    
+                    <div className="glass-card p-8 rounded-2xl relative border border-white/10 shadow-2xl bg-obsidian/80 backdrop-blur-xl">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-neon-blue/20 to-transparent rounded-full blur-3xl" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-neon-purple/20 to-transparent rounded-full blur-3xl" />
                         
                         <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
 
-                            <div className="space-y-2">
-                                <label htmlFor="name" className="text-sm font-medium text-text-secondary">Name</label>
+                            <div className="relative group/input">
                                 <input 
                                     type="text" 
                                     id="name" 
                                     required
-                                    className="w-full px-4 py-3 rounded-xl bg-obsidian/50 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue text-white placeholder-slate-600 outline-none transition-all shadow-inner"
+                                    className="peer w-full px-4 py-4 pt-6 rounded-xl bg-white/5 border border-white/10 focus:border-neon-blue focus:bg-white/10 text-white placeholder-transparent outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]"
                                     placeholder="Your Name"
                                 />
+                                <label htmlFor="name" className="absolute left-4 top-2 text-xs font-medium text-neon-blue/80 transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 peer-focus:top-2 peer-focus:text-xs peer-focus:text-neon-blue">Name</label>
                             </div>
-                            <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium text-text-secondary">Email</label>
+                            <div className="relative group/input">
                                 <input 
                                     type="email" 
                                     id="email" 
                                     required
-                                    className="w-full px-4 py-3 rounded-xl bg-obsidian/50 border border-white/10 focus:border-neon-purple focus:ring-1 focus:ring-neon-purple text-white placeholder-slate-600 outline-none transition-all shadow-inner"
+                                    className="peer w-full px-4 py-4 pt-6 rounded-xl bg-white/5 border border-white/10 focus:border-neon-purple focus:bg-white/10 text-white placeholder-transparent outline-none transition-all duration-300 focus:shadow-[0_0_20px_rgba(168,85,247,0.15)]"
                                     placeholder="name@example.com"
                                 />
+                                <label htmlFor="email" className="absolute left-4 top-2 text-xs font-medium text-neon-purple/80 transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 peer-focus:top-2 peer-focus:text-xs peer-focus:text-neon-purple">Email</label>
                             </div>
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium text-text-secondary">Message</label>
+                            <div className="relative group/input">
                                 <textarea 
                                     id="message" 
                                     rows="4" 
                                     required
-                                    className="w-full px-4 py-3 rounded-xl bg-obsidian/50 border border-white/10 focus:border-neon-pink focus:ring-1 focus:ring-neon-pink text-white placeholder-slate-600 outline-none transition-all resize-none shadow-inner"
+                                    className="peer w-full px-4 py-4 pt-6 rounded-xl bg-white/5 border border-white/10 focus:border-neon-pink focus:bg-white/10 text-white placeholder-transparent outline-none transition-all duration-300 resize-none focus:shadow-[0_0_20px_rgba(236,72,153,0.15)]"
                                     placeholder="Something nice..."
                                 ></textarea>
+                                <label htmlFor="message" className="absolute left-4 top-2 text-xs font-medium text-neon-pink/80 transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 peer-focus:top-2 peer-focus:text-xs peer-focus:text-neon-pink">Message</label>
                             </div>
                             
                             <motion.button 

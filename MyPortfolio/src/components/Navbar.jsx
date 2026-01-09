@@ -31,11 +31,14 @@ const Navbar = () => {
       className={cn(
         "fixed z-50 transition-all duration-500 ease-in-out",
         scrolled
-          ? "top-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[850px] rounded-2xl bg-obsidian/70 backdrop-blur-xl border border-white/10 shadow-xl py-3"
+          ? "top-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[90%] lg:w-[850px] rounded-2xl bg-obsidian/70 backdrop-blur-xl border border-white/10 shadow-xl py-3"
           : "top-0 w-full bg-transparent py-8 border-transparent"
       )}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className={cn(
+        "px-6 flex justify-between items-center",
+        scrolled ? "w-full" : "container mx-auto"
+      )}>
         <Link
           to="hero"
           smooth={true}

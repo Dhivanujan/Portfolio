@@ -1,33 +1,65 @@
 import Section from "./Section";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Code2, Layout, Server, Wrench, Brain } from "lucide-react";
 
 const skillsData = [
     {
         category: "Languages",
         items: ["C", "Java", "Python", "JavaScript (ES6+)"],
-        color: "from-blue-400 to-blue-600"
+        color: "from-blue-400 to-cyan-400",
+        icon: Code2,
+        accentColor: "#22d3ee"
     },
     {
         category: "Frontend",
         items: ["React.js", "HTML5", "CSS3", "Tailwind CSS", "Framer Motion"],
-        color: "from-cyan-400 to-cyan-600"
+        color: "from-cyan-400 to-teal-400",
+        icon: Layout,
+        accentColor: "#2dd4bf"
     },
     {
         category: "Backend & Systems",
         items: ["Node.js", "Express.js", "MongoDB", "MySQL", "REST APIs"],
-        color: "from-purple-400 to-purple-600"
+        color: "from-purple-400 to-violet-500",
+        icon: Server,
+        accentColor: "#a855f7"
     },
     {
         category: "Tools & DevOps",
         items: ["Git", "GitHub", "Docker", "VS Code", "Postman"],
-        color: "from-pink-400 to-pink-600"
+        color: "from-pink-400 to-rose-500",
+        icon: Wrench,
+        accentColor: "#ec4899"
     },
     {
         category: "Concepts & AI",
         items: ["Data Structures & Algorithms", "Networking", "Authentication (JWT)", "LLM Integration"],
-        color: "from-emerald-400 to-emerald-600"
+        color: "from-emerald-400 to-green-500",
+        icon: Brain,
+        accentColor: "#10b981"
     },
 ];
+
+const SkillPill = ({ skill, delay, accentColor }) => {
+    return (
+        <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: delay * 0.05, type: "spring", stiffness: 200 }}
+            whileHover={{ 
+                scale: 1.08, 
+                backgroundColor: `${accentColor}20`,
+                borderColor: `${accentColor}60`,
+                boxShadow: `0 0 20px ${accentColor}30`
+            }}
+            className="px-4 py-2 text-sm font-medium bg-white/5 text-text-secondary rounded-lg border border-white/10 transition-all duration-300 cursor-default backdrop-blur-sm hover:text-white"
+        >
+            {skill}
+        </motion.span>
+    );
+};
 
 const Skills = () => {
     return (
@@ -47,51 +79,55 @@ const Skills = () => {
                 </p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-2000">
-                {skillsData.map((skillGroup, index) => (
-                    <motion.div
-                        key={skillGroup.category}
-                        initial={{ opacity: 0, rotateX: -30, y: 50 }}
-                        whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ 
-                            delay: index * 0.1, 
-                            type: "spring", 
-                            stiffness: 100,
-                            damping: 20
-                        }}
-                        whileHover={{ 
-                            translateY: -10, 
-                            rotateX: 5, 
-                            boxShadow: "0 20px 40px -5px rgba(0,0,0,0.4)" 
-                        }}
-                        className="group relative h-full perspective-1000"
-                    >
-                         {/* Card Background & Border */}
-                        <div className="glass-card h-full flex flex-col justify-between p-6 rounded-2xl transition-transform duration-300 group-hover:-translate-y-2 relative overflow-hidden">
-                            {/* Decorative Gradient */}
-                            <div className={`absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br ${skillGroup.color} opacity-10 blur-3xl rounded-full transition-all group-hover:opacity-20 group-hover:scale-110`}></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                {skillsData.map((skillGroup, index) => {
+                    const IconComponent = skillGroup.icon;
+                    return (
+                        <motion.div
+                            key={skillGroup.category}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ 
+                                delay: index * 0.1, 
+                                type: "spring", 
+                                stiffness: 100,
+                                damping: 20
+                            }}
+                            className="group relative h-full"
+                        >
+                            {/* Animated border glow on hover */}
+                            <div className={`absolute -inset-[1px] bg-gradient-to-r ${skillGroup.color} rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
                             
-                            <div>
-                                <h3 className="text-xl font-bold mb-6 text-text-primary group-hover:text-neon-blue transition-colors relative z-10 flex items-center">
-                                    <span className={`w-1 h-6 bg-gradient-to-b ${skillGroup.color} rounded-full mr-3`}></span>
-                                    {skillGroup.category}
-                                </h3>
+                            <div className="glass-card h-full flex flex-col p-6 rounded-2xl transition-all duration-500 group-hover:bg-white/[0.08] relative overflow-hidden border border-white/10 group-hover:border-transparent">
+                                {/* Decorative Gradient Background */}
+                                <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${skillGroup.color} opacity-0 blur-3xl rounded-full transition-all duration-700 group-hover:opacity-20 group-hover:scale-150`} />
                                 
+                                {/* Header with Icon */}
+                                <div className="flex items-center gap-4 mb-6 relative z-10">
+                                    <div className={`p-3 rounded-xl bg-gradient-to-br ${skillGroup.color} bg-opacity-20 shadow-lg`}>
+                                        <IconComponent className="w-6 h-6 text-white" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-text-primary group-hover:text-white transition-colors duration-300">
+                                        {skillGroup.category}
+                                    </h3>
+                                </div>
+                                
+                                {/* Skill Pills */}
                                 <div className="flex flex-wrap gap-2 relative z-10">
                                     {skillGroup.items.map((skill, idx) => (
-                                        <div
-                                            key={skill}
-                                            className="px-3 py-1.5 text-sm font-medium bg-white/5 text-text-secondary rounded-md border border-white/10 group-hover:border-white/20 transition-colors backdrop-blur-md"
-                                        >
-                                            {skill}
-                                        </div>
+                                        <SkillPill 
+                                            key={skill} 
+                                            skill={skill} 
+                                            delay={idx} 
+                                            accentColor={skillGroup.accentColor}
+                                        />
                                     ))}
                                 </div>
                             </div>
-                        </div>
-                    </motion.div>
-                ))}
+                        </motion.div>
+                    );
+                })}
             </div>
         </Section>
     );
