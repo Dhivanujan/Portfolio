@@ -174,7 +174,7 @@ const Hero = () => {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-neon-blue/10 rounded-full blur-[60px] animate-spin-slow"></div>
                         
                         {/* 3D Background Element */}
-                        <div className="absolute inset-0 z-0 scale-100 opacity-80 pointer-events-none">
+                        <div className="absolute inset-0 z-0 scale-100 opacity-80">
                             <Hero3D />
                         </div>
 
