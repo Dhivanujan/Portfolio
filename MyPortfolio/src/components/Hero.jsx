@@ -88,10 +88,10 @@ const Hero = () => {
                         className="mb-8 inline-flex items-center px-5 py-2.5 rounded-full border border-neon-blue/30 bg-neon-blue/5 backdrop-blur-md shadow-[0_0_20px_rgba(34,211,238,0.1)]"
                     >
                         <span className="relative flex h-2.5 w-2.5 mr-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-blue opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-blue shadow-[0_0_10px_#22d3ee]"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
                         </span>
-                        <span className="text-sm font-medium text-neon-blue tracking-wide">Available for opportunities</span>
+                        <span className="text-sm font-medium text-primary tracking-wide">Available for opportunities</span>
                     </motion.div>
 
                     <motion.h1
@@ -104,25 +104,25 @@ const Hero = () => {
                              Creative
                         </span>
                         <br />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink animate-gradient-x drop-shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-400 animate-gradient-x drop-shadow-[0_0_30px_rgba(99,102,241,0.3)]">
                             Developer
                         </span>
                     </motion.h1>
 
                     <motion.div
-                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-neon-blue/90 flex items-center justify-center lg:justify-start"
+                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-primary/90 flex items-center justify-center lg:justify-start"
                     >
                         <Terminal className="w-5 h-5 mr-3" />
                         <span>I build </span>
-                        <span className="ml-2 font-bold text-text-primary">{text}</span>
-                        <span className="animate-pulse ml-1 text-neon-purple">_</span>
+                        <span className="ml-2 font-bold text-slate-100">{text}</span>
+                        <span className="animate-pulse ml-1 text-primary">_</span>
                     </motion.div>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
-                        className="text-lg md:text-xl text-text-secondary max-w-lg mb-10 leading-relaxed font-light text-shadow-sm"
+                        className="text-lg md:text-xl text-slate-400 max-w-lg mb-10 leading-relaxed font-light"
                     >
                         Crafting scalable, accessible, and user-centric digital experiences. I transform complex problems into elegant code.
                     </motion.p>
@@ -139,23 +139,22 @@ const Hero = () => {
                             smooth={true}
                             duration={500}
                             offset={-70}
-                            className="relative inline-flex group items-center justify-center px-8 py-4 text-white transition-all duration-200 bg-transparent font-pj focus:outline-none cursor-pointer"
+                            className="relative inline-flex group items-center justify-center px-8 py-4 text-white transition-all duration-200 bg-transparent font-medium focus:outline-none cursor-pointer"
                         >
-                            <div className="absolute inset-0 w-full h-full rounded-xl bg-neon-blue/10 border border-neon-blue/20 backdrop-blur-md transition-all duration-300 group-hover:bg-neon-blue/20 group-hover:border-neon-blue/40 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]" />
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl opacity-20 blur transition-all duration-300 group-hover:opacity-40 group-hover:blur-md" />
+                            <div className="absolute inset-0 w-full h-full rounded-full bg-primary border border-primary/20 transition-all duration-300 group-hover:bg-primary/90 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]" />
                             
-                            <span className="relative flex items-center font-bold tracking-wide">
+                            <span className="relative flex items-center tracking-wide">
                                 View Projects 
                                 <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                             </span>
                         </Link>
                         
                         <div className="flex items-center gap-6 mt-6 sm:mt-0 sm:ml-4">
-                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 p-4 glass-panel rounded-full hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:border-white/40 group">
-                                <Github className="h-6 w-6 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 p-4 border border-white/5 bg-white/5 rounded-full hover:shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:border-white/20 group">
+                                <Github className="h-6 w-6" />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-neon-blue transition-all duration-300 hover:scale-110 p-4 glass-panel rounded-full hover:shadow-[0_0_25px_rgba(34,211,238,0.3)] hover:border-neon-blue/40 group">
-                                <Linkedin className="h-6 w-6 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-all duration-300 hover:scale-110 p-4 border border-white/5 bg-white/5 rounded-full hover:shadow-[0_0_25px_rgba(99,102,241,0.2)] hover:border-primary/40 group">
+                                <Linkedin className="h-6 w-6" />
                             </a>
                         </div>
                     </motion.div>

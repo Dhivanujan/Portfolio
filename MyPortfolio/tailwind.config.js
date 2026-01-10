@@ -21,13 +21,14 @@ export default {
         'text-primary': '#EAEAF0',
         'text-secondary': '#B5B5C5',
         neon: {
-          blue: '#22d3ee',
-          purple: '#a855f7',
-          pink: '#ec4899',
+          blue: '#6366f1', // Changed to Indigo (Primary)
+          purple: '#a855f7', // Purple
+          pink: '#ec4899', // Pink
+          cyan: '#22d3ee', // Old blue moved to cyan
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: '#6366f1', // Electric Indigo
+          foreground: '#ffffff',
         },
         card: {
           DEFAULT: 'hsl(var(--card))',
