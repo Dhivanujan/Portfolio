@@ -10,7 +10,7 @@ import { StarBackground } from "./components/StarBackground";
 
 function App() {
   return (
-    <div className="min-h-screen bg-obsidian text-slate-300 relative selection:bg-neon-blue/30 font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-obsidian text-slate-300 relative selection:bg-primary/30 font-sans overflow-x-hidden">
       <StarBackground />
       <Navbar />
       <main className="flex flex-col relative z-10 w-full overflow-hidden">

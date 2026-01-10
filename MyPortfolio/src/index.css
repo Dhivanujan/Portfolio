@@ -95,7 +95,7 @@
     @apply text-primary drop-shadow-[0_0_10px_rgba(99,102,241,0.5)];
   }
   .text-glow-purple {
-    @apply text-neon-purple drop-shadow-[0_0_10px_rgba(168,85,247,0.5)];
+    @apply text-indigo-500 drop-shadow-[0_0_10px_rgba(99,102,241,0.5)];
   }
 
   /* Typography Enhancements */
@@ -124,6 +124,6 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-white/20 rounded-full hover:bg-neon-blue/50 transition-colors backdrop-blur-sm;
+    @apply bg-white/20 rounded-full hover:bg-primary/50 transition-colors backdrop-blur-sm;
   }
 }

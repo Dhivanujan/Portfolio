@@ -68,16 +68,16 @@ const Hero = () => {
             {/* Animated gradient orbs */}
             <motion.div 
                 style={{ y: y1 }}
-                className="absolute top-20 left-10 w-72 h-72 bg-neon-purple/20 rounded-full blur-[100px] pointer-events-none"
+                className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-[100px] pointer-events-none"
             />
             <motion.div 
                 style={{ y: y2 }}
-                className="absolute bottom-20 right-10 w-96 h-96 bg-neon-blue/15 rounded-full blur-[120px] pointer-events-none"
+                className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"
             />
             
             <motion.div 
                 style={{ opacity, scale }}
-                className="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-7xl"
+                className="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-7xl pt-10 md:pt-0"
             >
                 {/* Text Content */}
                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1">
@@ -85,7 +85,7 @@ const Hero = () => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="mb-8 inline-flex items-center px-5 py-2.5 rounded-full border border-neon-blue/30 bg-neon-blue/5 backdrop-blur-md shadow-[0_0_20px_rgba(34,211,238,0.1)]"
+                        className="mb-8 inline-flex items-center px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.1)]"
                     >
                         <span className="relative flex h-2.5 w-2.5 mr-3">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -169,8 +169,8 @@ const Hero = () => {
                 >
                     <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
                         {/* Refined Glow effects */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-neon-purple/10 rounded-full blur-[80px] animate-pulse-slow"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-neon-blue/10 rounded-full blur-[60px] animate-spin-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[80px] animate-pulse-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[60px] animate-spin-slow"></div>
                         
                         {/* 3D Background Element */}
                         <div className="absolute inset-0 z-0 scale-100 opacity-80">
@@ -184,7 +184,7 @@ const Hero = () => {
                             transition={{ delay: 0.6, type: "spring", stiffness: 60 }}
                             className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full isolate"
                         >
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-neon-blue to-neon-purple p-[2px] shadow-[0_0_40px_rgba(168,85,247,0.3)]">
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-indigo-500 p-[2px] shadow-[0_0_40px_rgba(99,102,241,0.3)]">
                                 <div className="absolute inset-0 bg-obsidian rounded-full m-[2px] overflow-hidden">
                                      <img 
                                         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
@@ -199,7 +199,7 @@ const Hero = () => {
                         <motion.div 
                             animate={{ y: [-10, 10, -10] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute right-4 md:-right-4 bottom-20 z-30 glass-panel p-4 rounded-2xl border-l-4 border-l-neon-blue"
+                            className="absolute right-4 md:-right-4 bottom-20 z-30 glass-panel p-4 rounded-2xl border-l-4 border-l-primary"
                         >
                             <div className="flex items-center gap-3">
                                 <div>

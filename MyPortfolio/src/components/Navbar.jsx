@@ -112,7 +112,7 @@ const Navbar = () => {
                     duration={500}
                     offset={-70}
                     onClick={() => setIsOpen(false)}
-                    className="cursor-pointer text-slate-300 hover:text-neon-blue transition-colors font-medium text-lg"
+                    className="cursor-pointer text-slate-300 hover:text-primary transition-colors font-medium text-lg"
                   >
                     {item.name}
                   </Link>
@@ -123,7 +123,7 @@ const Navbar = () => {
                   to="contact"
                   smooth={true}
                   onClick={() => setIsOpen(false)}
-                  className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple text-white font-bold shadow-lg"
+                  className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-indigo-500 text-white font-bold shadow-lg"
                 >
                   Hire Me
                 </Link>

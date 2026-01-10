@@ -72,7 +72,7 @@ const Skills = () => {
                 className="text-center mb-16"
             >
                 <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-                    Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">Skills</span>
+                    Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Skills</span>
                 </h2>
                 <p className="text-slate-400 max-w-2xl mx-auto">
                     A comprehensive toolkit that enables me to build end-to-end solutions.

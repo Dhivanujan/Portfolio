@@ -9,7 +9,7 @@ const Section = ({
   return (
     <div className="relative w-full group/section">
         {/* Subtle ambient glow on scroll */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neon-blue/[0.03] to-transparent opacity-0 group-hover/section:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.03] to-transparent opacity-0 group-hover/section:opacity-100 transition-opacity duration-1000 pointer-events-none" />
         
         <motion.section
         id={id}
@@ -25,7 +25,7 @@ const Section = ({
         {/* Enhanced Section Divider with shimmer */}
         <div className="absolute bottom-0 left-0 right-0 h-px overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neon-blue/30 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
         </div>
     </div>
   );

@@ -72,11 +72,11 @@ const About = () => {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <span className="text-neon-purple font-medium tracking-wider uppercase text-sm">Get to know me</span>
+                    <span className="text-primary font-medium tracking-wider uppercase text-sm">Get to know me</span>
                     <h2 className="text-4xl md:text-5xl font-heading font-bold mt-2 mb-6">
-                        About <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">Me</span>
+                        About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Me</span>
                     </h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto rounded-full"></div>
+                    <div className="w-20 h-1 bg-gradient-to-r from-primary to-indigo-400 mx-auto rounded-full"></div>
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -89,7 +89,7 @@ const About = () => {
                     >
                         <TiltCard className="relative group cursor-default">
                             {/* Animated gradient border */}
-                            <div className="absolute -inset-[1px] bg-gradient-to-r from-neon-purple via-neon-blue to-neon-pink rounded-2xl opacity-30 group-hover:opacity-70 blur-sm transition-all duration-700 group-hover:blur-md animate-gradient-x" />
+                            <div className="absolute -inset-[1px] bg-gradient-to-r from-primary via-indigo-500 to-indigo-300 rounded-2xl opacity-30 group-hover:opacity-70 blur-sm transition-all duration-700 group-hover:blur-md animate-gradient-x" />
                             
                             <div 
                                 className="glass-card p-8 rounded-2xl relative border border-white/10 shadow-2xl overflow-hidden"
@@ -97,17 +97,17 @@ const About = () => {
                             >
                                 {/* Floating particles effect */}
                                 <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <Sparkles className="w-24 h-24 text-neon-blue" />
+                                    <Sparkles className="w-24 h-24 text-primary" />
                                 </div>
                                 
                                 {/* Spotlight effect on hover */}
                                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(34,211,238,0.1)_0%,transparent_50%)]" />
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(99,102,241,0.1)_0%,transparent_50%)]" />
                                 </div>
                                 
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="p-2 rounded-lg bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 border border-white/10">
-                                        <Code2 className="w-5 h-5 text-neon-blue" />
+                                    <div className="p-2 rounded-lg bg-gradient-to-br from-primary/20 to-indigo-500/20 border border-white/10">
+                                        <Code2 className="w-5 h-5 text-primary" />
                                     </div>
                                     <h3 className="text-2xl font-bold text-text-primary">Engineering with Passion</h3>
                                 </div>
@@ -116,11 +116,11 @@ const About = () => {
                                     I am a results-oriented Software Engineer with a deep understanding of core computer science principles and a passion for building scalable, efficient systems. My journey in tech is driven by a curiosity to solve complex problems.
                                 </p>
                                 <p className="text-text-secondary leading-relaxed text-lg">
-                                    With strong foundations in <strong className="text-neon-blue font-semibold">C, Java, and Python</strong>, I have expanded my expertise to modern web technologies, specializing in the <strong className="text-neon-purple font-semibold">MERN stack</strong>. I don't just write code; I design solutions.
+                                    With strong foundations in <strong className="text-indigo-400 font-semibold">C, Java, and Python</strong>, I have expanded my expertise to modern web technologies, specializing in the <strong className="text-primary font-semibold">MERN stack</strong>. I don't just write code; I design solutions.
                                 </p>
                                 
                                 {/* Bottom accent line */}
-                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink opacity-50" />
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-indigo-500 to-indigo-300 opacity-50" />
                             </div>
                         </TiltCard>
                     </motion.div>
@@ -133,9 +133,9 @@ const About = () => {
                         className="grid grid-cols-1 gap-6"
                     >
                         {[
-                            { icon: Globe, title: "Web Development", desc: "Building responsive, modern web applications with cutting-edge frameworks.", color: "text-neon-blue", gradient: "from-neon-blue to-cyan-400" },
-                            { icon: Cpu, title: "System Architecture", desc: "Designing scalable and efficient backend systems for high-performance needs.", color: "text-neon-purple", gradient: "from-neon-purple to-violet-400" },
-                            { icon: Rocket, title: "Innovation", desc: "Exploring AI and Machine Learning to create smarter software solutions.", color: "text-neon-pink", gradient: "from-neon-pink to-rose-400" }
+                            { icon: Globe, title: "Web Development", desc: "Building responsive, modern web applications with cutting-edge frameworks.", color: "text-primary", gradient: "from-primary to-indigo-400" },
+                            { icon: Cpu, title: "System Architecture", desc: "Designing scalable and efficient backend systems for high-performance needs.", color: "text-indigo-400", gradient: "from-indigo-400 to-indigo-600" },
+                            { icon: Rocket, title: "Innovation", desc: "Exploring AI and Machine Learning to create smarter software solutions.", color: "text-indigo-300", gradient: "from-indigo-300 to-indigo-500" }
                         ].map((feature, idx) => (
                             <motion.div 
                                 key={idx}

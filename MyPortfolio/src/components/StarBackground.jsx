@@ -82,8 +82,8 @@ export const StarBackground = () => {
       </Canvas>
       {/* Nebula/Aurora effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-neon-purple/5 rounded-full blur-[150px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-neon-blue/5 rounded-full blur-[150px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-indigo-500/5 rounded-full blur-[150px] animate-pulse-slow" />
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full blur-[150px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
       </div>
       
       {/* Vignette Overlay for Depth & Contrast */}

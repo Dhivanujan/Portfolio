@@ -11,8 +11,8 @@ const projects = [
         image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
-        color: "group-hover:text-neon-blue",
-        glow: "hover:shadow-neon-blue/20"
+        color: "group-hover:text-primary",
+        glow: "hover:shadow-primary/20"
     },
     {
         title: "E-Commerce Microservices",
@@ -21,8 +21,8 @@ const projects = [
         image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
-        color: "group-hover:text-neon-purple",
-        glow: "hover:shadow-neon-purple/20"
+        color: "group-hover:text-indigo-400",
+        glow: "hover:shadow-indigo-400/20"
     },
     {
         title: "Collaborative Dashboard",
@@ -31,8 +31,8 @@ const projects = [
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
         github: "#",
         demo: "#",
-        color: "group-hover:text-neon-pink",
-        glow: "hover:shadow-neon-pink/20"
+        color: "group-hover:text-indigo-300",
+        glow: "hover:shadow-indigo-300/20"
     },
     {
         title: "Network Packet Analyzer",
@@ -143,10 +143,10 @@ const ProjectCard = ({ project, index, isHovered, isDimmed, onHover, onLeave }) 
                         style={{ transform: "translateZ(40px)" }}
                         className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0"
                     >
-                         <a href={project.github} className="flex items-center text-sm font-bold text-white hover:text-neon-blue transition-colors bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20">
+                         <a href={project.github} className="flex items-center text-sm font-bold text-white hover:text-primary transition-colors bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20">
                             <Github className="h-4 w-4 mr-2" /> Code
                         </a>
-                        <a href={project.demo} className="flex items-center text-sm font-bold text-white hover:text-neon-pink transition-colors bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20">
+                        <a href={project.demo} className="flex items-center text-sm font-bold text-white hover:text-indigo-300 transition-colors bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20">
                             <ExternalLink className="h-4 w-4 mr-2" /> Live Demo
                         </a>
                     </div>
@@ -169,9 +169,9 @@ const Projects = () => {
                 className="text-center mb-16"
             >
                 <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-text-primary">
-                    Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-blue">Projects</span>
+                    Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Projects</span>
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-blue mx-auto rounded-full"></div>
+                <div className="w-24 h-1 bg-gradient-to-r from-primary to-indigo-400 mx-auto rounded-full"></div>
             </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto px-4 perspective-1000">
@@ -189,7 +189,7 @@ const Projects = () => {
             </div>
             
             <div className="text-center mt-12">
-                <a href="#" className="inline-flex items-center text-neon-blue font-semibold hover:tracking-wide transition-all group">
+                <a href="#" className="inline-flex items-center text-primary font-semibold hover:tracking-wide transition-all group">
                     View Full Archive <ArrowUpRight className="ml-1 w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                 </a>
             </div>
