@@ -3,14 +3,14 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as THREE from "three";
 
-const StarField = ({ count = 5000, color = "#aaabec", radius = 1.2, rotationSpeed = 1, ...props }) => {
+const StarField = ({ count = 3000, color = "#7886a8", radius = 1.2, rotationSpeed = 0.3, ...props }) => {
   const ref = useRef();
   
   const { positions, colors } = useMemo(() => {
      const positions = new Float32Array(count * 3);
      const colors = new Float32Array(count * 3);
      const baseColor = new THREE.Color(color);
-     const altColor = new THREE.Color("#22d3ee"); // Neon cyan highlight
+     const altColor = new THREE.Color("#8b94b0"); // Subtle variation
 
      for(let i = 0; i < count; i++) {
         const u = Math.random();
@@ -27,8 +27,8 @@ const StarField = ({ count = 5000, color = "#aaabec", radius = 1.2, rotationSpee
         positions[i * 3 + 1] = y;
         positions[i * 3 + 2] = z;
 
-        // subtle color variation
-        const c = Math.random() > 0.8 ? altColor : baseColor;
+        // Very subtle color variation - only 5% get alternate color
+        const c = Math.random() > 0.95 ? altColor : baseColor;
         colors[i * 3] = c.r;
         colors[i * 3 + 1] = c.g;
         colors[i * 3 + 2] = c.b;
@@ -38,8 +38,9 @@ const StarField = ({ count = 5000, color = "#aaabec", radius = 1.2, rotationSpee
 
   useFrame((state, delta) => {
     if (ref.current) {
-        ref.current.rotation.x -= delta / (15 / rotationSpeed);
-        ref.current.rotation.y -= delta / (20 / rotationSpeed);
+        // Much slower rotation for subtle movement
+        ref.current.rotation.x -= delta / (40 / rotationSpeed);
+        ref.current.rotation.y -= delta / (50 / rotationSpeed);
     }
   });
 
@@ -49,10 +50,11 @@ const StarField = ({ count = 5000, color = "#aaabec", radius = 1.2, rotationSpee
         <PointMaterial
           transparent
           vertexColors
-          size={0.002}
+          size={0.0015}
           sizeAttenuation={true}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
+          opacity={0.6}
         />
       </Points>
     </group>
@@ -60,13 +62,13 @@ const StarField = ({ count = 5000, color = "#aaabec", radius = 1.2, rotationSpee
 };
 
 export const StarBackground = () => {
-  const [count, setCount] = useState(4000);
+  const [count, setCount] = useState(2500);
 
   useEffect(() => {
       const isMobile = window.innerWidth < 768;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (isMobile || reducedMotion) {
-          setCount(2000);
+          setCount(1200);
       }
   }, []);
 
@@ -74,20 +76,19 @@ export const StarBackground = () => {
     <div className="w-full h-full fixed inset-0 z-0 bg-obsidian pointer-events-none">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
-          <StarField count={count} radius={1.2} rotationSpeed={1} />
-          {/* Second layer for depth - faster and wider */}
-          <StarField count={count / 2} radius={1.5} rotationSpeed={1.5} color="#a855f7" /> 
+          <StarField count={count} radius={1.2} rotationSpeed={0.3} />
         </Suspense>
         <Preload all />
       </Canvas>
-      {/* Nebula/Aurora effect */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-indigo-500/5 rounded-full blur-[150px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full blur-[150px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
-      </div>
       
-      {/* Vignette Overlay for Depth & Contrast */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent via-obsidian/40 to-obsidian/90 z-0" />
+      {/* Dark gradient overlay for better contrast - subtle and professional */}
+      <div className="absolute inset-0 bg-gradient-to-b from-obsidian/60 via-obsidian/40 to-obsidian/70 z-10" />
+      
+      {/* Very subtle ambient glow - barely visible */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/3 -left-1/4 w-1/2 h-1/2 bg-indigo-900/[0.02] rounded-full blur-[200px]" />
+        <div className="absolute bottom-1/3 -right-1/4 w-1/2 h-1/2 bg-indigo-800/[0.02] rounded-full blur-[200px]" />
+      </div>
     </div>
   );
 };
