@@ -49,12 +49,12 @@ const SkillPill = ({ skill, delay, accentColor }) => {
             viewport={{ once: true }}
             transition={{ delay: delay * 0.05, type: "spring", stiffness: 200 }}
             whileHover={{ 
-                scale: 1.08, 
-                backgroundColor: `${accentColor}20`,
-                borderColor: `${accentColor}60`,
-                boxShadow: `0 0 20px ${accentColor}30`
+                scale: 1.05, 
+                backgroundColor: `${accentColor}15`,
+                borderColor: `${accentColor}50`,
+                boxShadow: `0 0 16px ${accentColor}20`
             }}
-            className="px-4 py-2 text-sm font-medium bg-white/5 text-text-secondary rounded-lg border border-white/10 transition-all duration-300 cursor-default backdrop-blur-sm hover:text-white"
+            className="px-3.5 py-1.5 text-[13px] font-medium bg-white/[0.03] text-text-secondary rounded-lg border border-white/[0.08] transition-all duration-300 cursor-default backdrop-blur-sm hover:text-white"
         >
             {skill}
         </motion.span>
@@ -69,17 +69,17 @@ const Skills = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-center mb-16"
+                className="text-center mb-14"
             >
                 <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
                     Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Skills</span>
                 </h2>
-                <p className="text-slate-400 max-w-2xl mx-auto">
+                <p className="text-slate-400 max-w-2xl mx-auto text-[15px]">
                     A comprehensive toolkit that enables me to build end-to-end solutions.
                 </p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {skillsData.map((skillGroup, index) => {
                     const IconComponent = skillGroup.icon;
                     return (
@@ -97,18 +97,18 @@ const Skills = () => {
                             className="group relative h-full"
                         >
                             {/* Animated border glow on hover */}
-                            <div className={`absolute -inset-[1px] bg-gradient-to-r ${skillGroup.color} rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
+                            <div className={`absolute -inset-[1px] bg-gradient-to-r ${skillGroup.color} rounded-xl opacity-0 group-hover:opacity-70 blur-sm transition-all duration-500`} />
                             
-                            <div className="glass-card h-full flex flex-col p-6 rounded-2xl transition-all duration-500 group-hover:bg-white/[0.08] relative overflow-hidden border border-white/10 group-hover:border-transparent">
+                            <div className="glass-card h-full flex flex-col p-6 rounded-xl transition-all duration-500 group-hover:bg-white/[0.05] relative overflow-hidden border border-white/[0.08] group-hover:border-transparent">
                                 {/* Decorative Gradient Background */}
-                                <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${skillGroup.color} opacity-0 blur-3xl rounded-full transition-all duration-700 group-hover:opacity-20 group-hover:scale-150`} />
+                                <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${skillGroup.color} opacity-0 blur-3xl rounded-full transition-all duration-700 group-hover:opacity-10 group-hover:scale-150`} />
                                 
                                 {/* Header with Icon */}
-                                <div className="flex items-center gap-4 mb-6 relative z-10">
-                                    <div className={`p-3 rounded-xl bg-gradient-to-br ${skillGroup.color} bg-opacity-20 shadow-lg`}>
-                                        <IconComponent className="w-6 h-6 text-white" />
+                                <div className="flex items-center gap-3.5 mb-5 relative z-10">
+                                    <div className={`p-2.5 rounded-lg bg-gradient-to-br ${skillGroup.color} bg-opacity-20 shadow-md`}>
+                                        <IconComponent className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-text-primary group-hover:text-white transition-colors duration-300">
+                                    <h3 className="text-lg font-bold text-text-primary group-hover:text-white transition-colors duration-300">
                                         {skillGroup.category}
                                     </h3>
                                 </div>

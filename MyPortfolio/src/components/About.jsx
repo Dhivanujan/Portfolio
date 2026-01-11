@@ -79,7 +79,7 @@ const About = () => {
                     <div className="w-20 h-1 bg-gradient-to-r from-primary to-indigo-400 mx-auto rounded-full"></div>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="grid md:grid-cols-2 gap-10 items-center">
                     {/* 3D Glass Card with Tilt Effect */}
                     <motion.div
                         variants={itemVariants}
@@ -89,38 +89,38 @@ const About = () => {
                     >
                         <TiltCard className="relative group cursor-default">
                             {/* Animated gradient border */}
-                            <div className="absolute -inset-[1px] bg-gradient-to-r from-primary via-indigo-500 to-indigo-300 rounded-2xl opacity-30 group-hover:opacity-70 blur-sm transition-all duration-700 group-hover:blur-md animate-gradient-x" />
+                            <div className="absolute -inset-[1px] bg-gradient-to-r from-primary via-indigo-500 to-indigo-400 rounded-2xl opacity-20 group-hover:opacity-50 blur-sm transition-all duration-700" />
                             
                             <div 
-                                className="glass-card p-8 rounded-2xl relative border border-white/10 shadow-2xl overflow-hidden"
+                                className="glass-card p-8 rounded-2xl relative border border-white/[0.08] shadow-2xl overflow-hidden"
                                 style={{ transform: "translateZ(50px)" }}
                             >
                                 {/* Floating particles effect */}
-                                <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <Sparkles className="w-24 h-24 text-primary" />
+                                <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <Sparkles className="w-20 h-20 text-primary" />
                                 </div>
                                 
                                 {/* Spotlight effect on hover */}
                                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(99,102,241,0.1)_0%,transparent_50%)]" />
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(99,102,241,0.05)_0%,transparent_50%)]" />
                                 </div>
                                 
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="p-2 rounded-lg bg-gradient-to-br from-primary/20 to-indigo-500/20 border border-white/10">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="p-2.5 rounded-lg bg-gradient-to-br from-primary/15 to-indigo-500/15 border border-white/[0.08]">
                                         <Code2 className="w-5 h-5 text-primary" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-text-primary">Engineering with Passion</h3>
+                                    <h3 className="text-xl font-bold text-text-primary">Engineering with Passion</h3>
                                 </div>
                                 
-                                <p className="text-text-secondary mb-6 leading-relaxed text-lg">
-                                    I am a results-oriented Software Engineer with a deep understanding of core computer science principles and a passion for building scalable, efficient systems. My journey in tech is driven by a curiosity to solve complex problems.
+                                <p className="text-text-secondary mb-5 leading-relaxed">
+                                    I am a results-oriented Software Engineer with a deep understanding of core computer science principles and a passion for building scalable, efficient systems. My journey in tech is driven by curiosity to solve complex problems.
                                 </p>
-                                <p className="text-text-secondary leading-relaxed text-lg">
+                                <p className="text-text-secondary leading-relaxed">
                                     With strong foundations in <strong className="text-indigo-400 font-semibold">C, Java, and Python</strong>, I have expanded my expertise to modern web technologies, specializing in the <strong className="text-primary font-semibold">MERN stack</strong>. I don't just write code; I design solutions.
                                 </p>
                                 
                                 {/* Bottom accent line */}
-                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-indigo-500 to-indigo-300 opacity-50" />
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-indigo-500 to-indigo-400 opacity-30" />
                             </div>
                         </TiltCard>
                     </motion.div>
@@ -130,7 +130,7 @@ const About = () => {
                         variants={containerVariants}
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
-                        className="grid grid-cols-1 gap-6"
+                        className="grid grid-cols-1 gap-5"
                     >
                         {[
                             { icon: Globe, title: "Web Development", desc: "Building responsive, modern web applications with cutting-edge frameworks.", color: "text-primary", gradient: "from-primary to-indigo-400" },
@@ -141,33 +141,33 @@ const About = () => {
                                 key={idx}
                                 variants={itemVariants}
                                 whileHover={{ 
-                                    x: 12, 
-                                    scale: 1.02,
+                                    x: 8, 
+                                    scale: 1.01,
                                     transition: { type: "spring", stiffness: 400, damping: 17 }
                                 }}
-                                className="group flex items-start p-6 rounded-2xl transition-all duration-300 border border-white/5 hover:border-white/15 bg-white/[0.02] backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-black/20 relative overflow-hidden"
+                                className="group flex items-start p-5 rounded-xl transition-all duration-300 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] backdrop-blur-sm shadow-md hover:shadow-xl hover:shadow-black/10 relative overflow-hidden"
                             >
                                 {/* Hover gradient background */}
-                                <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
+                                <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-[0.02] transition-opacity duration-500`} />
                                 
                                 {/* Icon with gradient background */}
-                                <div className={`relative p-3.5 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-10 mr-5 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                                    <feature.icon className="w-6 h-6 text-white" />
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-xl opacity-20 blur-md -z-10`} />
+                                <div className={`relative p-3 rounded-lg bg-gradient-to-br ${feature.gradient} bg-opacity-10 mr-4 group-hover:scale-105 transition-transform duration-300 shadow-md`}>
+                                    <feature.icon className="w-5 h-5 text-white" />
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-lg opacity-15 blur-md -z-10`} />
                                 </div>
                                 
                                 <div className="relative z-10">
-                                    <h4 className={`text-xl font-bold text-text-primary mb-2 group-hover:${feature.color} transition-colors duration-300`}>{feature.title}</h4>
-                                    <p className="text-text-secondary text-base leading-relaxed">{feature.desc}</p>
+                                    <h4 className={`text-lg font-bold text-text-primary mb-1.5 group-hover:${feature.color} transition-colors duration-300`}>{feature.title}</h4>
+                                    <p className="text-text-secondary text-sm leading-relaxed">{feature.desc}</p>
                                 </div>
                                 
                                 {/* Subtle arrow indicator */}
                                 <motion.div 
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-50 transition-opacity"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-40 transition-opacity"
                                     initial={{ x: -10 }}
                                     whileHover={{ x: 0 }}
                                 >
-                                    <ArrowRight className="w-5 h-5 text-white" />
+                                    <ArrowRight className="w-4 h-4 text-white" />
                                 </motion.div>
                             </motion.div>
                         ))}

@@ -85,46 +85,46 @@ const Hero = () => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="mb-8 inline-flex items-center px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.1)]"
+                        className="mb-6 inline-flex items-center px-4 py-2 rounded-full border border-primary/20 bg-primary/[0.05] backdrop-blur-md shadow-lg"
                     >
-                        <span className="relative flex h-2.5 w-2.5 mr-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
+                        <span className="relative flex h-2 w-2 mr-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        <span className="text-sm font-medium text-primary tracking-wide">Available for opportunities</span>
+                        <span className="text-[13px] font-medium text-primary/90 tracking-wide">Available for opportunities</span>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight mb-6 leading-tight"
+                        className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight mb-6 leading-[1.1]"
                     >
-                        <span className="bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-400">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-100 to-slate-300">
                              Creative
                         </span>
                         <br />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-400 animate-gradient-x drop-shadow-[0_0_30px_rgba(99,102,241,0.3)]">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-indigo-400 to-violet-400 drop-shadow-[0_0_20px_rgba(99,102,241,0.25)]">
                             Developer
                         </span>
                     </motion.h1>
 
                     <motion.div
-                        className="h-8 mb-8 text-xl md:text-2xl font-mono text-primary/90 flex items-center justify-center lg:justify-start"
+                        className="h-8 mb-8 text-lg md:text-xl font-mono text-primary/80 flex items-center justify-center lg:justify-start"
                     >
-                        <Terminal className="w-5 h-5 mr-3" />
-                        <span>I build </span>
-                        <span className="ml-2 font-bold text-slate-100">{text}</span>
-                        <span className="animate-pulse ml-1 text-primary">_</span>
+                        <Terminal className="w-4 h-4 mr-2.5" />
+                        <span className="text-slate-400">I build </span>
+                        <span className="ml-2 font-semibold text-slate-100">{text}</span>
+                        <span className="animate-pulse ml-0.5 text-primary">_</span>
                     </motion.div>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
-                        className="text-lg md:text-xl text-slate-400 max-w-lg mb-10 leading-relaxed font-light"
+                        className="text-base md:text-lg text-slate-400 max-w-lg mb-10 leading-relaxed"
                     >
-                        Crafting scalable, accessible, and user-centric digital experiences. I transform complex problems into elegant code.
+                        Crafting scalable, accessible, and user-centric digital experiences with clean, maintainable code.
                     </motion.p>
 
 
@@ -132,29 +132,29 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-6"
+                        className="flex flex-col sm:flex-row gap-5"
                     >
                         <Link
                             to="projects"
                             smooth={true}
                             duration={500}
                             offset={-70}
-                            className="relative inline-flex group items-center justify-center px-8 py-4 text-white transition-all duration-200 bg-transparent font-medium focus:outline-none cursor-pointer"
+                            className="relative inline-flex group items-center justify-center px-8 py-3.5 text-white transition-all duration-200 bg-transparent font-medium focus:outline-none cursor-pointer"
                         >
-                            <div className="absolute inset-0 w-full h-full rounded-full bg-primary border border-primary/20 transition-all duration-300 group-hover:bg-primary/90 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]" />
+                            <div className="absolute inset-0 w-full h-full rounded-full bg-primary border border-primary/20 transition-all duration-300 group-hover:bg-primary/90 group-hover:shadow-[0_0_24px_rgba(99,102,241,0.4)]" />
                             
-                            <span className="relative flex items-center tracking-wide">
+                            <span className="relative flex items-center tracking-wide text-sm">
                                 View Projects 
-                                <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                                <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                             </span>
                         </Link>
                         
-                        <div className="flex items-center gap-6 mt-6 sm:mt-0 sm:ml-4">
-                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 p-4 border border-white/5 bg-white/5 rounded-full hover:shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:border-white/20 group">
-                                <Github className="h-6 w-6" />
+                        <div className="flex items-center gap-4 mt-4 sm:mt-0 sm:ml-2">
+                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 p-3.5 border border-white/[0.06] bg-white/[0.03] rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] hover:border-white/[0.15] group">
+                                <Github className="h-5 w-5" />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-all duration-300 hover:scale-110 p-4 border border-white/5 bg-white/5 rounded-full hover:shadow-[0_0_25px_rgba(99,102,241,0.2)] hover:border-primary/40 group">
-                                <Linkedin className="h-6 w-6" />
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-all duration-300 hover:scale-110 p-3.5 border border-white/[0.06] bg-white/[0.03] rounded-full hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:border-primary/30 group">
+                                <Linkedin className="h-5 w-5" />
                             </a>
                         </div>
                     </motion.div>
@@ -169,11 +169,11 @@ const Hero = () => {
                 >
                     <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
                         {/* Refined Glow effects */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[80px] animate-pulse-slow"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[60px] animate-spin-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-indigo-500/[0.08] rounded-full blur-[70px] animate-pulse-slow"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-primary/[0.08] rounded-full blur-[50px] animate-spin-slow"></div>
                         
                         {/* 3D Background Element */}
-                        <div className="absolute inset-0 z-0 scale-100 opacity-80">
+                        <div className="absolute inset-0 z-0 scale-100 opacity-70">
                             <Hero3D />
                         </div>
 
@@ -182,9 +182,9 @@ const Hero = () => {
                             initial={{ scale: 0, opacity: 0 }} 
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.6, type: "spring", stiffness: 60 }}
-                            className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full isolate"
+                            className="relative z-10 w-60 h-60 md:w-72 md:h-72 rounded-full isolate"
                         >
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-indigo-500 p-[2px] shadow-[0_0_40px_rgba(99,102,241,0.3)]">
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-indigo-400 p-[2px] shadow-[0_0_30px_rgba(99,102,241,0.2)]">
                                 <div className="absolute inset-0 bg-obsidian rounded-full m-[2px] overflow-hidden">
                                      <img 
                                         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
@@ -197,14 +197,14 @@ const Hero = () => {
 
                         {/* Floating Badge - More minimal */}
                         <motion.div 
-                            animate={{ y: [-10, 10, -10] }}
+                            animate={{ y: [-8, 8, -8] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute right-4 md:-right-4 bottom-20 z-30 glass-panel p-4 rounded-2xl border-l-4 border-l-primary"
+                            className="absolute right-4 md:-right-2 bottom-20 z-30 glass-panel px-5 py-3 rounded-xl border-l-2 border-l-primary/60 shadow-lg"
                         >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2.5">
                                 <div>
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">Experience</p>
-                                    <p className="text-2xl font-bold text-white">5+ Years</p>
+                                    <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Experience</p>
+                                    <p className="text-xl font-bold text-white">5+ Years</p>
                                 </div>
                             </div>
                         </motion.div>
