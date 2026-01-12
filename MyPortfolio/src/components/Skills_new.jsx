@@ -1,7 +1,7 @@
 import Section from "./Section";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { Code2, Layout, Server, Database, Wrench, Brain, Cloud, TrendingUp, Zap } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const skillsData = [
     {
@@ -91,7 +91,7 @@ const skillsData = [
 ];
 
 
-// Circular Progress Indicator Component
+// Circular Progress Indicator Component with 3D Float
 const CircularProgress = ({ skill, delay }) => {
     const [progress, setProgress] = useState(0);
     const circumference = 2 * Math.PI * 36; // radius = 36
@@ -106,11 +106,30 @@ const CircularProgress = ({ skill, delay }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
+            whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
             viewport={{ once: true }}
             transition={{ delay: delay * 0.05, duration: 0.5, type: "spring" }}
+            whileHover={{ 
+                scale: 1.15, 
+                rotateY: 10,
+                rotateX: -10,
+                z: 50,
+                transition: { duration: 0.3 }
+            }}
+            animate={{
+                y: [0, -8, 0],
+                transition: {
+                    y: {
+                        repeat: Infinity,
+                        duration: 3,
+                        ease: "easeInOut",
+                        delay: delay * 0.2
+                    }
+                }
+            }}
             className="relative group cursor-pointer"
+            style={{ transformStyle: "preserve-3d" }}
         >
             <div className="relative w-20 h-20">
                 {/* Background circle */}
@@ -218,18 +237,50 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
 const Skills = () => {
     const [activeTab, setActiveTab] = useState("all");
     const [hoveredCard, setHoveredCard] = useState(null);
+    const containerRef = useRef(null);
+    
+    // Mouse position for 3D parallax
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+    
+    // Smooth spring animations for 3D effect
+    const springConfig = { damping: 20, stiffness: 150 };
+    const rotateX = useSpring(useTransform(mouseY, [-300, 300], [5, -5]), springConfig);
+    const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-5, 5]), springConfig);
+    
+    const handleMouseMove = (e) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        mouseX.set(e.clientX - centerX);
+        mouseY.set(e.clientY - centerY);
+    };
 
     const filteredSkills = activeTab === "all" 
         ? skillsData 
         : skillsData.filter(skill => skill.featured);
 
     return (
-        <Section id="skills" className="relative py-24 overflow-hidden">
+        <Section id="skills" className="relative py-24 overflow-hidden" style={{ perspective: "1500px" }}>
             {/* Ambient background effects */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 -left-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl" />
+            <div 
+                className="absolute inset-0 overflow-hidden pointer-events-none"
+                onMouseMove={handleMouseMove}
+                ref={containerRef}
+            >
+                <motion.div 
+                    style={{ x: useTransform(mouseX, [-300, 300], [-30, 30]), y: useTransform(mouseY, [-300, 300], [-30, 30]) }}
+                    className="absolute top-1/4 -left-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" 
+                />
+                <motion.div 
+                    style={{ x: useTransform(mouseX, [-300, 300], [40, -40]), y: useTransform(mouseY, [-300, 300], [40, -40]) }}
+                    className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" 
+                />
+                <motion.div 
+                    style={{ x: useTransform(mouseX, [-300, 300], [-20, 20]), y: useTransform(mouseY, [-300, 300], [-20, 20]) }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl" 
+                />
             </div>
 
             <div className="max-w-7xl mx-auto relative z-10">
@@ -242,13 +293,26 @@ const Skills = () => {
                     className="text-center mb-16"
                 >
                     <motion.div
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
+                        initial={{ scale: 0, rotateX: -90 }}
+                        whileInView={{ scale: 1, rotateX: 0 }}
                         viewport={{ once: true }}
                         transition={{ type: "spring", duration: 0.6 }}
+                        whileHover={{ scale: 1.05, rotateZ: 2 }}
+                        animate={{
+                            y: [0, -5, 0],
+                            transition: {
+                                y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+                            }
+                        }}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-4"
+                        style={{ transformStyle: "preserve-3d" }}
                     >
-                        <Zap className="w-4 h-4 text-indigo-400" />
+                        <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        >
+                            <Zap className="w-4 h-4 text-indigo-400" />
+                        </motion.div>
                         <span className="text-indigo-400 font-medium tracking-wider uppercase text-xs">
                             Technical Arsenal
                         </span>
@@ -280,13 +344,15 @@ const Skills = () => {
                         ].map((stat, index) => (
                             <motion.div
                                 key={stat.label}
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, scale: 0.5, z: -100 }}
+                                whileInView={{ opacity: 1, scale: 1, z: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
+                                whileHover={{ scale: 1.15, z: 50, rotateY: 10 }}
                                 className="text-center"
+                                style={{ transformStyle: "preserve-3d" }}
                             >
-                                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent" style={{ transform: "translateZ(20px)" }}>
                                     <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                                 </div>
                                 <div className="text-sm text-slate-500 mt-1">{stat.label}</div>
@@ -306,17 +372,24 @@ const Skills = () => {
                             { id: "all", label: "All Skills" },
                             { id: "featured", label: "Core Expertise" }
                         ].map((tab) => (
-                            <button
+                            <motion.button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                animate={activeTab === tab.id ? {
+                                    rotateX: [0, 5, 0, -5, 0],
+                                    transition: { duration: 2, repeat: Infinity }
+                                } : {}}
                                 className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${
                                     activeTab === tab.id
                                         ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25"
                                         : "bg-slate-800/50 text-slate-400 hover:bg-slate-800 hover:text-white border border-slate-700"
                                 }`}
+                                style={{ transformStyle: "preserve-3d" }}
                             >
                                 {tab.label}
-                            </button>
+                            </motion.button>
                         ))}
                     </motion.div>
                 </motion.div>
@@ -334,11 +407,19 @@ const Skills = () => {
                             <motion.div
                                 key={skillGroup.category}
                                 layout
-                                initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                initial={{ opacity: 0, y: 40, scale: 0.9, rotateX: -45, z: -100 }}
+                                animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, z: 0 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -8,
+                                    rotateX: 5,
+                                    rotateY: hoveredCard === index ? 0 : 0,
+                                    z: 50,
+                                    transition: { duration: 0.3 }
+                                }}
                                 transition={{ 
                                     delay: index * 0.1, 
                                     duration: 0.5,
@@ -348,6 +429,7 @@ const Skills = () => {
                                 onMouseEnter={() => setHoveredCard(index)}
                                 onMouseLeave={() => setHoveredCard(null)}
                                 className={`group relative h-full ${isFeatured ? 'lg:col-span-1' : ''}`}
+                                style={{ transformStyle: "preserve-3d" }}
                             >
                                 {/* Glow effect on hover */}
                                 <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
@@ -355,8 +437,11 @@ const Skills = () => {
                                 {/* Card container with glassmorphism */}
                                 <div className="h-full flex flex-col p-6 rounded-2xl transition-all duration-500 border bg-slate-900/40 backdrop-blur-xl relative overflow-hidden
                                     border-slate-800 group-hover:border-slate-700 
-                                    group-hover:bg-slate-900/60 group-hover:shadow-2xl
-                                    group-hover:scale-[1.02] group-hover:-translate-y-1"
+                                    group-hover:bg-slate-900/60 group-hover:shadow-2xl"
+                                    style={{ 
+                                        transformStyle: "preserve-3d",
+                                        transform: hoveredCard === index ? "translateZ(30px)" : "translateZ(0px)"
+                                    }}
                                 >
                                     {/* Animated gradient overlay */}
                                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${skillGroup.gradient}`} />
@@ -367,7 +452,7 @@ const Skills = () => {
                                     </div>
 
                                     {/* Header with Icon */}
-                                    <div className="flex items-start gap-4 mb-6 relative z-10">
+                                    <div className="flex items-start gap-4 mb-6 relative z-10" style={{ transform: "translateZ(40px)" }}>
                                         <motion.div 
                                             whileHover={{ rotate: 360, scale: 1.1 }}
                                             transition={{ duration: 0.6, type: "spring" }}
@@ -399,9 +484,19 @@ const Skills = () => {
 
                                         {isFeatured && (
                                             <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
+                                                initial={{ scale: 0, rotateZ: -180 }}
+                                                animate={{ 
+                                                    scale: 1, 
+                                                    rotateZ: 0,
+                                                    y: [0, -3, 0]
+                                                }}
+                                                transition={{
+                                                    scale: { type: "spring", duration: 0.6 },
+                                                    y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+                                                }}
+                                                whileHover={{ scale: 1.1, rotateZ: 5 }}
                                                 className="absolute -top-2 -right-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg"
+                                                style={{ transformStyle: "preserve-3d", transform: "translateZ(60px)" }}
                                             >
                                                 ⭐ Featured
                                             </motion.div>
@@ -409,7 +504,7 @@ const Skills = () => {
                                     </div>
                                     
                                     {/* Skills Display - Toggle between bar and circular based on card size */}
-                                    <div className="relative z-10 flex-1">
+                                    <div className="relative z-10 flex-1" style={{ transform: "translateZ(20px)" }}>
                                         {isFeatured ? (
                                             // Circular progress for featured skills
                                             <div className="grid grid-cols-2 gap-4 justify-items-center">
@@ -484,17 +579,24 @@ const Skills = () => {
                                 ].map((item, index) => (
                                     <motion.span 
                                         key={item}
-                                        initial={{ opacity: 0, scale: 0 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        initial={{ opacity: 0, scale: 0, rotateY: -90 }}
+                                        whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: index * 0.05 }}
-                                        whileHover={{ scale: 1.05, y: -2 }}
+                                        transition={{ delay: index * 0.05, type: "spring" }}
+                                        whileHover={{ 
+                                            scale: 1.08, 
+                                            y: -4,
+                                            rotateZ: 3,
+                                            z: 20,
+                                            boxShadow: "0 10px 30px rgba(99, 102, 241, 0.3)"
+                                        }}
                                         className="group relative px-5 py-2.5 text-sm font-medium rounded-lg border overflow-hidden
                                             bg-slate-800/50 text-slate-300 border-slate-700
                                             hover:border-indigo-500/50 hover:text-white hover:bg-slate-800
                                             transition-all duration-300 cursor-default"
+                                        style={{ transformStyle: "preserve-3d" }}
                                     >
-                                        <span className="relative z-10">{item}</span>
+                                        <span className="relative z-10" style={{ transform: "translateZ(10px)" }}>{item}</span>
                                         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/10 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity" />
                                     </motion.span>
                                 ))}
@@ -505,26 +607,55 @@ const Skills = () => {
 
                 {/* Call to Action */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, rotateX: -30 }}
+                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.6 }}
+                    transition={{ delay: 0.6, type: "spring" }}
                     className="text-center mt-16"
+                    style={{ transformStyle: "preserve-3d" }}
                 >
-                    <p className="text-slate-400 mb-4">Interested in working together?</p>
+                    <motion.p 
+                        className="text-slate-400 mb-4"
+                        animate={{ opacity: [0.7, 1, 0.7] }}
+                        transition={{ repeat: Infinity, duration: 3 }}
+                    >
+                        Interested in working together?
+                    </motion.p>
                     <motion.a
                         href="#contact"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium rounded-lg shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300"
+                        whileHover={{ 
+                            scale: 1.08, 
+                            y: -5,
+                            rotateX: 5,
+                            z: 30,
+                            boxShadow: "0 20px 40px rgba(99, 102, 241, 0.4)"
+                        }}
+                        whileTap={{ scale: 0.95, y: 0 }}
+                        animate={{
+                            y: [0, -3, 0],
+                            transition: {
+                                repeat: Infinity,
+                                duration: 2,
+                                ease: "easeInOut"
+                            }
+                        }}
+                        className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium rounded-lg shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300 relative overflow-hidden"
+                        style={{ transformStyle: "preserve-3d" }}
                     >
-                        Let's Connect
+                        <span className="relative z-10">Let's Connect</span>
                         <motion.span
                             animate={{ x: [0, 5, 0] }}
                             transition={{ repeat: Infinity, duration: 1.5 }}
+                            className="relative z-10"
                         >
                             →
                         </motion.span>
+                        {/* Animated gradient overlay */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0"
+                            whileHover={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                        />
                     </motion.a>
                 </motion.div>
             </div>
