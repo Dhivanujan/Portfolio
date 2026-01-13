@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import { ArrowRight, Github, Linkedin, FileText } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import Hero3D from "./Hero3D";
+import profile from "../assets/Profile.JPG";
 
 // Text reveal animation variants
 const letterVariants = {
@@ -172,7 +173,7 @@ const Hero = () => {
                             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-600 to-indigo-400 p-[2px] shadow-[0_0_30px_rgba(99,102,241,0.15)]">
                                 <div className="absolute inset-0 bg-obsidian rounded-full m-[2px] overflow-hidden">
                                      <img 
-                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                                        src="/assets/Profile.JPG" 
                                         alt="Profile" 
                                         className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                                     />
