@@ -27,81 +27,90 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={cn(
-        "fixed z-50 transition-all duration-500 ease-in-out",
-        scrolled
-          ? "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-[850px] rounded-full bg-obsidian/60 backdrop-blur-xl border border-white/[0.08] shadow-lg py-3"
-          : "top-0 left-0 w-full bg-transparent py-6 border-transparent"
-      )}
-    >
-      <div className={cn(
-        "flex justify-between items-center transition-all duration-500",
-        scrolled ? "w-full px-6" : "container mx-auto px-6 md:px-12"
-      )}>
-        <Link
-          to="hero"
-          smooth={true}
-          duration={500}
-          className="cursor-pointer flex items-center gap-2.5 font-bold text-lg group"
-        >
-          <div className="p-2 bg-white/[0.04] rounded-lg border border-white/[0.08] group-hover:border-primary/40 transition-colors">
-            <Terminal className="text-primary w-4 h-4 group-hover:drop-shadow-[0_0_6px_rgba(99,102,241,0.6)] transition-all" />
-          </div>
-          <span className="text-white tracking-wide font-heading">Dhivanujan<span className="text-primary">Portfolio</span></span>
-        </Link>
-
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
-          <ul className="flex space-x-1">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  to={item.to}
-                  smooth={true}
-                  duration={500}
-                  offset={-70}
-                  className="relative cursor-pointer px-4 py-2 text-slate-300 hover:text-white transition-colors font-medium text-[13px] focus:outline-none group"
-                >
-                  <span className="relative z-10">{item.name}</span>
-                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300"></span>
-                  <span className="absolute inset-0 bg-white/[0.03] rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-0"></span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {/* <ThemeToggle /> */}
-          <Link
-            to="contact"
-            smooth={true}
-            className="cursor-pointer px-5 py-2 rounded-full bg-primary hover:bg-primary/90 text-white font-medium text-[13px] shadow-[0_0_12px_rgba(99,102,241,0.25)] hover:shadow-[0_0_16px_rgba(99,102,241,0.4)] hover:scale-105 transition-all"
-          >
-            Hire Me
-          </Link>
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center space-x-4">
-            {/* <ThemeToggle /> */}
-            <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none"
-            aria-label="Toggle menu"
+    <>
+      <nav
+        className={cn(
+          "fixed w-full z-50 transition-all duration-500 ease-in-out",
+          scrolled
+            ? "top-4"
+            : "top-0"
+        )}
+      >
+        <div className={cn(
+          "transition-all duration-500 ease-in-out mx-auto",
+          scrolled
+            ? "max-w-[850px] rounded-full bg-obsidian/60 backdrop-blur-xl border border-white/[0.08] shadow-lg py-3 px-6"
+            : "max-w-7xl bg-transparent py-6 px-6 md:px-12"
+        )}>
+          <div className="flex justify-between items-center">
+            <Link
+              to="hero"
+              smooth={true}
+              duration={500}
+              className="cursor-pointer flex items-center gap-2.5 font-bold text-lg group"
             >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+              <div className="p-2 bg-white/[0.04] rounded-lg border border-white/[0.08] group-hover:border-primary/40 transition-colors">
+                <Terminal className="text-primary w-4 h-4 group-hover:drop-shadow-[0_0_6px_rgba(99,102,241,0.6)] transition-all" />
+              </div>
+              <span className="text-white tracking-wide font-heading">Dhivanujan<span className="text-primary">Portfolio</span></span>
+            </Link>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center space-x-8">
+              <ul className="flex space-x-1">
+                {navItems.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      to={item.to}
+                      smooth={true}
+                      duration={500}
+                      offset={-70}
+                      className="relative cursor-pointer px-4 py-2 text-slate-300 hover:text-white transition-colors font-medium text-[13px] focus:outline-none group"
+                    >
+                      <span className="relative z-10">{item.name}</span>
+                      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300"></span>
+                      <span className="absolute inset-0 bg-white/[0.03] rounded-full opacity-0 group-hover:opacity-100 transition-opacity -z-0"></span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {/* <ThemeToggle /> */}
+              <Link
+                to="contact"
+                smooth={true}
+                className="cursor-pointer px-5 py-2 rounded-full bg-primary hover:bg-primary/90 text-white font-medium text-[13px] shadow-[0_0_12px_rgba(99,102,241,0.25)] hover:shadow-[0_0_16px_rgba(99,102,241,0.4)] hover:scale-105 transition-all"
+              >
+                Hire Me
+              </Link>
+            </div>
+
+            {/* Mobile Toggle */}
+            <div className="md:hidden flex items-center space-x-4">
+              {/* <ThemeToggle /> */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-white focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-obsidian/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className={cn(
+              "fixed left-0 right-0 z-40 md:hidden bg-obsidian/95 backdrop-blur-xl border-b border-white/10",
+              scrolled ? "top-[88px]" : "top-[88px]"
+            )}
           >
             <ul className="flex flex-col items-center py-8 space-y-6">
               {navItems.map((item) => (
@@ -123,7 +132,7 @@ const Navbar = () => {
                   to="contact"
                   smooth={true}
                   onClick={() => setIsOpen(false)}
-                  className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-indigo-500 text-white font-bold shadow-lg"
+                  className="inline-block cursor-pointer px-8 py-3 rounded-full bg-gradient-to-r from-primary to-indigo-500 text-white font-bold shadow-lg"
                 >
                   Hire Me
                 </Link>
@@ -132,7 +141,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 
