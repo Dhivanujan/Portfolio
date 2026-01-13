@@ -81,11 +81,11 @@ const Hero = () => {
                         className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight mb-4 leading-[1.1]"
                     >
                         <span className="bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-100 to-slate-300">
-                             Full Stack
+                             Software
                         </span>
                         <br />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600">
-                            Developer
+                            Engineer
                         </span>
                     </motion.h1>
 

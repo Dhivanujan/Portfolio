@@ -29,9 +29,9 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed z-50 transition-all duration-500 ease-in-out flex justify-center",
+        "fixed z-50 transition-all duration-500 ease-in-out",
         scrolled
-          ? "top-4 left-4 right-4 md:left-auto md:right-auto md:w-[850px] md:inset-x-0 mx-auto rounded-full bg-obsidian/60 backdrop-blur-xl border border-white/[0.08] shadow-lg py-3"
+          ? "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-[850px] rounded-full bg-obsidian/60 backdrop-blur-xl border border-white/[0.08] shadow-lg py-3"
           : "top-0 left-0 w-full bg-transparent py-6 border-transparent"
       )}
     >
@@ -48,7 +48,7 @@ const Navbar = () => {
           <div className="p-2 bg-white/[0.04] rounded-lg border border-white/[0.08] group-hover:border-primary/40 transition-colors">
             <Terminal className="text-primary w-4 h-4 group-hover:drop-shadow-[0_0_6px_rgba(99,102,241,0.6)] transition-all" />
           </div>
-          <span className="text-white tracking-wide font-heading">Dev<span className="text-primary">Portfolio</span></span>
+          <span className="text-white tracking-wide font-heading">Dhivanujan<span className="text-primary">Portfolio</span></span>
         </Link>
 
 
