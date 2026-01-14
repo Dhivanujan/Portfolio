@@ -1,48 +1,7 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import Section from "./Section";
-import { Code2, Cpu, Globe, Rocket, Sparkles, ArrowRight } from "lucide-react";
-
-// 3D Tilt Card Component
-const TiltCard = ({ children, className }) => {
-    const ref = useRef(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    
-    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
-    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
-    
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-    
-    const handleMouseMove = (e) => {
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const xPct = mouseX / rect.width - 0.5;
-        const yPct = mouseY / rect.height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    };
-    
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-    
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
-};
+import { Code2, Cpu, Globe, Rocket } from "lucide-react";
 
 const About = () => {
     const ref = useRef(null);
@@ -80,7 +39,7 @@ const About = () => {
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-10 items-center">
-                    {/* 3D Glass Card with Tilt Effect */}
+                    {/* About summary */}
                     <motion.div
                         variants={itemVariants}
                         initial="hidden"
@@ -116,7 +75,7 @@ const About = () => {
                         </div>
                     </motion.div>
 
-                    {/* Features Grid */}
+                    {/* Highlights */}
                     <motion.div 
                         variants={containerVariants}
                         initial="hidden"
@@ -124,9 +83,30 @@ const About = () => {
                         className="grid grid-cols-1 gap-5"
                     >
                         {[
-                            { icon: Globe, title: "Full Stack Development", desc: "End-to-end development from database design to responsive UIs, ensuring seamless user experiences.", color: "text-indigo-400", gradient: "from-indigo-400 to-indigo-600" },
-                            { icon: Cpu, title: "System Architecture", desc: "Designing scalable, maintainable architectures with focus on performance, security, and reliability.", color: "text-indigo-500", gradient: "from-indigo-500 to-indigo-700" },
-                            { icon: Rocket, title: "Continuous Learning", desc: "Always exploring emerging technologies like AI/ML integration to stay ahead in the evolving tech landscape.", color: "text-indigo-300", gradient: "from-indigo-300 to-indigo-500" }
+                            {
+                                icon: Globe,
+                                title: "Full Stack Development",
+                                desc: "End-to-end development from database design to responsive UIs, ensuring seamless user experiences.",
+                                color: "text-indigo-400",
+                                gradient: "from-indigo-400 to-indigo-600",
+                                border: "border-indigo-400/20",
+                            },
+                            {
+                                icon: Cpu,
+                                title: "System Architecture",
+                                desc: "Designing scalable, maintainable architectures with focus on performance, security, and reliability.",
+                                color: "text-indigo-500",
+                                gradient: "from-indigo-500 to-indigo-700",
+                                border: "border-indigo-500/20",
+                            },
+                            {
+                                icon: Rocket,
+                                title: "Continuous Learning",
+                                desc: "Always exploring emerging technologies like AI/ML integration to stay ahead in the evolving tech landscape.",
+                                color: "text-indigo-300",
+                                gradient: "from-indigo-300 to-indigo-500",
+                                border: "border-indigo-300/20",
+                            }
                         ].map((feature, idx) => (
                             <motion.div 
                                 key={idx}
@@ -139,7 +119,7 @@ const About = () => {
                                 className="group flex items-start p-6 rounded-xl transition-all duration-300 border border-slate-800 hover:border-slate-700 bg-slate-900/50 hover:bg-slate-900/70 backdrop-blur-sm relative overflow-hidden"
                             >
                                 {/* Icon */}
-                                <div className={`relative p-3 rounded-lg bg-gradient-to-br ${feature.gradient} bg-opacity-10 mr-4 flex-shrink-0 border border-${feature.color.replace('text-', '')}/20`}>
+                                <div className={`relative p-3 rounded-lg bg-gradient-to-br ${feature.gradient} bg-opacity-10 mr-4 flex-shrink-0 border ${feature.border}`}>
                                     <feature.icon className={`w-5 h-5 ${feature.color}`} />
                                 </div>
                                 

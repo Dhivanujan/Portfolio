@@ -13,19 +13,45 @@
     --primary-foreground: 210 40% 98%;
   }
 
+  /* Light mode colors */
+  :root:not(.dark) {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --border: 214 32% 91%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 244 63% 62%;
+    --primary-foreground: 210 40% 98%;
+  }
+
   .dark {
     --background: 222 47% 3%;
     --foreground: 213 31% 95%;
   }
 
   body {
-    @apply bg-obsidian text-slate-100 font-sans antialiased overflow-x-hidden;
-    background: linear-gradient(to bottom, #0a0b14 0%, #0b0c15 50%, #08090f 100%);
+    @apply font-sans antialiased overflow-x-hidden;
     position: relative;
     line-height: 1.7; /* Improved readability */
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  body::before {
+  /* Dark mode background */
+  body.dark,
+  .dark body {
+    @apply bg-obsidian text-slate-100;
+    background: linear-gradient(to bottom, #0a0b14 0%, #0b0c15 50%, #08090f 100%);
+  }
+  
+  /* Light mode background */
+  body:not(.dark) {
+    @apply bg-white text-slate-900;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+  }
+  
+  /* Subtle noise texture for dark mode only */
+  body.dark::before,
+  .dark body::before {
     content: "";
     position: fixed;
     top: 0;

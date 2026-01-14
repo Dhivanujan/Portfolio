@@ -12,9 +12,9 @@ const Footer = () => {
                     {/* Brand */}
                     <div className="text-center md:text-left">
                         <h3 className="text-xl font-heading font-bold text-white mb-2">
-                            Dev<span className="text-primary">Portfolio</span>
+                            Dhivanujan<span className="text-primary">Portfolio</span>
                         </h3>
-                        <p className="text-slate-500 text-sm">Building digital experiences</p>
+                        <p className="text-slate-500 text-sm">Crafting reliable, modern web experiences</p>
                     </div>
                     
                     {/* Social Links */}
@@ -50,7 +50,7 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-slate-500 text-sm flex items-center gap-2">
-                        &copy; {new Date().getFullYear()} John Doe. Crafted with 
+                        &copy; {new Date().getFullYear()} Dhivanujan. Crafted with 
                         <Heart className="w-4 h-4 text-red-500 animate-pulse" /> 
                         using React & Tailwind.
                     </p>

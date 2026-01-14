@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, useScroll, useSpring } from "framer-motion";
+import { motion, useMotionValue, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-scroll";
 import { ArrowRight, Github, Linkedin, FileText } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
@@ -16,7 +16,6 @@ const letterVariants = {
 };
 
 const Hero = () => {
-    const containerRef = useRef(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -45,7 +44,6 @@ const Hero = () => {
 
     return (
         <section
-            ref={containerRef}
             id="hero"
             className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 md:pt-0"
             onMouseMove={handleMouse}
@@ -153,6 +151,7 @@ const Hero = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
                     className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[400px]"
+                    style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                 >
                     <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
                         {/* Subtle glow effects */}
@@ -173,8 +172,8 @@ const Hero = () => {
                             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-600 to-indigo-400 p-[2px] shadow-[0_0_30px_rgba(99,102,241,0.15)]">
                                 <div className="absolute inset-0 bg-obsidian rounded-full m-[2px] overflow-hidden">
                                      <img 
-                                        src="/assets/Profile.JPG" 
-                                        alt="Profile" 
+                                        src={profile} 
+                                        alt="Portrait of Dhivanujan" 
                                         className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                                     />
                                 </div>
