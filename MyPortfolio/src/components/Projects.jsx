@@ -53,7 +53,7 @@ const ProjectCard = ({ project, index }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="group relative rounded-xl overflow-hidden border border-slate-800 bg-slate-900/50 hover:bg-slate-900/70 hover:border-slate-700 transition-all duration-300 backdrop-blur-sm"
+            className="group relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-lg"
         >
             {/* Image Section */}
             <div className="relative h-48 overflow-hidden">
@@ -62,49 +62,57 @@ const ProjectCard = ({ project, index }) => {
                     alt={project.title}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent dark:from-slate-900 dark:via-slate-900/60"></div>
+                
+                {/* Role badge on image */}
+                <div className="absolute top-4 right-4 px-3 py-1.5 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700">
+                    <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wide">
+                        {project.role}
+                    </span>
+                </div>
             </div>
 
             {/* Content */}
             <div className="p-6">
-                <div className="mb-3">
-                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-indigo-400 transition-colors">
-                        {project.title}
-                    </h3>
-                    <p className="text-xs text-indigo-400 font-medium uppercase tracking-wide">
-                        {project.role}
-                    </p>
-                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {project.title}
+                </h3>
                 
-                <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
                     {project.description}
                 </p>
 
-                {/* Outcome Badge */}
-                <div className="mb-4 inline-flex items-center px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-                    <span className="text-xs text-indigo-400 font-medium">✓ {project.outcome}</span>
+                {/* Outcome/Impact Badge */}
+                <div className="mb-4 inline-flex items-center px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-indigo-500/10 border border-emerald-200 dark:border-indigo-500/20">
+                    <svg className="w-4 h-4 text-emerald-600 dark:text-indigo-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-xs text-emerald-700 dark:text-indigo-400 font-medium">{project.outcome}</span>
                 </div>
                 
                 {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map(tag => (
-                        <span key={tag} className="text-xs font-medium px-3 py-1 bg-slate-800 text-slate-300 rounded-md border border-slate-700">
-                            {tag}
-                        </span>
-                    ))}
+                <div className="mb-5">
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-500 uppercase tracking-wide mb-2">Tech Stack</p>
+                    <div className="flex flex-wrap gap-2">
+                        {project.tags.map(tag => (
+                            <span key={tag} className="text-xs font-medium px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-md border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-600 transition-colors">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Links */}
-                <div className="flex gap-3">
+                <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
                     <a 
                         href={project.github} 
-                        className="flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors"
+                        className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                     >
                         <Github className="h-4 w-4 mr-1.5" /> Code
                     </a>
                     <a 
                         href={project.demo} 
-                        className="flex items-center text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors"
+                        className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                     >
                         <ExternalLink className="h-4 w-4 mr-1.5" /> Live Demo
                     </a>
@@ -124,12 +132,12 @@ const Projects = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center mb-16"
             >
-                <span className="text-indigo-400 font-medium tracking-wider uppercase text-sm">My Work</span>
-                <h2 className="text-4xl md:text-5xl font-heading font-bold mt-2 mb-4 text-white">
-                    Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600">Projects</span>
+                <span className="text-indigo-500 dark:text-indigo-400 font-medium tracking-wider uppercase text-sm">Portfolio</span>
+                <h2 className="text-4xl md:text-5xl font-heading font-bold mt-2 mb-4 text-slate-900 dark:text-white">
+                    Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-indigo-700 dark:from-indigo-400 dark:to-indigo-600">Projects</span>
                 </h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base leading-relaxed">
-                    Real-world applications showcasing problem-solving and technical expertise
+                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base leading-relaxed">
+                    Real-world solutions showcasing technical depth, problem-solving, and measurable business impact
                 </p>
             </motion.div>
             
@@ -144,7 +152,7 @@ const Projects = () => {
             </div>
             
             <div className="text-center mt-12">
-                <a href="#" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors group">
+                <a href="#" className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-semibold text-sm transition-colors group">
                     View All Projects <ArrowUpRight className="ml-1.5 w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
             </div>

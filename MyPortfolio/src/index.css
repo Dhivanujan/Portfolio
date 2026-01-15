@@ -18,9 +18,9 @@
     --background: 0 0% 100%;
     --foreground: 222 47% 11%;
     --border: 214 32% 91%;
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
     --card-foreground: 222 47% 11%;
-    --primary: 244 63% 62%;
+    --primary: 59 100% 51%; /* Teal accent */
     --primary-foreground: 210 40% 98%;
   }
 
@@ -32,24 +32,25 @@
   body {
     @apply font-sans antialiased overflow-x-hidden;
     position: relative;
-    line-height: 1.7; /* Improved readability */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.75; /* Improved readability */
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
   
-  /* Dark mode background */
+  /* Dark mode - Cosmic starry background */
   body.dark,
   .dark body {
-    @apply bg-obsidian text-slate-100;
-    background: linear-gradient(to bottom, #0a0b14 0%, #0b0c15 50%, #08090f 100%);
+    @apply bg-obsidian text-slate-50;
+    background: radial-gradient(ellipse at top, #1a1b2e 0%, #0a0b14 50%, #050508 100%);
+    position: relative;
   }
   
-  /* Light mode background */
+  /* Light mode - Clean corporate background */
   body:not(.dark) {
     @apply bg-white text-slate-900;
-    background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 50%, #f3f4f6 100%);
   }
   
-  /* Subtle noise texture for dark mode only */
+  /* Starry cosmic effect for dark mode only */
   body.dark::before,
   .dark body::before {
     content: "";
@@ -58,9 +59,33 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.15), transparent),
+      radial-gradient(2px 2px at 60% 70%, rgba(99, 102, 241, 0.2), transparent),
+      radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.1), transparent),
+      radial-gradient(1px 1px at 80% 10%, rgba(139, 92, 246, 0.15), transparent),
+      radial-gradient(2px 2px at 90% 60%, rgba(168, 85, 247, 0.1), transparent),
+      radial-gradient(1px 1px at 33% 80%, rgba(255, 255, 255, 0.08), transparent);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    animation: twinkle 60s ease-in-out infinite;
     pointer-events: none;
-    z-index: 50;
+    opacity: 0.4;
+    z-index: 1;
+  }
+  
+  /* Subtle noise texture for texture */
+  body.dark::after,
+  .dark body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
   }
   
   /* Improved text rendering */
@@ -72,10 +97,17 @@
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
     font-weight: 700;
+    letter-spacing: -0.02em;
   }
   
   p {
-    line-height: 1.7;
+    line-height: 1.75;
+  }
+  
+  /* Ensure content is above background effects */
+  #root {
+    position: relative;
+    z-index: 2;
   }
 }
 
@@ -96,6 +128,29 @@
   /* Subtle hover effects */
   .card-hover {
     @apply transition-all duration-300 hover:border-slate-700 hover:shadow-xl;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Glow effects for dark mode headings */
+  .dark .heading-glow {
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  
+  /* Light mode card styles */
+  body:not(.dark) .glass-card {
+    @apply bg-white border-slate-200 shadow-md;
+  }
+  
+  body:not(.dark) .glass-card:hover {
+    @apply border-slate-300 shadow-lg;
+  }
+  
+  body:not(.dark) .glass-panel {
+    @apply bg-white/90 border-slate-200 shadow-lg;
   }
   
   /* Clean text shadows for headings only when needed */
@@ -135,6 +190,18 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Starry background animation */
+  @keyframes twinkle {
+    0%, 100% {
+      background-position: 0% 0%;
+      opacity: 0.4;
+    }
+    50% {
+      background-position: 100% 100%;
+      opacity: 0.6;
     }
   }
 }

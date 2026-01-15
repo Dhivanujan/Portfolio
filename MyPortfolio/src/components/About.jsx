@@ -51,24 +51,29 @@ const About = () => {
                             <div className="absolute -inset-[1px] bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-500 rounded-2xl opacity-10 group-hover:opacity-20 transition-all duration-700" />
                             
                             <div 
-                                className="p-8 rounded-2xl relative border border-slate-800 bg-slate-900/50 hover:bg-slate-900/70 transition-all duration-300 backdrop-blur-sm"
+                                className="p-8 rounded-2xl relative border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 transition-all duration-300 backdrop-blur-sm shadow-sm"
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-                                        <Code2 className="w-5 h-5 text-indigo-400" />
+                                        <Code2 className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white">Problem Solver & Builder</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Senior-Level Engineer</h3>
                                 </div>
                                 
-                                <div className="space-y-4 text-slate-300 leading-relaxed">
+                                <div className="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed">
                                     <p>
-                                        I'm a results-driven <strong className="text-white font-semibold">Full Stack Developer</strong> with a strong foundation in computer science fundamentals and a passion for building <strong className="text-indigo-400">scalable, maintainable solutions</strong>.
+                                        I'm a <strong className="text-slate-900 dark:text-white font-semibold">Senior AI, Cloud & DevOps Engineer</strong> specializing in building intelligent, 
+                                        scalable infrastructure and deploying production-ready machine learning systems.
                                     </p>
                                     <p>
-                                        My approach focuses on understanding business requirements, designing efficient architectures, and delivering high-quality code that solves real problems. I thrive in environments that challenge me to learn and grow.
+                                        My expertise spans <strong className="text-indigo-600 dark:text-indigo-400">AI/ML deployment</strong>, cloud architecture 
+                                        (AWS, Azure, GCP), container orchestration, and network engineering. I design systems that combine automation, 
+                                        performance optimization, and enterprise security.
                                     </p>
                                     <p>
-                                        With expertise spanning the <strong className="text-indigo-400">MERN stack</strong>, system design, and modern development practices, I build full-stack applications from concept to deployment, always prioritizing <strong className="text-white">user experience and code quality</strong>.
+                                        From developing <strong className="text-slate-900 dark:text-white">RESTful ML APIs</strong> to architecting CI/CD pipelines and 
+                                        implementing cloud-native solutions, I deliver end-to-end systems that drive measurable business outcomes while 
+                                        maintaining <strong className="text-indigo-600 dark:text-indigo-400">reliability and security</strong> at scale.
                                     </p>
                                 </div>
                             </div>
@@ -85,25 +90,25 @@ const About = () => {
                         {[
                             {
                                 icon: Globe,
-                                title: "Full Stack Development",
-                                desc: "End-to-end development from database design to responsive UIs, ensuring seamless user experiences.",
-                                color: "text-indigo-400",
+                                title: "AI & ML Engineering",
+                                desc: "Deploying intelligent systems with ML model integration, REST APIs, and containerized services for production environments.",
+                                color: "text-indigo-500 dark:text-indigo-400",
                                 gradient: "from-indigo-400 to-indigo-600",
                                 border: "border-indigo-400/20",
                             },
                             {
                                 icon: Cpu,
-                                title: "System Architecture",
-                                desc: "Designing scalable, maintainable architectures with focus on performance, security, and reliability.",
-                                color: "text-indigo-500",
+                                title: "Cloud & DevOps",
+                                desc: "Architecting cloud infrastructure (AWS, Azure), CI/CD pipelines, Kubernetes orchestration, and Infrastructure as Code with Terraform.",
+                                color: "text-indigo-600 dark:text-indigo-500",
                                 gradient: "from-indigo-500 to-indigo-700",
                                 border: "border-indigo-500/20",
                             },
                             {
                                 icon: Rocket,
-                                title: "Continuous Learning",
-                                desc: "Always exploring emerging technologies like AI/ML integration to stay ahead in the evolving tech landscape.",
-                                color: "text-indigo-300",
+                                title: "Networking & Security",
+                                desc: "Implementing secure network architectures, VPC design, load balancing, and applying security best practices (OWASP, TLS, IAM).",
+                                color: "text-indigo-400 dark:text-indigo-300",
                                 gradient: "from-indigo-300 to-indigo-500",
                                 border: "border-indigo-300/20",
                             }
@@ -116,7 +121,7 @@ const About = () => {
                                     scale: 1.01,
                                     transition: { type: "spring", stiffness: 400, damping: 17 }
                                 }}
-                                className="group flex items-start p-6 rounded-xl transition-all duration-300 border border-slate-800 hover:border-slate-700 bg-slate-900/50 hover:bg-slate-900/70 backdrop-blur-sm relative overflow-hidden"
+                                className="group flex items-start p-6 rounded-xl transition-all duration-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 backdrop-blur-sm relative overflow-hidden shadow-sm hover:shadow-md"
                             >
                                 {/* Icon */}
                                 <div className={`relative p-3 rounded-lg bg-gradient-to-br ${feature.gradient} bg-opacity-10 mr-4 flex-shrink-0 border ${feature.border}`}>
@@ -124,8 +129,8 @@ const About = () => {
                                 </div>
                                 
                                 <div className="relative z-10">
-                                    <h4 className={`text-lg font-bold text-white mb-2 group-hover:${feature.color} transition-colors duration-300`}>{feature.title}</h4>
-                                    <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                                    <h4 className={`text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:${feature.color} transition-colors duration-300`}>{feature.title}</h4>
+                                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
                                 </div>
                             </motion.div>
                         ))}

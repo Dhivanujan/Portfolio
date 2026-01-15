@@ -19,8 +19,8 @@ const Section = ({
           {children}
         </motion.section>
         
-        {/* Minimal section divider */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent" />
+        {/* Minimal section divider - adapts to theme */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent opacity-50" />
     </div>
   );
 };

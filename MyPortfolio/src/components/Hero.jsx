@@ -77,25 +77,27 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight mb-4 leading-[1.1]"
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight mb-6 leading-[1.1]"
                     >
-                        <span className="bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-100 to-slate-300">
-                             Software
+                        <span className="bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-600 dark:from-white dark:via-slate-100 dark:to-slate-300">
+                            AI • Networking • Web Development
                         </span>
                         <br />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600">
-                            Engineer
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-400 dark:via-indigo-500 dark:to-indigo-600 heading-glow">
+                            DevOps • Cloud Engineering
                         </span>
                     </motion.h1>
 
-                    {/* Clear value proposition */}
+                    {/* Professional summary - senior-level positioning */}
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-lg md:text-xl text-slate-300 max-w-lg mb-8 leading-relaxed font-light"
+                        className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mb-8 leading-relaxed font-normal"
                     >
-                        Building scalable web applications with modern technologies and clean, maintainable code
+                        Building <strong className="text-slate-800 dark:text-white font-semibold">scalable systems</strong> with intelligent automation, 
+                        optimized performance, and enterprise-grade reliability. 
+                        Focused on delivering <strong className="text-indigo-600 dark:text-indigo-400">secure, cloud-native solutions</strong> that drive business value.
                     </motion.p>
 
 
@@ -111,7 +113,7 @@ const Hero = () => {
                             smooth={true}
                             duration={500}
                             offset={-70}
-                            className="group relative inline-flex items-center justify-center px-8 py-4 text-white transition-all duration-300 bg-indigo-600 hover:bg-indigo-500 font-medium focus:outline-none cursor-pointer rounded-lg shadow-lg shadow-indigo-600/20 hover:shadow-indigo-500/30"
+                            className="group relative inline-flex items-center justify-center px-8 py-4 text-white transition-all duration-300 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-600 dark:hover:bg-indigo-500 font-semibold focus:outline-none cursor-pointer rounded-lg shadow-lg shadow-indigo-600/20 hover:shadow-indigo-500/30 hover:scale-[1.02]"
                         >
                             <span className="relative flex items-center tracking-wide text-sm">
                                 View Projects 
@@ -122,7 +124,7 @@ const Hero = () => {
                         <a 
                             href="#" 
                             download
-                            className="group inline-flex items-center justify-center px-8 py-4 text-slate-300 hover:text-white transition-all duration-300 font-medium border border-slate-700 hover:border-slate-600 bg-slate-800/50 hover:bg-slate-800 rounded-lg"
+                            className="group inline-flex items-center justify-center px-8 py-4 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-300 font-semibold border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600 bg-white dark:bg-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg shadow-sm hover:shadow-md"
                         >
                             <FileText className="mr-2 w-4 h-4" />
                             <span className="text-sm tracking-wide">Download Resume</span>
@@ -136,10 +138,10 @@ const Hero = () => {
                         transition={{ delay: 0.4, duration: 0.6 }}
                         className="flex items-center gap-4 mt-8"
                     >
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 p-3 border border-slate-700 bg-slate-800/50 rounded-lg hover:shadow-lg hover:border-slate-600">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all duration-300 hover:scale-110 p-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 rounded-lg hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-600">
                             <Github className="h-5 w-5" />
                         </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-indigo-400 transition-all duration-300 hover:scale-110 p-3 border border-slate-700 bg-slate-800/50 rounded-lg hover:shadow-lg hover:border-indigo-600">
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 hover:scale-110 p-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 rounded-lg hover:shadow-lg hover:border-indigo-400 dark:hover:border-indigo-600">
                             <Linkedin className="h-5 w-5" />
                         </a>
                     </motion.div>

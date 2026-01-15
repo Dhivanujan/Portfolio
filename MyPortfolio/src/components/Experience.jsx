@@ -51,26 +51,26 @@ const ExperienceCard = ({ exp, index }) => {
             <div className="hidden md:block w-5/12"></div>
 
             {/* Timeline Dot */}
-            <div className={`absolute left-0 md:left-1/2 w-8 h-8 -ml-4 md:-ml-4 rounded-full bg-obsidian border-4 ${exp.type === "work" ? "border-primary" : "border-indigo-400"} z-20 flex items-center justify-center ${exp.glow}`}>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
+            <div className={`absolute left-0 md:left-1/2 w-8 h-8 -ml-4 md:-ml-4 rounded-full bg-white dark:bg-obsidian border-4 ${exp.type === "work" ? "border-indigo-500 dark:border-primary" : "border-indigo-400"} z-20 flex items-center justify-center shadow-md dark:${exp.glow}`}>
+                <div className="w-2 h-2 bg-indigo-600 dark:bg-white rounded-full"></div>
             </div>
 
             {/* Content Card */}
             <div className="w-full md:w-5/12 pl-10 md:pl-0">
                 <motion.div
                     whileHover={{ y: -5, scale: 1.02 }}
-                    className="glass-card p-6 rounded-2xl border border-white/10 relative overflow-hidden group shadow-lg after:absolute after:inset-0 after:bg-gradient-to-r after:from-primary/5 after:to-transparent after:opacity-0 after:group-hover:opacity-100 after:transition-opacity"
+                    className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 relative overflow-hidden group shadow-sm hover:shadow-lg dark:shadow-lg bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 transition-all duration-300 after:absolute after:inset-0 after:bg-gradient-to-r after:from-indigo-500/5 dark:after:from-primary/5 after:to-transparent after:opacity-0 after:group-hover:opacity-100 after:transition-opacity"
                 >
-                     <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${exp.type === "work" ? "from-primary to-transparent" : "from-indigo-400 to-transparent"}`}></div>
+                     <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${exp.type === "work" ? "from-indigo-500 dark:from-primary to-transparent" : "from-indigo-400 to-transparent"}`}></div>
                      
                      <div className="flex items-center gap-3 mb-2">
-                        {exp.type === "work" ? <Briefcase size={16} className="text-primary" /> : <GraduationCap size={16} className="text-indigo-400" />}
-                        <span className="text-xs font-mono text-primary/80 uppercase tracking-widest">{exp.period}</span>
+                        {exp.type === "work" ? <Briefcase size={16} className="text-indigo-600 dark:text-primary" /> : <GraduationCap size={16} className="text-indigo-500 dark:text-indigo-400" />}
+                        <span className="text-xs font-mono text-indigo-600/80 dark:text-primary/80 uppercase tracking-widest">{exp.period}</span>
                      </div>
 
-                    <h3 className="text-xl font-bold text-slate-100 mb-1 group-hover:text-primary transition-all">{exp.title}</h3>
-                    <h4 className={`text-sm font-medium ${exp.color} mb-4`}>{exp.company}</h4>
-                    <p className="text-slate-400 text-sm leading-relaxed">{exp.description}</p>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1 group-hover:text-indigo-600 dark:group-hover:text-primary transition-all">{exp.title}</h3>
+                    <h4 className={`text-sm font-semibold ${exp.color} mb-4`}>{exp.company}</h4>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{exp.description}</p>
                 </motion.div>
             </div>
         </motion.div>
@@ -98,20 +98,21 @@ const Experience = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center mb-20"
             >
-                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-                    Experience <span className="text-slate-200">&</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">Education</span>
+                <span className="text-indigo-500 dark:text-indigo-400 font-medium tracking-wider uppercase text-sm">Journey</span>
+                <h2 className="text-4xl md:text-5xl font-heading font-bold mt-2 mb-4 text-slate-900 dark:text-white">
+                    Experience <span className="text-slate-500 dark:text-slate-200">&</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-indigo-700 dark:from-primary dark:to-indigo-400">Education</span>
                 </h2>
-                <p className="text-slate-400 max-w-2xl mx-auto">
-                    My professional journey and academic background.
+                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    Professional experience and continuous learning journey
                 </p>
             </motion.div>
 
             <div ref={ref} className="relative max-w-5xl mx-auto">
                 {/* Center Line */}
-                <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -ml-[1px] md:-ml-0.5"></div>
+                <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-300/40 dark:bg-white/10 -ml-[1px] md:-ml-0.5"></div>
                 <motion.div 
                     style={{ scaleY, originY: 0 }}
-                     className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-indigo-600 to-indigo-900 -ml-[1px] md:-ml-0.5 z-10"
+                     className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 via-indigo-600 to-indigo-800 dark:from-primary dark:via-indigo-600 dark:to-indigo-900 -ml-[1px] md:-ml-0.5 z-10"
                 ></motion.div>
 
                 <div className="space-y-16">
