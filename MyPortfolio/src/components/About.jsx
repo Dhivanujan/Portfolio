@@ -110,14 +110,14 @@ const About = () => {
                                         <Code2 className="w-6 h-6 text-white" />
                                     </div>
                                     <div>
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Senior Engineer</h3>
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Software Engineer</h3>
                                         <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">AI • Cloud • DevOps</p>
                                     </div>
                                 </div>
                                 
                                 <div className="space-y-5 text-slate-600 dark:text-slate-300 leading-relaxed">
                                     <p className="text-lg">
-                                        I'm a <strong className="text-slate-900 dark:text-white font-semibold">Senior AI, Cloud & DevOps Engineer</strong> with a passion for building intelligent, 
+                                        I'm an <strong className="text-slate-900 dark:text-white font-semibold"> AI, Cloud & DevOps Engineer</strong> with a passion for building intelligent, 
                                         scalable infrastructure and deploying production-ready machine learning systems.
                                     </p>
                                     <p>
