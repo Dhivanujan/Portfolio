@@ -24,7 +24,7 @@ const About = () => {
 
     return (
         <Section id="about" className="relative">
-            <div ref={ref} className="max-w-6xl mx-auto">
+            <div ref={ref}>
                  <motion.div 
                     initial={{ opacity: 0, y: -20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}

@@ -19,7 +19,7 @@ const Contact = () => {
 
     return (
         <Section id="contact" className="relative pb-32">
-            <div className="grid md:grid-cols-2 gap-12 items-center relative z-10 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
                 {/* Contact Info */}
                 <motion.div 
                     initial={{ opacity: 0, x: -50 }}

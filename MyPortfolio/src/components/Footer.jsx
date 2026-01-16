@@ -7,7 +7,7 @@ const Footer = () => {
             {/* Gradient line at top */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
             
-            <div className="container mx-auto px-6 py-12">
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl py-12">
                 <div className="grid md:grid-cols-3 gap-8 items-center">
                     {/* Brand */}
                     <div className="text-center md:text-left">
