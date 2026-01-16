@@ -1,139 +1,251 @@
 import Section from "./Section";
 import { motion, useScroll, useSpring, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, GraduationCap, MapPin, Calendar, ChevronRight, Sparkles } from "lucide-react";
+import { Briefcase, GraduationCap, Calendar, ChevronRight, Sparkles, Target, Rocket, Code, Cloud, Network } from "lucide-react";
 
-const experiences = [
+// Education Data
+const educationData = [
     {
-        type: "work",
-        title: "Software Engineer Intern",
-        company: "Tech Solutions Inc.",
-        location: "San Francisco, CA",
-        period: "June 2024 - Present",
-        description: "Contributed to the development of high-traffic web applications using React and Node.js. Optimized database queries in MongoDB, reducing response times by 30%.",
-        achievements: [
-            "Reduced API response times by 30% through query optimization",
-            "Implemented real-time features using WebSocket technology",
-            "Collaborated with 5+ team members in Agile sprints"
+        title: "BSc (Hons) in Software Engineering",
+        institution: "University",
+        period: "2023 – Present",
+        isCurrent: true,
+        description: "Comprehensive focus on software development, programming fundamentals, database management, and system design principles.",
+        highlights: [
+            "Software Development & Programming",
+            "Database Design & Management",
+            "System Architecture & Design",
+            "Agile Methodologies"
         ],
         gradient: "from-indigo-500 to-purple-600"
     },
     {
-        type: "work",
-        title: "Freelance Full Stack Developer",
-        company: "Self-Employed",
-        location: "Remote",
-        period: "Jan 2023 - May 2024",
-        description: "Designed and deployed custom websites for local businesses. Managed end-to-end development lifecycle, from client requirements to deployment on AWS.",
-        achievements: [
-            "Delivered 15+ production-ready websites",
-            "Achieved 98% client satisfaction rating",
-            "Implemented CI/CD pipelines reducing deployment time by 50%"
+        title: "NVQ Level 4 – Computer Network Technician",
+        institution: "Technical Institute",
+        period: "2022",
+        isCurrent: false,
+        description: "Hands-on practical training in networking technologies, hardware maintenance, troubleshooting, and system administration.",
+        highlights: [
+            "Network Configuration & Maintenance",
+            "Hardware Troubleshooting",
+            "System Administration",
+            "Technical Support"
         ],
         gradient: "from-cyan-500 to-blue-600"
     },
     {
-        type: "education",
-        title: "Computer Science Student",
-        company: "University of Technology",
-        location: "Boston, MA",
-        period: "2021 - 2025",
-        description: "Focusing on Algorithms, Data Structures, and Software Engineering. Active member of the Coding Club and organizer of university hackathons.",
-        achievements: [
-            "Dean's List for 4 consecutive semesters",
-            "Led a team of 8 in winning inter-university hackathon",
-            "Published research on ML optimization techniques"
-        ],
+        title: "G.C.E. Advanced Level (A/L)",
+        institution: "Secondary Education",
+        period: "2021",
+        isCurrent: false,
+        description: "Successfully completed Advanced Level examinations, building a strong foundation for higher education.",
+        highlights: [],
         gradient: "from-emerald-500 to-teal-600"
+    },
+    {
+        title: "G.C.E. Ordinary Level (O/L)",
+        institution: "Secondary Education",
+        period: "2018",
+        isCurrent: false,
+        description: "Completed Ordinary Level examinations with a strong academic record.",
+        highlights: [],
+        gradient: "from-amber-500 to-orange-600"
     }
 ];
 
-const ExperienceCard = ({ exp, index }) => {
+// Career Objective / Internship Goals
+const careerObjective = {
+    title: "Seeking Internship Opportunities",
+    fields: [
+        { name: "Software Engineering", icon: Code, color: "from-indigo-500 to-purple-600" },
+        { name: "Cloud Computing", icon: Cloud, color: "from-cyan-500 to-blue-600" },
+        { name: "Networking", icon: Network, color: "from-emerald-500 to-teal-600" }
+    ],
+    description: "Passionate and dedicated Software Engineering student actively seeking an internship opportunity to apply academic knowledge in real-world projects.",
+    strengths: [
+        "Strong problem-solving and analytical skills",
+        "Eager to learn and adapt to new technologies",
+        "Solid foundation in programming and system design",
+        "Hands-on experience through academic projects and technical training",
+        "Excellent communication and teamwork abilities"
+    ]
+};
+
+// Education Card Component
+const EducationCard = ({ edu, index }) => {
     const cardRef = useRef(null);
-    const isInView = useInView(cardRef, { once: true, margin: "-100px" });
+    const isInView = useInView(cardRef, { once: true, margin: "-50px" });
     
     return (
         <motion.div
             ref={cardRef}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: index * 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-            className={`relative flex items-stretch justify-between md:justify-normal gap-6 md:gap-10 ${
-                index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
-            }`}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
+            className="relative flex items-stretch gap-4 md:gap-8"
         >
-            {/* Empty Space for layout */}
-            <div className="hidden md:block w-[45%]"></div>
-
             {/* Timeline Dot */}
-            <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 z-20">
+            <div className="flex flex-col items-center">
                 <motion.div 
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.gradient} shadow-lg flex items-center justify-center`}
+                    className={`w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${edu.gradient} shadow-lg flex items-center justify-center flex-shrink-0`}
                     initial={{ scale: 0, rotate: -180 }}
                     animate={isInView ? { scale: 1, rotate: 0 } : {}}
-                    transition={{ delay: index * 0.15 + 0.2, type: "spring", stiffness: 200 }}
+                    transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 200 }}
                 >
-                    {exp.type === "work" ? (
-                        <Briefcase className="w-5 h-5 text-white" />
-                    ) : (
-                        <GraduationCap className="w-5 h-5 text-white" />
-                    )}
+                    <GraduationCap className="w-6 h-6 md:w-7 md:h-7 text-white" />
                 </motion.div>
+                {/* Connector Line */}
+                <div className="w-0.5 flex-1 bg-gradient-to-b from-slate-300 dark:from-slate-700 to-transparent mt-3"></div>
             </div>
 
             {/* Content Card */}
-            <div className="w-full md:w-[45%] pl-16 md:pl-0">
+            <div className="flex-1 pb-8 md:pb-12">
                 <motion.div
-                    whileHover={{ y: -5, scale: 1.01 }}
+                    whileHover={{ y: -3, scale: 1.01 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="group p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 relative overflow-hidden bg-white dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="group p-5 md:p-7 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 relative overflow-hidden bg-white/95 dark:bg-slate-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800/90 transition-all duration-300 shadow-md hover:shadow-xl"
                 >
                     {/* Gradient accent line */}
-                    <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${exp.gradient} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                    <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${edu.gradient} opacity-90`} />
                     
                     {/* Background glow */}
-                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${exp.gradient} opacity-0 group-hover:opacity-5 blur-3xl rounded-full transition-opacity duration-500`} />
+                    <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${edu.gradient} opacity-0 group-hover:opacity-10 blur-3xl rounded-full transition-opacity duration-500`} />
                     
-                    {/* Header */}
-                    <div className="flex flex-wrap items-start gap-3 mb-4">
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium">
+                    {/* Header with badges */}
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-semibold">
                             <Calendar className="w-3.5 h-3.5" />
-                            {exp.period}
+                            {edu.period}
                         </div>
-                        {exp.location && (
-                            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium">
-                                <MapPin className="w-3.5 h-3.5" />
-                                {exp.location}
-                            </div>
+                        {edu.isCurrent && (
+                            <motion.span 
+                                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold shadow-sm"
+                                initial={{ scale: 0.8 }}
+                                animate={{ scale: 1 }}
+                                transition={{ repeat: Infinity, repeatType: "reverse", duration: 2 }}
+                            >
+                                ✨ Current
+                            </motion.span>
                         )}
                     </div>
 
-                    <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                        {exp.title}
+                    <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
+                        🎓 {edu.title}
                     </h3>
-                    <h4 className={`text-sm font-semibold mb-4 bg-gradient-to-r ${exp.gradient} bg-clip-text text-transparent`}>
-                        {exp.company}
-                    </h4>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-5">
-                        {exp.description}
+                    <p className="text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed mb-4">
+                        {edu.description}
                     </p>
                     
-                    {/* Achievements */}
-                    <div className="space-y-2">
-                        {exp.achievements.map((achievement, idx) => (
-                            <motion.div 
-                                key={idx}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                                transition={{ delay: index * 0.15 + 0.3 + idx * 0.1 }}
-                                className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400"
+                    {/* Highlights */}
+                    {edu.highlights.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                            {edu.highlights.map((highlight, idx) => (
+                                <motion.span 
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                                    transition={{ delay: index * 0.1 + 0.3 + idx * 0.05 }}
+                                    className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700/50"
+                                >
+                                    {highlight}
+                                </motion.span>
+                            ))}
+                        </div>
+                    )}
+                </motion.div>
+            </div>
+        </motion.div>
+    );
+};
+
+// Career Objective Card Component
+const CareerObjectiveCard = () => {
+    const cardRef = useRef(null);
+    const isInView = useInView(cardRef, { once: true, margin: "-50px" });
+    
+    return (
+        <motion.div
+            ref={cardRef}
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+            className="relative"
+        >
+            <div className="p-6 md:p-10 rounded-3xl border border-slate-200/80 dark:border-slate-700/60 relative overflow-hidden bg-white/95 dark:bg-slate-900/90 backdrop-blur-sm shadow-xl">
+                {/* Animated gradient border */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 opacity-20 blur-sm -z-10" />
+                
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                    <motion.div 
+                        className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg flex items-center justify-center"
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={isInView ? { scale: 1, rotate: 0 } : {}}
+                        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    >
+                        <Target className="w-7 h-7 md:w-8 md:h-8 text-white" />
+                    </motion.div>
+                    <div>
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                            <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+                                💼 {careerObjective.title}
+                            </h3>
+                            <motion.span 
+                                className="px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-sm"
+                                animate={{ scale: [1, 1.05, 1] }}
+                                transition={{ repeat: Infinity, duration: 2 }}
                             >
-                                <ChevronRight className="w-4 h-4 text-indigo-500 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
-                                <span>{achievement}</span>
+                                🚀 Internship Seeker
+                            </motion.span>
+                        </div>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm md:text-base">
+                            {careerObjective.description}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Interested Fields */}
+                <div className="mb-6">
+                    <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3 uppercase tracking-wider">
+                        Areas of Interest
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {careerObjective.fields.map((field, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ delay: 0.3 + idx * 0.1 }}
+                                whileHover={{ y: -3, scale: 1.02 }}
+                                className={`p-4 rounded-xl bg-gradient-to-br ${field.color} text-white shadow-md cursor-default`}
+                            >
+                                <field.icon className="w-6 h-6 mb-2" />
+                                <span className="font-semibold text-sm">{field.name}</span>
                             </motion.div>
                         ))}
                     </div>
-                </motion.div>
+                </div>
+
+                {/* Strengths */}
+                <div>
+                    <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3 uppercase tracking-wider">
+                        Key Strengths
+                    </h4>
+                    <div className="space-y-2">
+                        {careerObjective.strengths.map((strength, idx) => (
+                            <motion.div 
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ delay: 0.4 + idx * 0.08 }}
+                                className="flex items-start gap-3 text-slate-700 dark:text-slate-300"
+                            >
+                                <ChevronRight className="w-5 h-5 text-indigo-500 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
+                                <span className="text-sm md:text-base">{strength}</span>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </motion.div>
     );
@@ -142,28 +254,20 @@ const ExperienceCard = ({ exp, index }) => {
 const Experience = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-    const scaleY = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
 
     return (
         <Section id="experience" className="relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute top-40 left-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-40 right-0 w-[400px] h-[400px] bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+            {/* Background decoration - subtle for readability */}
+            <div className="absolute top-40 left-0 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-40 right-0 w-[300px] h-[300px] bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl pointer-events-none" />
             
+            {/* Section Header */}
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-center mb-20"
+                className="text-center mb-16"
             >
                 <motion.span 
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-semibold text-sm mb-4"
@@ -173,39 +277,58 @@ const Experience = () => {
                     <Sparkles className="w-4 h-4" />
                     My Journey
                 </motion.span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-5 text-slate-900 dark:text-white">
-                    Experience <span className="text-slate-400 dark:text-slate-500">&</span>{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-500">Education</span>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mt-3 mb-5 text-slate-900 dark:text-white">
+                    Education <span className="text-slate-400 dark:text-slate-500">&</span>{" "}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-500">Career Goals</span>
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
-                    Professional experience and continuous learning journey
+                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
+                    Building a strong foundation through continuous learning and practical experience
                 </p>
             </motion.div>
 
-            <div ref={ref} className="relative max-w-5xl mx-auto">
-                {/* Center Line - Background */}
-                <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800 md:-translate-x-1/2"></div>
+            <div ref={ref} className="relative max-w-4xl mx-auto">
                 
-                {/* Center Line - Animated progress */}
-                <motion.div 
-                    style={{ scaleY, originY: 0 }}
-                    className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 via-purple-500 to-cyan-500 md:-translate-x-1/2 z-10"
-                />
-
-                <div className="space-y-12 md:space-y-20">
-                    {experiences.map((exp, index) => (
-                        <ExperienceCard key={index} exp={exp} index={index} />
-                    ))}
-                </div>
-                
-                {/* End dot */}
-                <motion.div 
-                    className="absolute left-6 md:left-1/2 bottom-0 md:-translate-x-1/2 w-4 h-4 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full shadow-lg z-20"
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
+                {/* Career Objective Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.5, type: "spring" }}
-                />
+                    transition={{ duration: 0.5 }}
+                    className="mb-16"
+                >
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                            <Rocket className="w-5 h-5 text-white" />
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+                            Career Objective
+                        </h3>
+                    </div>
+                    <CareerObjectiveCard />
+                </motion.div>
+
+                {/* Education Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <GraduationCap className="w-5 h-5 text-white" />
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+                            Education
+                        </h3>
+                    </div>
+                    
+                    <div className="space-y-0">
+                        {educationData.map((edu, index) => (
+                            <EducationCard key={index} edu={edu} index={index} />
+                        ))}
+                    </div>
+                </motion.div>
             </div>
         </Section>
     );
