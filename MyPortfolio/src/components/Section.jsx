@@ -10,17 +10,28 @@ const Section = ({
     <div className="relative w-full">
         <motion.section
           id={id}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.6, delay: delay, ease: "easeOut" }}
-          className={`py-20 md:py-24 lg:py-32 relative z-10 container mx-auto px-6 md:px-10 lg:px-12 max-w-6xl ${className}`}
+          transition={{ duration: 0.7, delay: delay, ease: [0.25, 0.4, 0.25, 1] }}
+          className={`py-24 md:py-28 lg:py-36 relative z-10 container mx-auto px-6 md:px-10 lg:px-12 max-w-6xl ${className}`}
         >
           {children}
         </motion.section>
         
-        {/* Minimal section divider - adapts to theme */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent opacity-50" />
+        {/* Enhanced section divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          {/* Main gradient line */}
+          <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent opacity-60" />
+          {/* Accent glow */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-32 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+          {/* Decorative dots */}
+          <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 flex items-center gap-1">
+            <div className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+            <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/50" />
+            <div className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+          </div>
+        </div>
     </div>
   );
 };
