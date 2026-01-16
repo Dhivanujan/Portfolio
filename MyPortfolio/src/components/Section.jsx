@@ -14,7 +14,7 @@ const Section = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.6, delay: delay, ease: "easeOut" }}
-          className={`py-20 md:py-24 lg:py-32 relative z-10 container mx-auto px-6 md:px-12 max-w-7xl ${className}`}
+          className={`py-20 md:py-24 lg:py-32 relative z-10 container mx-auto px-6 md:px-10 lg:px-12 max-w-6xl ${className}`}
         >
           {children}
         </motion.section>

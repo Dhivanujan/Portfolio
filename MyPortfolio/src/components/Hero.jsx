@@ -1,19 +1,14 @@
 import { motion, useMotionValue, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-scroll";
-import { ArrowRight, Github, Linkedin, FileText } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { ArrowRight, Github, Linkedin, FileText, CheckCircle2 } from "lucide-react";
 import Hero3D from "./Hero3D";
 import profile from "../assets/Profile.JPG";
 
-// Text reveal animation variants
-const letterVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i) => ({
-        opacity: 1,
-        y: 0,
-        transition: { delay: i * 0.03, duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }
-    })
-};
+const highlights = [
+    "AI/ML delivery", 
+    "Cloud-first systems", 
+    "Secure DevOps"
+];
 
 const Hero = () => {
     const x = useMotionValue(0);
@@ -22,21 +17,12 @@ const Hero = () => {
     // Scroll-based parallax
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-    const y2 = useTransform(scrollY, [0, 500], [0, -100]);
     const opacity = useTransform(scrollY, [0, 400], [1, 0]);
     const scale = useTransform(scrollY, [0, 400], [1, 0.9]);
 
     const rotateX = useTransform(y, [0, window.innerHeight], [5, -5]);
     const rotateY = useTransform(x, [0, window.innerWidth], [-5, 5]);
     
-    // Smooth spring physics for mouse movement
-    const springConfig = { stiffness: 100, damping: 30 };
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    useEffect(() => {
-        setIsLoaded(true);
-    }, []);
-
     function handleMouse(event) {
         x.set(event.clientX);
         y.set(event.clientY);
@@ -45,7 +31,7 @@ const Hero = () => {
     return (
         <section
             id="hero"
-            className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 md:pt-0"
+            className="min-h-[90vh] flex items-center justify-center relative overflow-hidden pt-28 md:pt-20"
             onMouseMove={handleMouse}
         >
             {/* Subtle gradient background accents */}
@@ -56,35 +42,35 @@ const Hero = () => {
             
             <motion.div 
                 style={{ opacity, scale }}
-                className="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-7xl pt-10 md:pt-0"
+                className="container mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-14 items-center relative z-10 w-full max-w-6xl pt-6 md:pt-0"
             >
                 {/* Text Content */}
                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.95, y: 14 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="mb-6 inline-flex items-center px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/[0.08] backdrop-blur-md"
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="mb-5 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/25 bg-indigo-500/[0.08] backdrop-blur-md shadow-sm"
                     >
-                        <span className="relative flex h-2 w-2 mr-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-60"></span>
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-60"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                         </span>
-                        <span className="text-[13px] font-medium text-indigo-400 tracking-wide">Available for opportunities</span>
+                        <span className="text-[13px] font-semibold text-indigo-500 dark:text-indigo-300 tracking-wide">Open for impactful roles</span>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight mb-6 leading-[1.1]"
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-heading font-bold tracking-tight mb-6 leading-[1.08]"
                     >
                         <span className="bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-600 dark:from-white dark:via-slate-100 dark:to-slate-300">
-                            AI • Networking • Web Development
+                            Building intelligent, resilient platforms
                         </span>
                         <br />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-400 dark:via-indigo-500 dark:to-indigo-600 heading-glow">
-                            DevOps • Cloud Engineering
+                            AI • Cloud • DevOps • Networking
                         </span>
                     </motion.h1>
 
@@ -93,12 +79,24 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mb-8 leading-relaxed font-normal"
+                        className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mb-7 leading-relaxed font-normal"
                     >
-                        Building <strong className="text-slate-800 dark:text-white font-semibold">scalable systems</strong> with intelligent automation, 
-                        optimized performance, and enterprise-grade reliability. 
-                        Focused on delivering <strong className="text-indigo-600 dark:text-indigo-400">secure, cloud-native solutions</strong> that drive business value.
+                        Designing <strong className="text-slate-900 dark:text-white font-semibold">human-centered systems</strong> that blend AI, networking, and cloud-native engineering. I orchestrate automation, observability, and security so teams can ship faster with confidence.
                     </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.22, duration: 0.55 }}
+                        className="flex flex-wrap items-center gap-3 mb-8"
+                    >
+                        {highlights.map((item) => (
+                            <span key={item} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[13px] font-semibold text-slate-700 dark:text-slate-200 shadow-sm">
+                                <CheckCircle2 className="w-4 h-4 text-indigo-500" />
+                                {item}
+                            </span>
+                        ))}
+                    </motion.div>
 
 
                     {/* Primary and Secondary CTAs */}
@@ -122,9 +120,9 @@ const Hero = () => {
                         </Link>
                         
                         <a 
-                            href="#" 
+                            href="/resume.pdf" 
                             download
-                            className="group inline-flex items-center justify-center px-8 py-4 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-300 font-semibold border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600 bg-white dark:bg-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg shadow-sm hover:shadow-md"
+                            className="group inline-flex items-center justify-center px-8 py-4 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-all duration-300 font-semibold border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-white dark:bg-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg shadow-sm hover:shadow-md"
                         >
                             <FileText className="mr-2 w-4 h-4" />
                             <span className="text-sm tracking-wide">Download Resume</span>
@@ -152,10 +150,10 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[400px]"
+                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[420px]"
                     style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                 >
-                    <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
+                    <div className="relative w-full max-w-[520px] aspect-[5/6] flex items-center justify-center">
                         {/* Subtle glow effects */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-indigo-500/[0.06] rounded-full blur-[80px]"></div>
                         
@@ -166,17 +164,17 @@ const Hero = () => {
 
                         {/* Profile Image - Optional */}
                         <motion.div 
-                            initial={{ scale: 0, opacity: 0 }} 
+                            initial={{ scale: 0.92, opacity: 0 }} 
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.6, type: "spring", stiffness: 60 }}
-                            className="relative z-10 w-60 h-60 md:w-72 md:h-72 rounded-full isolate"
+                            transition={{ delay: 0.6, type: "spring", stiffness: 80 }}
+                            className="relative z-10 w-60 h-72 md:w-72 md:h-80 rounded-[28px] isolate"
                         >
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-600 to-indigo-400 p-[2px] shadow-[0_0_30px_rgba(99,102,241,0.15)]">
-                                <div className="absolute inset-0 bg-obsidian rounded-full m-[2px] overflow-hidden">
+                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-indigo-600 to-indigo-400 p-[2px] shadow-[0_0_34px_rgba(99,102,241,0.16)]">
+                                <div className="absolute inset-0 bg-obsidian rounded-[24px] m-[2px] overflow-hidden">
                                      <img 
                                         src={profile} 
                                         alt="Portrait of Dhivanujan" 
-                                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
+                                        className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-500"
                                     />
                                 </div>
                             </div>

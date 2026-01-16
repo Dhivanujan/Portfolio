@@ -53,10 +53,10 @@ const ProjectCard = ({ project, index }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="group relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-lg"
+            className="group relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-xl h-full flex flex-col"
         >
             {/* Image Section */}
-            <div className="relative h-48 overflow-hidden">
+            <div className="relative aspect-[16/10] overflow-hidden">
                 <img 
                     src={project.image} 
                     alt={project.title}
@@ -73,8 +73,8 @@ const ProjectCard = ({ project, index }) => {
             </div>
 
             {/* Content */}
-            <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            <div className="p-6 flex flex-col flex-1">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
                     {project.title}
                 </h3>
                 
@@ -103,7 +103,7 @@ const ProjectCard = ({ project, index }) => {
                 </div>
 
                 {/* Links */}
-                <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex gap-3 pt-4 mt-auto border-t border-slate-200 dark:border-slate-800">
                     <a 
                         href={project.github} 
                         className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
@@ -141,7 +141,7 @@ const Projects = () => {
                 </p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
                 {projects.map((project, index) => (
                     <ProjectCard 
                         key={index} 
