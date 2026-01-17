@@ -50,7 +50,7 @@ const About = () => {
                         <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
                         Who I Am
                     </motion.span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-5">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-5  text-slate-900 dark:text-white">
                         About <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-500">Me</span>
                     </h2>
                     <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
