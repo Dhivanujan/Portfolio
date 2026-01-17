@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, useScroll } from "framer-motion";
+import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-scroll";
 import { ArrowRight, Github, Linkedin, FileText, Sparkles, Zap, Shield, Cloud } from "lucide-react";
 import Hero3D from "./Hero3D";
@@ -17,9 +17,6 @@ const floatingStats = [
 ];
 
 const Hero = () => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
     // Scroll-based parallax
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 150]);
@@ -27,19 +24,10 @@ const Hero = () => {
     const opacity = useTransform(scrollY, [0, 400], [1, 0]);
     const scale = useTransform(scrollY, [0, 400], [1, 0.9]);
 
-    const rotateX = useTransform(y, [0, window.innerHeight], [5, -5]);
-    const rotateY = useTransform(x, [0, window.innerWidth], [-5, 5]);
-    
-    function handleMouse(event) {
-        x.set(event.clientX);
-        y.set(event.clientY);
-    }
-
     return (
         <section
             id="hero"
             className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 md:pt-20"
-            onMouseMove={handleMouse}
         >
             {/* Animated gradient orbs */}
             <motion.div 
@@ -209,39 +197,62 @@ const Hero = () => {
                     </motion.div>
                 </div>
 
-                {/* 3D Object */}
+                {/* Visual Effects & Profile */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
                     className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[420px]"
-                    style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                 >
                     <div className="relative w-full max-w-[520px] aspect-[5/6] flex items-center justify-center">
-                        {/* Subtle glow effects */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-indigo-500/[0.06] rounded-full blur-[80px]"></div>
-                        
-                        {/* 3D Background Element */}
-                        <div className="absolute inset-0 z-0 scale-100 opacity-80">
+                        {/* Animated Background Effects */}
+                        <div className="absolute inset-0 z-0">
                             <Hero3D />
                         </div>
 
-                        {/* Profile Image - Optional */}
+                        {/* Profile Image */}
                         <motion.div 
                             initial={{ scale: 0.92, opacity: 0 }} 
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.6, type: "spring", stiffness: 80 }}
-                            className="relative z-10 w-60 h-72 md:w-72 md:h-80 rounded-[28px] isolate"
+                            className="relative z-10 w-60 h-72 md:w-72 md:h-80 rounded-[28px] isolate group"
                         >
-                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-indigo-600 to-indigo-400 p-[2px] shadow-[0_0_34px_rgba(99,102,241,0.16)]">
-                                <div className="absolute inset-0 bg-obsidian rounded-[24px] m-[2px] overflow-hidden">
-                                     <img 
+                            {/* Animated border glow */}
+                            <motion.div 
+                                className="absolute -inset-1 rounded-[30px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 opacity-60 blur-sm group-hover:opacity-80 transition-opacity duration-500"
+                                animate={{
+                                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                                }}
+                                transition={{
+                                    duration: 5,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                }}
+                                style={{
+                                    backgroundSize: "200% 200%",
+                                }}
+                            />
+                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-indigo-600 to-purple-500 p-[2px] shadow-[0_0_40px_rgba(99,102,241,0.2)]">
+                                <div className="absolute inset-0 bg-slate-900 dark:bg-slate-950 rounded-[26px] m-[2px] overflow-hidden">
+                                    <img 
                                         src={profile} 
                                         alt="Portrait of Dhivanujan" 
-                                        className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-500"
+                                        className="w-full h-full object-cover opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-500"
                                     />
                                 </div>
                             </div>
+                            
+                            {/* Floating accent dots */}
+                            <motion.div 
+                                className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 shadow-lg shadow-indigo-500/30"
+                                animate={{ y: [-5, 5, -5], scale: [1, 1.1, 1] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                            />
+                            <motion.div 
+                                className="absolute -bottom-2 -left-2 w-4 h-4 rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 shadow-lg shadow-cyan-500/30"
+                                animate={{ y: [5, -5, 5], scale: [1, 1.15, 1] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                            />
                         </motion.div>
                     </div>
                 </motion.div>
