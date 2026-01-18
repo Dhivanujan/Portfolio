@@ -29,28 +29,81 @@ const Hero = () => {
             id="hero"
             className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 md:pt-20"
         >
-            {/* Animated gradient orbs */}
+            {/* Enhanced animated gradient orbs with 3D depth */}
             <motion.div 
                 style={{ y: y1 }}
-                className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-indigo-500/20 to-purple-500/10 rounded-full blur-[100px] pointer-events-none"
+                className="absolute top-10 left-5 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
+                initial={{ opacity: 0 }}
                 animate={{ 
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0.5, 0.3]
+                    scale: [1, 1.25, 1],
+                    opacity: [0.25, 0.45, 0.25]
                 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                style={{
+                    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%)'
+                }}
             />
             <motion.div 
                 style={{ y: y2 }}
-                className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-cyan-500/15 to-indigo-500/10 rounded-full blur-[100px] pointer-events-none"
+                className="absolute bottom-10 right-5 w-[450px] h-[450px] rounded-full blur-[120px] pointer-events-none"
+                initial={{ opacity: 0 }}
                 animate={{ 
-                    scale: [1.2, 1, 1.2],
-                    opacity: [0.2, 0.4, 0.2]
+                    scale: [1.15, 1, 1.15],
+                    opacity: [0.2, 0.38, 0.2]
                 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                style={{
+                    background: 'radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.12) 50%, transparent 70%)'
+                }}
+            />
+            {/* Accent orb for depth */}
+            <motion.div 
+                className="absolute top-1/2 left-1/3 w-[350px] h-[350px] rounded-full blur-[150px] pointer-events-none"
+                animate={{ 
+                    scale: [1, 1.2, 1],
+                    opacity: [0.1, 0.2, 0.1],
+                    x: [-30, 30, -30]
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                style={{
+                    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 60%)'
+                }}
             />
             
-            {/* Decorative grid pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+            {/* Enhanced decorative grid pattern with gradient fade */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: `
+                    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px)
+                `,
+                backgroundSize: '60px 60px',
+                maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 80%)',
+                WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 80%)'
+            }} />
+            
+            {/* Floating decorative elements */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <motion.div 
+                    className="absolute top-[15%] right-[8%] w-3 h-3 rounded-full bg-indigo-500/30"
+                    animate={{ y: [-10, 10, -10], opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div 
+                    className="absolute top-[35%] left-[5%] w-2 h-2 rounded-full bg-cyan-500/25"
+                    animate={{ y: [8, -8, 8], opacity: [0.25, 0.5, 0.25] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                />
+                <motion.div 
+                    className="absolute bottom-[25%] right-[15%] w-2.5 h-2.5 rounded-full bg-purple-500/25"
+                    animate={{ y: [-12, 12, -12], opacity: [0.2, 0.45, 0.2] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                />
+                <motion.div 
+                    className="absolute top-[60%] left-[12%] w-1.5 h-1.5 rounded-full bg-indigo-400/20"
+                    animate={{ y: [6, -6, 6], x: [-3, 3, -3] }}
+                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                />
+            </div>
             
             <motion.div 
                 style={{ opacity, scale }}
@@ -204,27 +257,43 @@ const Hero = () => {
                     transition={{ delay: 0.4, duration: 0.8 }}
                     className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[420px]"
                 >
-                    <div className="relative w-full max-w-[520px] aspect-[5/6] flex items-center justify-center">
+                    <div className="relative w-full max-w-[540px] aspect-[5/6] flex items-center justify-center">
                         {/* Animated Background Effects */}
                         <div className="absolute inset-0 z-0">
                             <Hero3D />
                         </div>
 
-                        {/* Profile Image */}
+                        {/* Profile Image with enhanced 3D effects */}
                         <motion.div 
                             initial={{ scale: 0.92, opacity: 0 }} 
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.6, type: "spring", stiffness: 80 }}
                             className="relative z-10 w-60 h-72 md:w-72 md:h-80 rounded-[28px] isolate group"
+                            whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                         >
-                            {/* Animated border glow */}
+                            {/* Animated multi-layer border glow */}
                             <motion.div 
-                                className="absolute -inset-1 rounded-[30px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 opacity-60 blur-sm group-hover:opacity-80 transition-opacity duration-500"
+                                className="absolute -inset-2 rounded-[32px] opacity-50 blur-md group-hover:opacity-70 transition-opacity duration-500"
                                 animate={{
                                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                                 }}
                                 transition={{
-                                    duration: 5,
+                                    duration: 6,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                }}
+                                style={{
+                                    background: "linear-gradient(90deg, rgba(99,102,241,0.5), rgba(139,92,246,0.5), rgba(6,182,212,0.5), rgba(139,92,246,0.5), rgba(99,102,241,0.5))",
+                                    backgroundSize: "300% 300%",
+                                }}
+                            />
+                            <motion.div 
+                                className="absolute -inset-1 rounded-[30px] bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 opacity-60 blur-sm group-hover:opacity-80 transition-opacity duration-500"
+                                animate={{
+                                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                                }}
+                                transition={{
+                                    duration: 4,
                                     repeat: Infinity,
                                     ease: "linear",
                                 }}
@@ -232,33 +301,47 @@ const Hero = () => {
                                     backgroundSize: "200% 200%",
                                 }}
                             />
-                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-indigo-600 to-purple-500 p-[2px] shadow-[0_0_40px_rgba(99,102,241,0.2)]">
+                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-indigo-600 via-purple-500 to-cyan-500 p-[2px] shadow-[0_0_50px_rgba(99,102,241,0.25)]">
                                 <div className="absolute inset-0 bg-slate-900 dark:bg-slate-950 rounded-[26px] m-[2px] overflow-hidden">
                                     <img 
                                         src={profile} 
                                         alt="Portrait of Dhivanujan" 
-                                        className="w-full h-full object-cover opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-500"
+                                        className="w-full h-full object-cover opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-700"
                                     />
+                                    {/* Subtle overlay for depth */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 </div>
                             </div>
                             
-                            {/* Floating accent dots */}
+                            {/* Enhanced floating accent elements */}
                             <motion.div 
-                                className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 shadow-lg shadow-indigo-500/30"
-                                animate={{ y: [-5, 5, -5], scale: [1, 1.1, 1] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute -top-4 -right-4 w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 shadow-lg shadow-indigo-500/40"
+                                animate={{ y: [-6, 6, -6], scale: [1, 1.15, 1], rotate: [0, 180, 360] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                             />
                             <motion.div 
-                                className="absolute -bottom-2 -left-2 w-4 h-4 rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 shadow-lg shadow-cyan-500/30"
-                                animate={{ y: [5, -5, 5], scale: [1, 1.15, 1] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                                className="absolute -bottom-3 -left-3 w-5 h-5 rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 shadow-lg shadow-cyan-500/40"
+                                animate={{ y: [6, -6, 6], scale: [1, 1.2, 1] }}
+                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                            />
+                            <motion.div 
+                                className="absolute top-1/2 -right-5 w-3 h-3 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 shadow-md shadow-purple-500/30"
+                                animate={{ x: [-4, 4, -4], opacity: [0.5, 1, 0.5] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                            />
+                            
+                            {/* Orbiting ring effect */}
+                            <motion.div 
+                                className="absolute -inset-8 border border-indigo-500/10 rounded-full"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                             />
                         </motion.div>
                     </div>
                 </motion.div>
             </motion.div>
             
-            {/* Scroll indicator */}
+            {/* Enhanced scroll indicator with glow */}
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -269,9 +352,13 @@ const Hero = () => {
                 <motion.div 
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-5 h-8 border-2 border-slate-700 rounded-full flex justify-center pt-1.5"
+                    className="w-5 h-8 border-2 border-slate-600 dark:border-slate-700 rounded-full flex justify-center pt-1.5 relative"
                 >
-                    <motion.div className="w-1 h-1.5 bg-slate-500 rounded-full" />
+                    <motion.div 
+                        className="w-1 h-1.5 bg-indigo-500 rounded-full shadow-[0_0_6px_rgba(99,102,241,0.5)]"
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    />
                 </motion.div>
             </motion.div>
         </section>
