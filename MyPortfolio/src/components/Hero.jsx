@@ -107,7 +107,7 @@ const Hero = () => {
             
             <motion.div 
                 style={{ opacity, scale }}
-                className="container mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full max-w-6xl pt-6 md:pt-0"
+                className="container mx-auto px-4 sm:px-6 md:px-10 grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center relative z-10 w-full max-w-6xl pt-8 sm:pt-6 md:pt-0"
             >
                 {/* Text Content */}
                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1">
@@ -129,7 +129,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-6xl font-heading font-bold tracking-tight mb-6 leading-[1.1]"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-heading font-bold tracking-tight mb-4 sm:mb-6 leading-[1.15]"
                     >
                         <span className="bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-300">
                             Crafting Intelligent
@@ -156,7 +156,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-8 leading-relaxed"
+                        className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-6 sm:mb-8 leading-relaxed"
                     >
                         Specializing in <span className="text-indigo-600 dark:text-indigo-400 font-semibold">AI/ML</span>, <span className="text-purple-600 dark:text-purple-400 font-semibold">Cloud</span>, and <span className="text-cyan-600 dark:text-cyan-400 font-semibold">DevOps</span> engineering. I build production-ready systems that scale, secure, and deliver measurable business impact.
                     </motion.p>
@@ -166,7 +166,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 14 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25, duration: 0.55 }}
-                        className="flex flex-wrap items-center gap-3 mb-8"
+                        className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-6 sm:mb-8"
                     >
                         {highlights.map((item, idx) => (
                             <motion.span 
@@ -174,9 +174,9 @@ const Hero = () => {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3 + idx * 0.1 }}
-                                className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-semibold text-slate-700 dark:text-slate-200 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-0.5"
+                                className="group inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-0.5"
                             >
-                                <item.icon className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
+                                <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
                                 {item.text}
                             </motion.span>
                         ))}
@@ -187,14 +187,14 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.35, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+                        className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
                     >
                         <Link
                             to="projects"
                             smooth={true}
                             duration={500}
                             offset={-70}
-                            className="group relative inline-flex items-center justify-center px-8 py-4 text-white transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 font-semibold focus:outline-none cursor-pointer rounded-xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40 hover:scale-[1.02] overflow-hidden"
+                            className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-white transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 font-semibold focus:outline-none cursor-pointer rounded-xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40 hover:scale-[1.02] overflow-hidden"
                         >
                             <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                             <span className="relative flex items-center tracking-wide text-sm">
@@ -206,7 +206,7 @@ const Hero = () => {
                         <a 
                             href="/resume.pdf" 
                             download
-                            className="group inline-flex items-center justify-center px-8 py-4 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white transition-all duration-300 font-semibold border-2 border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 bg-white/80 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl shadow-sm hover:shadow-lg backdrop-blur-sm"
+                            className="group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white transition-all duration-300 font-semibold border-2 border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 bg-white/80 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl shadow-sm hover:shadow-lg backdrop-blur-sm"
                         >
                             <FileText className="mr-2 w-4 h-4 group-hover:scale-110 transition-transform" />
                             <span className="text-sm tracking-wide">Get Resume</span>
@@ -218,7 +218,7 @@ const Hero = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.45, duration: 0.6 }}
-                        className="flex items-center gap-6 mt-10 pt-8 border-t border-slate-200 dark:border-slate-800 w-full"
+                        className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200 dark:border-slate-800 w-full"
                     >
                         {/* Social Links */}
                         <div className="flex items-center gap-3">
@@ -255,9 +255,9 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[420px]"
+                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[350px] sm:min-h-[420px]"
                 >
-                    <div className="relative w-full max-w-[540px] aspect-[5/6] flex items-center justify-center">
+                    <div className="relative w-full max-w-[450px] sm:max-w-[540px] aspect-[5/6] flex items-center justify-center">
                         {/* Animated Background Effects */}
                         <div className="absolute inset-0 z-0">
                             <Hero3D />
@@ -268,7 +268,7 @@ const Hero = () => {
                             initial={{ scale: 0.92, opacity: 0 }} 
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.6, type: "spring", stiffness: 80 }}
-                            className="relative z-10 w-60 h-72 md:w-72 md:h-80 rounded-[28px] isolate group"
+                            className="relative z-10 w-52 h-64 sm:w-60 sm:h-72 md:w-72 md:h-80 rounded-[28px] isolate group"
                             whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                         >
                             {/* Animated multi-layer border glow */}

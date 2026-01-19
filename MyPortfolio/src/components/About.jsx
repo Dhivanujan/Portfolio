@@ -63,13 +63,13 @@ const About = () => {
                     variants={containerVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14"
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12 md:mb-14"
                 >
                     {stats.map((stat, idx) => (
                         <motion.div
                             key={stat.label}
                             variants={itemVariants}
-                            className="group relative p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 text-center overflow-hidden"
+                            className="group relative p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 text-center overflow-hidden"
                         >
                             <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                             <motion.div 
@@ -79,19 +79,19 @@ const About = () => {
                                 <stat.icon className="w-5 h-5 text-white" />
                             </motion.div>
                             <motion.div 
-                                className="text-3xl font-bold text-slate-900 dark:text-white mb-1"
+                                className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-1"
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                                 transition={{ delay: 0.3 + idx * 0.1, type: "spring" }}
                             >
                                 {stat.value}
                             </motion.div>
-                            <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">{stat.label}</div>
+                            <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium leading-tight">{stat.label}</div>
                         </motion.div>
                     ))}
                 </motion.div>
 
-                <div className="grid lg:grid-cols-2 gap-10 items-start">
+                <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-start">
                     {/* About summary */}
                     <motion.div
                         variants={itemVariants}
@@ -103,7 +103,7 @@ const About = () => {
                             <div className="absolute -inset-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 rounded-3xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
                             
                             <div 
-                                className="relative p-8 lg:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 backdrop-blur-sm shadow-xl"
+                                className="relative p-6 sm:p-8 lg:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 backdrop-blur-sm shadow-xl"
                             >
                                 <div className="flex items-center gap-4 mb-6">
                                     <div className="p-3 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/25">
@@ -115,17 +115,17 @@ const About = () => {
                                     </div>
                                 </div>
                                 
-                                <div className="space-y-5 text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    <p className="text-lg">
+                                <div className="space-y-4 sm:space-y-5 text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    <p className="text-base sm:text-lg">
                                         I'm an <strong className="text-slate-900 dark:text-white font-semibold"> AI, Cloud & DevOps Engineer</strong> with a passion for building intelligent, 
                                         scalable infrastructure and deploying production-ready machine learning systems.
                                     </p>
-                                    <p>
+                                    <p className="text-sm sm:text-base">
                                         My expertise spans <span className="text-indigo-600 dark:text-indigo-400 font-semibold">AI/ML deployment</span>, cloud architecture 
                                         (AWS, Azure, GCP), container orchestration, and network engineering. I design systems that combine automation, 
                                         performance optimization, and enterprise security.
                                     </p>
-                                    <p>
+                                    <p className="text-sm sm:text-base">
                                         From developing <strong className="text-slate-900 dark:text-white">RESTful ML APIs</strong> to architecting CI/CD pipelines and 
                                         implementing cloud-native solutions, I deliver end-to-end systems that drive measurable outcomes.
                                     </p>
@@ -176,7 +176,7 @@ const About = () => {
                                     scale: 1.02,
                                     transition: { type: "spring", stiffness: 400, damping: 17 }
                                 }}
-                                className="group flex items-start gap-5 p-6 rounded-2xl transition-all duration-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-gradient-to-r hover:from-slate-50 hover:to-white dark:hover:from-slate-900/70 dark:hover:to-slate-900/50 backdrop-blur-sm relative overflow-hidden shadow-sm hover:shadow-xl"
+                                className="group flex items-start gap-4 sm:gap-5 p-4 sm:p-6 rounded-2xl transition-all duration-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-gradient-to-r hover:from-slate-50 hover:to-white dark:hover:from-slate-900/70 dark:hover:to-slate-900/50 backdrop-blur-sm relative overflow-hidden shadow-sm hover:shadow-xl"
                             >
                                 {/* Hover gradient */}
                                 <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300`} />
@@ -191,8 +191,8 @@ const About = () => {
                                 </motion.div>
                                 
                                 <div className="relative z-10">
-                                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">{feature.title}</h4>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                                    <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">{feature.title}</h4>
+                                    <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed">{feature.desc}</p>
                                 </div>
                                 
                                 {/* Arrow indicator */}

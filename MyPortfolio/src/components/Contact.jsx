@@ -77,16 +77,16 @@ const Contact = () => {
                 </p>
             </motion.div>
 
-            <div className="grid lg:grid-cols-5 gap-10 items-start relative z-10 w-full max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10 items-start relative z-10 w-full max-w-6xl mx-auto">
                 {/* Contact Info Cards */}
                 <motion.div 
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="lg:col-span-2 space-y-4"
+                    className="lg:col-span-2 space-y-3 sm:space-y-4"
                 >
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
                         Reach out through
                     </h3>
                     
@@ -101,16 +101,16 @@ const Contact = () => {
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
                             whileHover={{ x: 8, scale: 1.02 }}
-                            className="group flex items-center gap-4 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 transition-all duration-300 shadow-sm hover:shadow-xl cursor-pointer"
+                            className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 transition-all duration-300 shadow-sm hover:shadow-xl cursor-pointer"
                         >
-                            <div className={`p-4 rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg group-hover:scale-110 transition-transform`}>
-                                <item.icon className="h-6 w-6 text-white" />
+                            <div className={`p-3 sm:p-4 rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg group-hover:scale-110 transition-transform`}>
+                                <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                             </div>
                             <div className="flex-1">
-                                <p className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                <p className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                                     {item.value}
                                 </p>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                                     {item.description}
                                 </p>
                             </div>
@@ -124,14 +124,14 @@ const Contact = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.4 }}
-                        className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/10 border border-emerald-200 dark:border-emerald-500/20"
+                        className="mt-6 sm:mt-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/10 border border-emerald-200 dark:border-emerald-500/20"
                     >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <span className="relative flex h-3 w-3">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                             </span>
-                            <span className="font-semibold text-emerald-700 dark:text-emerald-400">Currently available for new opportunities</span>
+                            <span className="text-sm sm:text-base font-semibold text-emerald-700 dark:text-emerald-400">Currently available for new opportunities</span>
                         </div>
                         <p className="mt-2 text-sm text-emerald-600 dark:text-emerald-400/80">
                             Response time: Within 24 hours
@@ -150,7 +150,7 @@ const Contact = () => {
                     {/* Form glow */}
                     <div className="absolute -inset-[1px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl opacity-0 hover:opacity-20 blur-xl transition-all duration-500" />
                     
-                    <div className="relative p-8 md:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 backdrop-blur-xl shadow-2xl">
+                    <div className="relative p-6 sm:p-8 md:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 backdrop-blur-xl shadow-2xl">
                         {/* Success overlay */}
                         <AnimatePresence>
                             {isSubmitted && (
@@ -174,8 +174,8 @@ const Contact = () => {
                             )}
                         </AnimatePresence>
                         
-                        <form ref={formRef} className="space-y-6 relative z-10" onSubmit={handleSubmit}>
-                            <div className="grid md:grid-cols-2 gap-6">
+                        <form ref={formRef} className="space-y-5 sm:space-y-6 relative z-10" onSubmit={handleSubmit}>
+                            <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                                 {/* Name field */}
                                 <div className="relative">
                                     <motion.div
@@ -191,7 +191,7 @@ const Contact = () => {
                                         required
                                         onFocus={() => setFocusedField('name')}
                                         onBlur={() => setFocusedField(null)}
-                                        className="relative peer w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 text-slate-900 dark:text-white placeholder-transparent outline-none transition-all duration-300"
+                                        className="relative peer w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 text-slate-900 dark:text-white placeholder-transparent outline-none transition-all duration-300 text-sm sm:text-base"
                                         placeholder="Your Name"
                                     />
                                     <label htmlFor="name" className="absolute left-5 -top-2.5 px-2 bg-white dark:bg-slate-900 text-xs font-semibold text-indigo-600 dark:text-indigo-400 transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 dark:peer-placeholder-shown:text-slate-500 peer-placeholder-shown:font-normal peer-focus:-top-2.5 peer-focus:text-xs peer-focus:font-semibold peer-focus:text-indigo-600 dark:peer-focus:text-indigo-400">
@@ -260,7 +260,7 @@ const Contact = () => {
                                     required
                                     onFocus={() => setFocusedField('message')}
                                     onBlur={() => setFocusedField(null)}
-                                    className="relative peer w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 text-slate-900 dark:text-white placeholder-transparent outline-none transition-all duration-300 resize-none"
+                                    className="relative peer w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 text-slate-900 dark:text-white placeholder-transparent outline-none transition-all duration-300 resize-none text-sm sm:text-base"
                                     placeholder="Your message..."
                                 ></textarea>
                                 <label htmlFor="message" className="absolute left-5 -top-2.5 px-2 bg-white dark:bg-slate-900 text-xs font-semibold text-indigo-600 dark:text-indigo-400 transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 dark:peer-placeholder-shown:text-slate-500 peer-placeholder-shown:font-normal peer-focus:-top-2.5 peer-focus:text-xs peer-focus:font-semibold peer-focus:text-indigo-600 dark:peer-focus:text-indigo-400">
@@ -273,7 +273,7 @@ const Contact = () => {
                                 whileTap={{ scale: 0.98 }}
                                 type="submit" 
                                 disabled={isSubmitting}
-                                className="w-full group relative font-semibold py-4 px-8 rounded-xl transition-all flex items-center justify-center gap-3 overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:via-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-70"
+                                className="w-full group relative font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all flex items-center justify-center gap-2 sm:gap-3 overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:via-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-70 text-sm sm:text-base"
                             >
                                 {/* Shine effect */}
                                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />

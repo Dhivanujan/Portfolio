@@ -82,28 +82,28 @@ const EducationCard = ({ edu, index }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative flex items-stretch gap-4 md:gap-8"
+            className="relative flex items-stretch gap-3 sm:gap-4 md:gap-8"
         >
             {/* Timeline Dot */}
             <div className="flex flex-col items-center">
                 <motion.div 
-                    className={`w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${edu.gradient} shadow-lg flex items-center justify-center flex-shrink-0`}
+                    className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${edu.gradient} shadow-lg flex items-center justify-center flex-shrink-0`}
                     initial={{ scale: 0, rotate: -180 }}
                     animate={isInView ? { scale: 1, rotate: 0 } : {}}
                     transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 200 }}
                 >
-                    <GraduationCap className="w-6 h-6 md:w-7 md:h-7 text-white" />
+                    <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
                 </motion.div>
                 {/* Connector Line */}
                 <div className="w-0.5 flex-1 bg-gradient-to-b from-slate-300 dark:from-slate-700 to-transparent mt-3"></div>
             </div>
 
             {/* Content Card */}
-            <div className="flex-1 pb-8 md:pb-12">
+            <div className="flex-1 pb-6 md:pb-8 lg:pb-12">
                 <motion.div
                     whileHover={{ y: -3, scale: 1.01 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="group p-5 md:p-7 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 relative overflow-hidden bg-white/95 dark:bg-slate-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800/90 transition-all duration-300 shadow-md hover:shadow-xl"
+                    className="group p-4 sm:p-5 md:p-7 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 relative overflow-hidden bg-white/95 dark:bg-slate-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800/90 transition-all duration-300 shadow-md hover:shadow-xl"
                 >
                     {/* Gradient accent line */}
                     <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${edu.gradient} opacity-90`} />
@@ -129,16 +129,16 @@ const EducationCard = ({ edu, index }) => {
                         )}
                     </div>
 
-                    <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
                         🎓 {edu.title}
                     </h3>
-                    <p className="text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed mb-4">
+                    <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4">
                         {edu.description}
                     </p>
                     
                     {/* Highlights */}
                     {edu.highlights.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
                             {edu.highlights.map((highlight, idx) => (
                                 <motion.span 
                                     key={idx}
@@ -297,10 +297,10 @@ const Experience = () => {
                     className="mb-16"
                 >
                     <div className="flex items-center gap-3 mb-6">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
-                            <Rocket className="w-5 h-5 text-white" />
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                            <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                         </div>
-                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
                             Career Objective
                         </h3>
                     </div>
@@ -315,10 +315,10 @@ const Experience = () => {
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <GraduationCap className="w-5 h-5 text-white" />
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                         </div>
-                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
                             Education
                         </h3>
                     </div>

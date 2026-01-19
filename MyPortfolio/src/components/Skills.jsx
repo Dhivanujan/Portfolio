@@ -134,15 +134,15 @@ const SkillBar = ({ skill, delay, accentColor }) => {
             transition={{ delay: delay * 0.05, duration: 0.5 }}
             className="group"
         >
-            <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+            <div className="flex justify-between items-center mb-1.5 sm:mb-2">
+                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors truncate pr-2">
                     {skill.name}
                 </span>
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${accentColor}20`, color: accentColor }}>
+                <span className="text-[10px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${accentColor}20`, color: accentColor }}>
                     {skill.level}%
                 </span>
             </div>
-            <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-1.5 sm:h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
@@ -182,22 +182,22 @@ const SkillCard = ({ skillGroup, index }) => {
                 style={{ background: `linear-gradient(135deg, ${skillGroup.accentColor}40, transparent)` }}
             />
             
-            <div className="h-full flex flex-col p-6 rounded-2xl transition-all duration-300 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700 backdrop-blur-sm shadow-sm hover:shadow-xl relative overflow-hidden">
+            <div className="h-full flex flex-col p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-300 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 hover:border-slate-300 dark:hover:border-slate-700 backdrop-blur-sm shadow-sm hover:shadow-xl relative overflow-hidden">
                 <div 
                     className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500"
                     style={{ backgroundColor: skillGroup.accentColor }}
                 />
                 
-                <div className="flex items-start gap-4 mb-5">
+                <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-5">
                     <motion.div 
-                        className={`p-3 rounded-xl shadow-lg flex-shrink-0 bg-gradient-to-br ${skillGroup.gradient}`}
+                        className={`p-2.5 sm:p-3 rounded-xl shadow-lg flex-shrink-0 bg-gradient-to-br ${skillGroup.gradient}`}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ type: "spring", stiffness: 400 }}
                     >
-                        <IconComponent className="w-6 h-6 text-white" />
+                        <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </motion.div>
                     <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 leading-tight truncate">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-0.5 sm:mb-1 leading-tight truncate">
                             {skillGroup.category}
                         </h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -206,7 +206,7 @@ const SkillCard = ({ skillGroup, index }) => {
                     </div>
                 </div>
                 
-                <div className="space-y-4 mt-2 flex-1">
+                <div className="space-y-3 sm:space-y-4 mt-1.5 sm:mt-2 flex-1">
                     {displayedSkills.map((skill, idx) => (
                         <SkillBar 
                             key={skill.name} 
@@ -257,15 +257,15 @@ const Skills = () => {
                         <Sparkles className="w-4 h-4" />
                         Technical Expertise
                     </motion.span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-5 text-slate-900 dark:text-white">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-4 sm:mb-5 text-slate-900 dark:text-white">
                         Skills & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-500">Technologies</span>
                     </h2>
-                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-4 sm:px-0">
                         Comprehensive expertise across AI/ML, cloud infrastructure, DevOps, networking, and full-stack development
                     </p>
                 </motion.div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 px-4 sm:px-0">
                     {skillsData.map((skillGroup, index) => (
                         <SkillCard 
                             key={skillGroup.category}
@@ -280,18 +280,18 @@ const Skills = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5, duration: 0.6 }}
-                    className="mt-16 relative"
+                    className="mt-12 sm:mt-16 relative mx-4 sm:mx-0"
                 >
                     <div className="absolute -inset-[1px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 rounded-2xl opacity-20" />
                     
-                    <div className="relative p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-xl">
-                        <div className="flex items-center justify-center gap-3 mb-8">
-                            <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
-                                <Sparkles className="w-5 h-5 text-white" />
+                    <div className="relative p-5 sm:p-6 md:p-8 lg:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-xl">
+                        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                            <div className="p-1.5 sm:p-2 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
+                                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 dark:text-white">Core Competencies</h4>
+                            <h4 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Core Competencies</h4>
                         </div>
-                        <div className="flex flex-wrap justify-center gap-3">
+                        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                             {[
                                 { text: "AI/ML Integration", color: "from-violet-500 to-purple-500" },
                                 { text: "Cloud Architecture", color: "from-cyan-500 to-blue-500" },
@@ -313,7 +313,7 @@ const Skills = () => {
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.6 + idx * 0.05 }}
                                     whileHover={{ scale: 1.05, y: -2 }}
-                                    className="group relative px-4 py-2.5 text-sm font-semibold rounded-xl cursor-default overflow-hidden"
+                                    className="group relative px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 text-xs sm:text-sm font-semibold rounded-xl cursor-default overflow-hidden"
                                 >
                                     <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                                     <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 group-hover:opacity-0 transition-opacity duration-300" />

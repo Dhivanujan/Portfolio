@@ -179,24 +179,24 @@ const ProjectCard = ({ project, index }) => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 flex flex-col flex-1" style={{ transform: "translateZ(20px)" }}>
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
+                <div className="p-4 sm:p-5 md:p-6 flex flex-col flex-1" style={{ transform: "translateZ(20px)" }}>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
                         {project.title}
                     </h3>
                     
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed line-clamp-2">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-3 sm:mb-4 leading-relaxed line-clamp-2">
                         {project.description}
                     </p>
 
                     {/* Outcome/Impact Badge */}
-                    <div className="mb-5 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/10 border border-emerald-200 dark:border-emerald-500/20">
-                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-xs text-emerald-700 dark:text-emerald-400 font-semibold">{project.outcome}</span>
+                    <div className="mb-4 sm:mb-5 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/10 border border-emerald-200 dark:border-emerald-500/20">
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-500 rounded-full animate-pulse" />
+                        <span className="text-[10px] sm:text-xs text-emerald-700 dark:text-emerald-400 font-semibold">{project.outcome}</span>
                     </div>
                     
                     {/* Tech Stack */}
-                    <div className="mb-5 mt-auto">
-                        <div className="flex flex-wrap gap-2">
+                    <div className="mb-4 sm:mb-5 mt-auto">
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
                             {project.tags.map((tag, idx) => (
                                 <motion.span 
                                     key={tag} 
@@ -204,7 +204,7 @@ const ProjectCard = ({ project, index }) => {
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.3 + idx * 0.05 }}
-                                    className="text-xs font-medium px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all cursor-default"
+                                    className="text-[10px] sm:text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all cursor-default"
                                 >
                                     {tag}
                                 </motion.span>
@@ -213,19 +213,19 @@ const ProjectCard = ({ project, index }) => {
                     </div>
 
                     {/* Links */}
-                    <div className="flex gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <div className="flex gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-slate-200 dark:border-slate-800">
                         <a 
                             href={project.github} 
-                            className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group/link"
+                            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group/link"
                         >
-                            <Github className="h-4 w-4 group-hover/link:scale-110 transition-transform" /> 
+                            <Github className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover/link:scale-110 transition-transform" /> 
                             View Code
                         </a>
                         <a 
                             href={project.demo} 
-                            className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors group/link"
+                            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors group/link"
                         >
-                            <ExternalLink className="h-4 w-4 group-hover/link:scale-110 transition-transform" /> 
+                            <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover/link:scale-110 transition-transform" /> 
                             Live Demo
                         </a>
                     </div>
@@ -258,15 +258,15 @@ const Projects = () => {
                     <Sparkles className="w-4 h-4" />
                     Portfolio
                 </motion.span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-5 text-slate-900 dark:text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-3 mb-4 sm:mb-5 text-slate-900 dark:text-white">
                     Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Projects</span>
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-4 sm:px-0">
                     Real-world solutions showcasing technical depth, problem-solving, and measurable business impact
                 </p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-8 max-w-6xl mx-auto px-4 sm:px-0">
                 {projects.map((project, index) => (
                     <ProjectCard 
                         key={index} 
@@ -277,13 +277,13 @@ const Projects = () => {
             </div>
             
             <motion.div 
-                className="text-center mt-14"
+                className="text-center mt-10 sm:mt-14 px-4 sm:px-0"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
             >
-                <a href="#" className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 font-semibold text-sm transition-all shadow-sm hover:shadow-md">
+                <a href="#" className="group inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 font-semibold text-sm transition-all shadow-sm hover:shadow-md">
                     View All Projects 
                     <ArrowUpRight className="w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
