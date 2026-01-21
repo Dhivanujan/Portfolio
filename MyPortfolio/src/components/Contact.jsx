@@ -7,8 +7,8 @@ const contactInfo = [
     {
         icon: Mail,
         label: "Email",
-        value: "hello@example.com",
-        href: "mailto:hello@example.com",
+        value: "dhivanujan2002@gmail.com",
+        href: "mailto:dhivanujan2002@gmail.com",
         gradient: "from-pink-500 to-rose-500",
         description: "Drop me a line anytime"
     },
@@ -16,7 +16,7 @@ const contactInfo = [
         icon: Linkedin,
         label: "LinkedIn",
         value: "Connect with me",
-        href: "https://linkedin.com",
+        href: "https://www.linkedin.com/in/dhivanujan-nesiah-a56a94240/",
         gradient: "from-blue-500 to-indigo-500",
         description: "Let's grow our network"
     },
@@ -24,7 +24,7 @@ const contactInfo = [
         icon: Github,
         label: "GitHub",
         value: "Check my code",
-        href: "https://github.com",
+        href: "https://github.com/Dhivanujan",
         gradient: "from-slate-600 to-slate-800",
         description: "Explore my projects"
     }
