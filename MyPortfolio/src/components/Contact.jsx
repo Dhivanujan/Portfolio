@@ -49,8 +49,8 @@ const Contact = () => {
     return (
         <Section id="contact" className="relative pb-32 overflow-hidden">
             {/* Background decorations */}
-            <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-20 left-0 w-[400px] h-[400px] bg-gradient-to-br from-pink-500/5 to-rose-500/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-10 -right-24 w-56 h-56 sm:w-72 sm:h-72 md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-10 -left-24 w-52 h-52 sm:w-72 sm:h-72 md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] bg-gradient-to-br from-pink-500/5 to-rose-500/5 rounded-full blur-3xl pointer-events-none" />
             
             {/* Header */}
             <motion.div 
@@ -101,7 +101,7 @@ const Contact = () => {
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
                             whileHover={{ x: 8, scale: 1.02 }}
-                            className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 transition-all duration-300 shadow-sm hover:shadow-xl cursor-pointer"
+                            className="group flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70 transition-all duration-300 shadow-sm hover:shadow-xl cursor-pointer"
                         >
                             <div className={`p-3 sm:p-4 rounded-xl bg-gradient-to-br ${item.gradient} shadow-lg group-hover:scale-110 transition-transform`}>
                                 <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
