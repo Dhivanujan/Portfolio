@@ -5,55 +5,90 @@ import { useRef, useState } from "react";
 
 const projects = [
     {
-        title: "AI Documentation Assistant",
-        description: "Built an intelligent RAG-based chatbot that helps developers navigate technical documentation 3x faster using semantic search and contextual responses.",
+        title: "CampusEase – Accommodation & Transport Finder",
+        description: "Developed a smart platform that helps university students find nearby accommodation and transport services easily. Users can search hostels, boarding places, rental rooms, and available transport options around the campus using location-based filtering.",
         role: "Full Stack Developer",
-        outcome: "Reduced documentation search time by 65%",
-        tags: ["Python", "React", "FastAPI", "OpenAI", "Vector DB"],
+        outcome: "Simplified the process of finding student housing and transport near universities",
+        tags: ["Java", "MySQL", "Web Development", "Location Services"],
+        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1000&auto=format&fit=crop",
+        github: "#",
+        demo: "#",
+        featured: true,
+        stats: { stars: 42, forks: 11 }
+    },
+    {
+        title: "PerfectCV – AI-Powered Resume Improver",
+        description: "Built an AI-powered resume improvement tool that analyzes resumes and suggests improvements in structure, keywords, and formatting to create more professional CVs.",
+        role: "AI Developer",
+        outcome: "Helps users create stronger resumes for job applications",
+        tags: ["Python", "GPT-4", "spaCy", "NLP", "AI"],
         image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop",
-        github: "#",
+        github: "https://github.com/Dhivanujan/MiniProject-PerfectCV",
         demo: "#",
         featured: true,
-        stats: { stars: 128, forks: 34 }
-    },
-    {
-        title: "E-Commerce Microservices",
-        description: "Architected a scalable microservices backend handling 10k+ concurrent users with message queuing, containerization, and automated deployment.",
-        role: "Backend Engineer",
-        outcome: "Improved system reliability to 99.9% uptime",
-        tags: ["Node.js", "MongoDB", "Docker", "RabbitMQ", "Kubernetes"],
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000&auto=format&fit=crop",
-        github: "#",
-        demo: "#",
-        featured: true,
-        stats: { stars: 89, forks: 21 }
-    },
-    {
-        title: "Real-Time Collaboration Platform",
-        description: "Developed a task management dashboard with WebSocket-powered real-time updates, state management, and role-based access control.",
-        role: "Full Stack Developer",
-        outcome: "Enabled 50+ teams to collaborate seamlessly",
-        tags: ["React", "Socket.io", "Redux", "Node.js", "Tailwind"],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-        github: "#",
-        demo: "#",
-        featured: false,
-        stats: { stars: 56, forks: 12 }
+        stats: { stars: 58, forks: 15 }
     },
     {
         title: "Network Packet Analyzer",
-        description: "Created a low-level network analysis tool in C for TCP/IP packet inspection, protocol analysis, and traffic monitoring for security audits.",
+        description: "Developed a low-level networking tool that captures and analyzes TCP/IP packets to monitor network traffic and detect unusual patterns for security and performance analysis.",
         role: "Systems Developer",
-        outcome: "Detected 95% of anomalous network patterns",
-        tags: ["C", "Linux", "Networking", "TCP/IP", "Security"],
+        outcome: "Improved network monitoring and traffic inspection",
+        tags: ["Linux", "Networking", "TCP/IP", "Security"],
         image: "https://images.unsplash.com/photo-1558494949-ef2bb6db8744?q=80&w=1000&auto=format&fit=crop",
-        github: "#",
+        github: "https://github.com/Dhivanujan/Network-Packet-Analyzer",
         demo: "#",
         featured: false,
-        stats: { stars: 45, forks: 8 }
+        stats: { stars: 33, forks: 7 }
+    },
+    {
+        title: "Smart Mall Management System",
+        description: "Designed a digital system to manage shop information, store inventory, parking management, and customer services within a shopping mall environment.",
+        role: "Software Developer",
+        outcome: "Improved operational efficiency for mall administration",
+        tags: ["JavaScript", "Database", "System Design"],
+        image: "https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?q=80&w=1000&auto=format&fit=crop",
+        github: "https://github.com/Dhivanujan/Smart-Mall-Management-System",
+        demo: "#",
+        featured: false,
+        stats: { stars: 26, forks: 6 }
+    },
+    {
+        title: "Smart Firewall Controller",
+        description: "Developed an automated cybersecurity tool that monitors SSH authentication logs to detect brute-force login attempts and dynamically blocks suspicious IP addresses using iptables.",
+        role: "Cybersecurity Developer",
+        outcome: "Provides automated protection against brute-force attacks on Linux servers",
+        tags: ["Python", "Linux", "Cybersecurity", "iptables", "Log Monitoring"],
+        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop",
+        github: "https://github.com/Dhivanujan/Firewall-Rule-Manager",
+        demo: "#",
+        featured: true,
+        stats: { stars: 20, forks: 4 }
+    },
+    {
+        title: "Expense Tracker",
+        description: "Built a personal finance management application that allows users to track daily expenses, categorize spending, and view financial summaries through visual charts.",
+        role: "Frontend Developer",
+        outcome: "Helps users manage and understand their spending habits",
+        tags: ["JavaScript", "React", "Chart.js", "Local Storage"],
+        image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop",
+        github: "https://github.com/Dhivanujan/Expense-Tracker-Web-App",
+        demo: "#",
+        featured: false,
+        stats: { stars: 20, forks: 4 }
+    },
+    {
+        title: "Wearero – Clothing E-commerce Platform",
+        description: "Developed a platform that connects communities and allows users to share resources, communicate, and collaborate through an online environment.",
+        role: "Full Stack Developer",
+        outcome: "Encouraged community engagement and collaboration",
+        tags: ["Web Development", "JavaScript", "Database"],
+        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop",
+        github: "https://github.com/Dhivanujan/Wearero",
+        demo: "#",
+        featured: false,
+        stats: { stars: 24, forks: 5 }
     }
 ];
-
 const ProjectCard = ({ project, index }) => {
     const cardRef = useRef(null);
     const [isHovered, setIsHovered] = useState(false);
