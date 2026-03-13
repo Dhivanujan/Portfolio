@@ -14,6 +14,8 @@ const navItems = [
   { name: "Contact", to: "contact" },
 ];
 
+const NAV_OFFSET = -88;
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -146,7 +148,7 @@ const Navbar = () => {
                       to={item.to}
                       smooth={true}
                       duration={500}
-                      offset={-80}
+                      offset={NAV_OFFSET}
                       spy={true}
                       onSetActive={() => setActiveSection(item.to)}
                       onClick={() => setActiveSection(item.to)}
@@ -197,6 +199,7 @@ const Navbar = () => {
                   to="contact"
                   smooth={true}
                   duration={500}
+                  offset={NAV_OFFSET}
                   className={cn(
                     "cursor-pointer px-4 xl:px-5 py-2 rounded-full font-medium text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                     isDark
@@ -337,7 +340,7 @@ const Navbar = () => {
                         to={item.to}
                         smooth={true}
                         duration={500}
-                        offset={-80}
+                        offset={NAV_OFFSET}
                         spy={true}
                         onSetActive={() => setActiveSection(item.to)}
                         onClick={() => {
@@ -375,6 +378,7 @@ const Navbar = () => {
                     to="contact"
                     smooth={true}
                     duration={500}
+                    offset={NAV_OFFSET}
                     onClick={() => setIsOpen(false)}
                     className={cn(
                       "flex items-center justify-center w-full cursor-pointer px-6 py-3.5 rounded-lg font-bold text-base shadow-lg transition-all duration-300",

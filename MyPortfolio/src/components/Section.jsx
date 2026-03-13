@@ -14,7 +14,7 @@ const Section = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.7, delay: delay, ease: [0.25, 0.4, 0.25, 1] }}
-          className={`py-16 sm:py-20 md:py-24 lg:py-28 xl:py-36 relative z-10 container mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 max-w-6xl ${className}`}
+          className={`scroll-mt-24 py-14 sm:py-16 md:py-18 lg:py-20 relative z-10 container mx-auto px-6 md:px-10 max-w-6xl ${className}`}
         >
           {children}
         </motion.section>

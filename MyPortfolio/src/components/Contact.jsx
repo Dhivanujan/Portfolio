@@ -47,7 +47,7 @@ const Contact = () => {
     };
 
     return (
-        <Section id="contact" className="relative pb-32 overflow-hidden">
+        <Section id="contact" className="relative overflow-hidden">
             {/* Background decorations */}
             <div className="absolute -top-10 -right-24 w-56 h-56 sm:w-72 sm:h-72 md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-10 -left-24 w-52 h-52 sm:w-72 sm:h-72 md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] bg-gradient-to-br from-pink-500/5 to-rose-500/5 rounded-full blur-3xl pointer-events-none" />

@@ -11,6 +11,8 @@ const footerLinks = [
     { name: "Contact", to: "contact" },
 ];
 
+const NAV_OFFSET = -88;
+
 const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub", hoverColor: "hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-slate-500" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", hoverColor: "hover:text-blue-600 hover:border-blue-400 dark:hover:border-blue-500" },
@@ -79,7 +81,7 @@ const Footer = () => {
                                         to={link.to}
                                         smooth={true}
                                         duration={500}
-                                        offset={-80}
+                                        offset={NAV_OFFSET}
                                         className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer flex items-center gap-2 group"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-indigo-500 transition-colors" />
@@ -100,7 +102,7 @@ const Footer = () => {
                                         to={link.to}
                                         smooth={true}
                                         duration={500}
-                                        offset={-80}
+                                        offset={NAV_OFFSET}
                                         className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer flex items-center gap-2 group"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-indigo-500 transition-colors" />
@@ -126,6 +128,7 @@ const Footer = () => {
                             to="hero"
                             smooth={true}
                             duration={800}
+                            offset={NAV_OFFSET}
                             className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 cursor-pointer text-sm font-medium"
                         >
                             <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform duration-300" />

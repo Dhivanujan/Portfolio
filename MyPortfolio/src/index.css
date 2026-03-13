@@ -139,6 +139,10 @@
   html {
     scroll-behavior: smooth;
   }
+
+  section[id] {
+    scroll-margin-top: 96px;
+  }
   
   /* Glow effects for dark mode headings */
   .dark .heading-glow {

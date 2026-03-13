@@ -16,6 +16,8 @@ const floatingStats = [
     { value: "3+", label: "Years Exp", delay: 0.2 }
 ];
 
+const NAV_OFFSET = -88;
+
 const Hero = () => {
     // Scroll-based parallax
     const { scrollY } = useScroll();
@@ -31,7 +33,10 @@ const Hero = () => {
         >
             {/* Enhanced animated gradient orbs with 3D depth */}
             <motion.div 
-                style={{ y: y1 }}
+                style={{
+                    y: y1,
+                    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%)'
+                }}
                 className="absolute top-10 left-5 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
                 initial={{ opacity: 0 }}
                 animate={{ 
@@ -39,12 +44,12 @@ const Hero = () => {
                     opacity: [0.25, 0.45, 0.25]
                 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                style={{
-                    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%)'
-                }}
             />
             <motion.div 
-                style={{ y: y2 }}
+                style={{
+                    y: y2,
+                    background: 'radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.12) 50%, transparent 70%)'
+                }}
                 className="absolute bottom-10 right-5 w-[450px] h-[450px] rounded-full blur-[120px] pointer-events-none"
                 initial={{ opacity: 0 }}
                 animate={{ 
@@ -52,9 +57,6 @@ const Hero = () => {
                     opacity: [0.2, 0.38, 0.2]
                 }}
                 transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                style={{
-                    background: 'radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.12) 50%, transparent 70%)'
-                }}
             />
             {/* Accent orb for depth */}
             <motion.div 
@@ -193,7 +195,7 @@ const Hero = () => {
                             to="projects"
                             smooth={true}
                             duration={500}
-                            offset={-70}
+                            offset={NAV_OFFSET}
                             className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-white transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 font-semibold focus:outline-none cursor-pointer rounded-xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40 hover:scale-[1.02] overflow-hidden"
                         >
                             <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
