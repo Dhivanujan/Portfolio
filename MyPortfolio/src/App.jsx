@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Experience from "./components/Experience";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import { StarBackground } from "./components/StarBackground";
+
+const About = lazy(() => import("./components/About"));
+const Skills = lazy(() => import("./components/Skills"));
+const Projects = lazy(() => import("./components/Projects"));
+const Experience = lazy(() => import("./components/Experience"));
+const Contact = lazy(() => import("./components/Contact"));
+const StarBackground = lazy(() =>
+  import("./components/StarBackground").then((module) => ({
+    default: module.StarBackground,
+  }))
+);
 
 function App() {
   const [isDark, setIsDark] = useState(true);
+  const [showStarBackground, setShowStarBackground] = useState(false);
 
   useEffect(() => {
     // Check initial theme
@@ -30,19 +36,40 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const scheduleBackground = () => setShowStarBackground(true);
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(scheduleBackground, {
+        timeout: 1200,
+      });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = setTimeout(scheduleBackground, 300);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <div className="min-h-screen relative selection:bg-primary/30 font-sans overflow-x-hidden transition-colors duration-300">
       {/* Only show StarBackground in dark mode */}
-      {isDark && <StarBackground />}
+      {isDark && showStarBackground && (
+        <Suspense fallback={null}>
+          <StarBackground />
+        </Suspense>
+      )}
       
       <Navbar />
       <main className="flex flex-col relative z-10 w-full overflow-hidden">
         <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Contact />
+
+        <Suspense fallback={null}>
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Contact />
+        </Suspense>
       </main>
       <Footer />
     </div>

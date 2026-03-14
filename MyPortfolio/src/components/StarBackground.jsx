@@ -1,6 +1,6 @@
 import React, { useState, useRef, Suspense, useEffect, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Preload } from "@react-three/drei";
+import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 // Enhanced star field with multiple layers for depth
@@ -132,26 +132,29 @@ const BrightStars = ({ count = 150 }) => {
 };
 
 export const StarBackground = () => {
-  const [count, setCount] = useState(2500);
-  const [brightCount, setBrightCount] = useState(120);
+  const [count, setCount] = useState(1800);
+  const [brightCount, setBrightCount] = useState(90);
 
   useEffect(() => {
       const isMobile = window.innerWidth < 768;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (isMobile || reducedMotion) {
-          setCount(1200);
-          setBrightCount(60);
+          setCount(800);
+          setBrightCount(40);
       }
   }, []);
 
   return (
     <div className="w-full h-full fixed inset-0 z-0 bg-obsidian pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 2]}>
+      <Canvas
+        camera={{ position: [0, 0, 1] }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+      >
         <Suspense fallback={null}>
           <StarField count={count} radius={1.2} rotationSpeed={0.25} />
           <BrightStars count={brightCount} />
         </Suspense>
-        <Preload all />
       </Canvas>
       
       {/* Enhanced gradient overlay for depth and contrast */}

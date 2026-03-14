@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useMemo } from "react";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 // Enhanced floating particles with depth layers
 const FloatingParticles = () => {
@@ -454,8 +454,22 @@ const TechIcons = () => {
 
 // Main component combining all effects
 const Hero3D = () => {
+    const prefersReducedMotion = useReducedMotion();
+    const [isLiteMode, setIsLiteMode] = useState(false);
+
+    useEffect(() => {
+        const checkLiteMode = () => {
+            setIsLiteMode(window.innerWidth < 1024 || prefersReducedMotion);
+        };
+
+        checkLiteMode();
+        window.addEventListener("resize", checkLiteMode);
+
+        return () => window.removeEventListener("resize", checkLiteMode);
+    }, [prefersReducedMotion]);
+
     return (
-        <div className="w-full h-[450px] md:h-[650px] relative">
+        <div className="w-full h-[420px] md:h-[620px] relative">
             {/* Background gradient mesh - enhanced */}
             <div className="absolute inset-0 bg-gradient-to-br from-slate-50/80 via-indigo-50/30 to-purple-50/40 dark:from-slate-900/60 dark:via-indigo-950/40 dark:to-purple-950/30 rounded-3xl" />
             
@@ -470,19 +484,19 @@ const Hero3D = () => {
             <GlowingOrbs />
             
             {/* Connection lines */}
-            <ConnectionLines />
+            {!isLiteMode && <ConnectionLines />}
             
             {/* Animated rings */}
             <AnimatedRings />
             
             {/* Floating particles */}
-            <FloatingParticles />
+            {!isLiteMode && <FloatingParticles />}
             
             {/* Geometric shapes */}
-            <FloatingShapes />
+            {!isLiteMode && <FloatingShapes />}
             
             {/* Tech icons */}
-            <TechIcons />
+            {!isLiteMode && <TechIcons />}
             
             {/* Center gradient spotlight - enhanced */}
             <motion.div
