@@ -47,7 +47,7 @@ const Hero = () => {
     return (
         <section
             id="hero"
-            className="min-h-[100svh] lg:min-h-screen flex items-center justify-center relative overflow-x-hidden pt-28 md:pt-20 pb-16 md:pb-10"
+            className="min-h-[100svh] lg:h-screen flex items-center justify-center relative overflow-x-hidden pt-24 sm:pt-20 md:pt-16 lg:pt-8 pb-10 md:pb-8 lg:pb-6"
         >
             {/* Background Effects */}
             <motion.div
@@ -153,12 +153,12 @@ const Hero = () => {
             {/* Hero Content */}
             <motion.div
                 style={{ opacity, scale }}
-                className="container mx-auto px-4 sm:px-6 md:px-10 grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start lg:items-center relative z-10 w-full max-w-6xl pt-8 sm:pt-6 md:pt-2 lg:pt-0"
+                className="container mx-auto px-4 sm:px-6 md:px-10 grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start lg:items-center relative z-10 w-full max-w-6xl pt-4 sm:pt-2 md:pt-0"
             >
                 {/* Text Section */}
                 <div
                     className="
-                        flex flex-col items-center lg:items-start
+                        flex flex-col items-center lg:items-start lg:justify-center
                         text-center lg:text-left
                         z-10 order-2 lg:order-1
                     "
@@ -168,7 +168,7 @@ const Hero = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                         className="
-                            mb-6 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full
+                            mb-4 sm:mb-5 inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full
                             border border-indigo-500/30
                             bg-gradient-to-r from-indigo-500/10 to-purple-500/10
                             backdrop-blur-xl shadow-lg shadow-indigo-500/5
@@ -189,10 +189,10 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
                         className="
-                            text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl
+                            text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-[3.25rem]
                             font-heading font-bold tracking-tight
-                            mb-4 sm:mb-6
-                            leading-[1.15]
+                            mb-3 sm:mb-4
+                            leading-[1.12]
                         "
                     >
                         <span className="bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-300">
@@ -222,7 +222,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-6 sm:mb-8 leading-relaxed"
+                        className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-4 sm:mb-6 leading-relaxed"
                     >
                         Specializing in{" "}
                         <span className="text-indigo-600 dark:text-indigo-400 font-semibold">
@@ -244,7 +244,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 14 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25, duration: 0.55 }}
-                        className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-6 sm:mb-8"
+                        className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-4 sm:mb-6"
                     >
                         {HIGHLIGHTS.map((item, idx) => (
                             <motion.span
@@ -271,7 +271,7 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.35, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
+                        className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 w-full sm:w-auto"
                     >
                         <Link
                             to="projects"
@@ -279,7 +279,7 @@ const Hero = () => {
                             duration={500}
                             offset={NAV_OFFSET}
                             className="
-                                group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4
+                                group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5
                                 text-white font-semibold focus:outline-none cursor-pointer rounded-xl
                                 transition-all duration-300
                                 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600
@@ -299,7 +299,7 @@ const Hero = () => {
                             href="/resume.pdf"
                             download
                             className="
-                                group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4
+                                group inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5
                                 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white
                                 transition-all duration-300 font-semibold
                                 border-2 border-slate-200 dark:border-slate-700
@@ -317,7 +317,7 @@ const Hero = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.45, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200 dark:border-slate-800 w-full"
+                        className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200 dark:border-slate-800 w-full"
                     >
                         <div className="flex items-center gap-3">
                             <a
@@ -359,7 +359,7 @@ const Hero = () => {
                             </a>
                         </div>
 
-                        <div className="hidden sm:flex items-center gap-6 ml-auto">
+                        <div className="hidden md:flex items-center gap-5 ml-auto">
                             {FLOATING_STATS.map((stat) => (
                                 <motion.div
                                     key={stat.label}
@@ -385,7 +385,7 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[320px] sm:min-h-[400px]"
+                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[280px] sm:min-h-[340px]"
                 >
                     <div className="relative w-full max-w-[450px] sm:max-w-[540px] aspect-[5/6] flex items-center justify-center">
                         <div className="absolute inset-0 z-0">
@@ -396,7 +396,7 @@ const Hero = () => {
                             initial={{ scale: 0.92, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.6, type: "spring", stiffness: 80 }}
-                            className="relative z-10 w-52 h-64 sm:w-60 sm:h-72 md:w-72 md:h-80 rounded-[28px] isolate group"
+                            className="relative z-10 w-48 h-56 sm:w-56 sm:h-64 md:w-64 md:h-72 rounded-[28px] isolate group"
                             whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                         >
                             <motion.div
@@ -488,9 +488,6 @@ const Hero = () => {
                 transition={{ delay: 1.5, duration: 1 }}
                 className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
             >
-                <span className="text-xs text-slate-500 tracking-widest uppercase font-medium">
-                    Scroll
-                </span>
 
                 <motion.div
                     animate={{ y: [0, 8, 0] }}
