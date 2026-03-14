@@ -34,7 +34,7 @@ const projects = [
         role: "Systems Developer",
         outcome: "Improved network monitoring and traffic inspection",
         tags: ["Linux", "Networking", "TCP/IP", "Security"],
-        image: "https://images.unsplash.com/photo-1558494949-ef2bb6db8744?q=80&w=1000&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
         github: "https://github.com/Dhivanujan/Network-Packet-Analyzer",
         demo: "#",
         featured: false,
@@ -87,7 +87,19 @@ const projects = [
         demo: "#",
         featured: false,
         stats: { stars: 24, forks: 5 }
-    }
+    },
+    {
+    title: "React Calculator – Interactive Web Calculator",
+    description: "Built a responsive calculator application using React that performs basic arithmetic operations with a clean and user-friendly interface.",
+    role: "Frontend Developer",
+    outcome: "Improved understanding of React state management and component-based UI development.",
+    tags: ["React", "JavaScript", "Web Development", "UI Design"],
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1000&auto=format&fit=crop",
+    github: "https://github.com/Dhivanujan/Calculator",
+    demo: "#",
+    featured: false,
+    stats: { stars: 10, forks: 2 }
+}
 ];
 const ProjectCard = ({ project, index }) => {
     const cardRef = useRef(null);
