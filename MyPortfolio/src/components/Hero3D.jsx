@@ -1,13 +1,65 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
+const PRESETS = {
+    enterprise: {
+        label: "Enterprise Clean",
+        tilt: 4,
+        particleCount: 6,
+        chipCount: 2,
+        ringDuration: 30,
+        gridDuration: 6,
+        showBeams: false,
+        showSheen: false,
+        darkVignette: "radial-gradient(ellipse at center, transparent 38%, rgba(2,6,23,0.35) 100%)",
+        ringGradient:
+            "conic-gradient(from 0deg, rgba(99,102,241,0.34), rgba(34,211,238,0.16), rgba(168,85,247,0.24), rgba(99,102,241,0.34))",
+        glowClass: "shadow-[inset_0_0_70px_rgba(99,102,241,0.1)] dark:shadow-[inset_0_0_80px_rgba(6,182,212,0.12)]",
+        chipClass:
+            "border-white/55 dark:border-cyan-100/15 bg-white/75 dark:bg-slate-900/45 text-slate-700 dark:text-cyan-100/85",
+    },
+    cinematic: {
+        label: "Cinematic Showcase",
+        tilt: 7,
+        particleCount: 12,
+        chipCount: 3,
+        ringDuration: 18,
+        gridDuration: 2.8,
+        showBeams: true,
+        showSheen: true,
+        darkVignette: "radial-gradient(ellipse at center, transparent 34%, rgba(2,6,23,0.58) 100%)",
+        ringGradient:
+            "conic-gradient(from 0deg, rgba(99,102,241,0.62), rgba(34,211,238,0.3), rgba(168,85,247,0.5), rgba(99,102,241,0.62))",
+        glowClass: "shadow-[inset_0_0_120px_rgba(99,102,241,0.16)] dark:shadow-[inset_0_0_140px_rgba(6,182,212,0.22)]",
+        chipClass:
+            "border-white/55 dark:border-cyan-100/20 bg-white/70 dark:bg-slate-900/55 text-slate-700 dark:text-cyan-100",
+    },
+    cyber: {
+        label: "Cyber Future",
+        tilt: 9,
+        particleCount: 20,
+        chipCount: 3,
+        ringDuration: 12,
+        gridDuration: 1.9,
+        showBeams: true,
+        showSheen: true,
+        darkVignette: "radial-gradient(ellipse at center, transparent 30%, rgba(2,6,23,0.72) 100%)",
+        ringGradient:
+            "conic-gradient(from 0deg, rgba(34,211,238,0.8), rgba(99,102,241,0.78), rgba(217,70,239,0.72), rgba(34,211,238,0.8))",
+        glowClass: "shadow-[inset_0_0_140px_rgba(99,102,241,0.24)] dark:shadow-[inset_0_0_170px_rgba(34,211,238,0.32)]",
+        chipClass:
+            "border-cyan-200/70 dark:border-cyan-100/40 bg-cyan-50/70 dark:bg-slate-900/70 text-cyan-700 dark:text-cyan-100",
+    },
+};
+
 const INSIGHT_CHIPS = [
     { text: "AI Strategy", top: "16%", left: "9%", delay: 0 },
     { text: "Cloud Platform", top: "18%", right: "9%", delay: 0.14 },
     { text: "Security First", bottom: "16%", right: "11%", delay: 0.28 },
 ];
 
-const Hero3D = () => {
+const Hero3D = ({ variant = "enterprise" }) => {
+    const activePreset = PRESETS[variant] || PRESETS.enterprise;
     const prefersReducedMotion = useReducedMotion();
     const [isLiteMode, setIsLiteMode] = useState(false);
 
@@ -18,7 +70,7 @@ const Hero3D = () => {
 
     const particles = useMemo(
         () =>
-            Array.from({ length: 12 }, (_, i) => ({
+            Array.from({ length: activePreset.particleCount }, (_, i) => ({
                 id: i,
                 x: Math.random() * 100,
                 y: Math.random() * 100,
@@ -26,7 +78,7 @@ const Hero3D = () => {
                 delay: Math.random() * 2.5,
                 duration: Math.random() * 3 + 3,
             })),
-        []
+        [activePreset.particleCount]
     );
 
     useEffect(() => {
@@ -46,8 +98,8 @@ const Hero3D = () => {
         const px = (event.clientX - rect.left) / rect.width;
         const py = (event.clientY - rect.top) / rect.height;
 
-        rotateY.set((px - 0.5) * 8);
-        rotateX.set((0.5 - py) * 8);
+        rotateY.set((px - 0.5) * activePreset.tilt);
+        rotateX.set((0.5 - py) * activePreset.tilt);
     };
 
     const onPointerLeave = () => {
@@ -107,9 +159,10 @@ const Hero3D = () => {
                     }}
                 />
 
-                <div className="absolute inset-0 dark:bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(2,6,23,0.45)_100%)]" />
+                <div className="absolute inset-0 dark:hidden bg-[radial-gradient(ellipse_at_center,transparent_44%,rgba(148,163,184,0.08)_100%)]" />
+                <div className="absolute inset-0 dark:block hidden" style={{ background: activePreset.darkVignette }} />
 
-                {!isLiteMode && (
+                {activePreset.showBeams && !isLiteMode && (
                     <>
                         <motion.div
                             className="absolute -top-16 left-[8%] h-[170%] w-28 rotate-[16deg]"
@@ -152,22 +205,24 @@ const Hero3D = () => {
                                   backgroundPositionY: [0, 42],
                               }
                     }
-                    transition={{ duration: 2.8, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: activePreset.gridDuration, repeat: Infinity, ease: "linear" }}
                 />
 
                 <motion.div
                     className="absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full"
                     style={{
                         transform: "translateZ(35px)",
-                        background:
-                            "conic-gradient(from 0deg, rgba(99,102,241,0.62), rgba(34,211,238,0.3), rgba(168,85,247,0.5), rgba(99,102,241,0.62))",
+                        background: activePreset.ringGradient,
                         filter: "blur(1px)",
                     }}
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: activePreset.ringDuration, repeat: Infinity, ease: "linear" }}
                 />
 
-                <div className="absolute left-1/2 top-1/2 h-[302px] w-[302px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/35 dark:border-cyan-100/20 bg-white/55 dark:bg-slate-950/45 backdrop-blur-xl" style={{ transform: "translateZ(45px)" }} />
+                <div
+                    className="absolute left-1/2 top-1/2 h-[302px] w-[302px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/35 dark:border-cyan-100/20 bg-white/55 dark:bg-slate-950/45 backdrop-blur-xl"
+                    style={{ transform: "translateZ(45px)" }}
+                />
 
                 <motion.div
                     className="absolute left-1/2 top-1/2 h-36 w-44 -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/45 dark:border-cyan-100/25 bg-white/70 dark:bg-slate-900/65 backdrop-blur-xl overflow-hidden"
@@ -178,7 +233,7 @@ const Hero3D = () => {
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/18 via-cyan-500/12 to-purple-500/18" />
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-cyan-400/60 dark:bg-cyan-300/70" />
                     <div className="absolute top-4 left-4 text-[10px] font-semibold tracking-[0.18em] text-slate-500 dark:text-cyan-100/80">
-                        CONTROL CORE
+                        {activePreset.label}
                     </div>
                     <div className="absolute left-4 right-4 top-11 space-y-2">
                         <div className="h-2.5 rounded-full bg-slate-300/75 dark:bg-cyan-300/40" />
@@ -190,16 +245,13 @@ const Hero3D = () => {
                         <span className="h-2 w-2 rounded-full bg-cyan-400/80" />
                         <span className="h-2 w-2 rounded-full bg-indigo-400/80" />
                     </div>
-                    <div className="absolute inset-0 flex items-center justify-center text-[11px] font-bold tracking-[0.18em] text-slate-800/80 dark:text-white/75">
-                        FUTURE
-                    </div>
                 </motion.div>
 
                 {!isLiteMode &&
-                    INSIGHT_CHIPS.map((tag) => (
+                    INSIGHT_CHIPS.slice(0, activePreset.chipCount).map((tag) => (
                         <motion.div
                             key={tag.text}
-                            className="absolute px-3 py-1.5 rounded-full border border-white/55 dark:border-cyan-100/20 bg-white/70 dark:bg-slate-900/55 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold tracking-wide text-slate-700 dark:text-cyan-100"
+                            className={`absolute px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] sm:text-[11px] font-semibold tracking-wide ${activePreset.chipClass}`}
                             style={{
                                 ...tag,
                                 transform: "translateZ(64px)",
@@ -237,19 +289,21 @@ const Hero3D = () => {
                         />
                     ))}
 
-                <motion.div
-                    className="absolute -inset-[45%] pointer-events-none"
-                    style={{
-                        background:
-                            "linear-gradient(110deg, transparent 22%, rgba(255,255,255,0.45) 48%, transparent 72%)",
-                        transform: "translateZ(120px)",
-                    }}
-                    animate={isLiteMode ? undefined : { x: ["-30%", "35%"] }}
-                    transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }}
-                />
+                {activePreset.showSheen && !isLiteMode && (
+                    <motion.div
+                        className="absolute -inset-[45%] pointer-events-none"
+                        style={{
+                            background:
+                                "linear-gradient(110deg, transparent 22%, rgba(255,255,255,0.45) 48%, transparent 72%)",
+                            transform: "translateZ(120px)",
+                        }}
+                        animate={{ x: ["-30%", "35%"] }}
+                        transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }}
+                    />
+                )}
 
                 <div className="absolute inset-0 rounded-[30px] border border-white/55 dark:border-cyan-100/15 pointer-events-none" />
-                <div className="absolute inset-0 rounded-[30px] pointer-events-none shadow-[inset_0_0_120px_rgba(99,102,241,0.16)] dark:shadow-[inset_0_0_140px_rgba(6,182,212,0.2)]" />
+                <div className={`absolute inset-0 rounded-[30px] pointer-events-none ${activePreset.glowClass}`} />
             </motion.div>
         </div>
     );

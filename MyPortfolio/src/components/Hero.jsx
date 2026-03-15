@@ -28,6 +28,7 @@ const FLOATING_STATS = [
 
 // Constants
 const NAV_OFFSET = -88;
+const HERO_3D_VARIANT = "enterprise";
 
 const Hero = () => {
     // Hooks
@@ -389,7 +390,7 @@ const Hero = () => {
                 >
                     <div className="relative w-full max-w-[450px] sm:max-w-[540px] aspect-[5/6] flex items-center justify-center">
                         <div className="absolute inset-0 z-0">
-                            <Hero3D />
+                            <Hero3D variant={HERO_3D_VARIANT} />
                         </div>
 
                         <motion.div
