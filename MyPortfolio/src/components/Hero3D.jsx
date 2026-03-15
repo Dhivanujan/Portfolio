@@ -108,7 +108,7 @@ const Hero3D = ({ variant = "enterprise" }) => {
     };
 
     return (
-        <div className="w-full h-[420px] md:h-[620px] relative [perspective:1400px]">
+        <div className="w-full h-[420px] md:h-[580px] relative [perspective:1400px]">
             <motion.div
                 className="absolute inset-0 overflow-hidden isolate rounded-[30px] border border-slate-200/90 dark:border-cyan-200/15 shadow-[0_24px_90px_rgba(15,23,42,0.16)] dark:shadow-[0_30px_120px_rgba(2,8,23,0.6)]"
                 onMouseMove={onPointerMove}
