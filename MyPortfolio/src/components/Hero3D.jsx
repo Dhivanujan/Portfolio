@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
-const TREND_TAGS = [
-    { text: "Agentic AI", top: "17%", left: "8%", delay: 0 },
-    { text: "Cloud Native", top: "22%", right: "8%", delay: 0.12 },
-    { text: "Zero Trust", bottom: "17%", left: "12%", delay: 0.24 },
-    { text: "Platform Ops", bottom: "20%", right: "10%", delay: 0.36 },
+const INSIGHT_CHIPS = [
+    { text: "AI Strategy", top: "16%", left: "9%", delay: 0 },
+    { text: "Cloud Platform", top: "18%", right: "9%", delay: 0.14 },
+    { text: "Security First", bottom: "16%", right: "11%", delay: 0.28 },
 ];
 
 const Hero3D = () => {
@@ -19,7 +18,7 @@ const Hero3D = () => {
 
     const particles = useMemo(
         () =>
-            Array.from({ length: 22 }, (_, i) => ({
+            Array.from({ length: 12 }, (_, i) => ({
                 id: i,
                 x: Math.random() * 100,
                 y: Math.random() * 100,
@@ -59,7 +58,7 @@ const Hero3D = () => {
     return (
         <div className="w-full h-[420px] md:h-[620px] relative [perspective:1400px]">
             <motion.div
-                className="absolute inset-0 overflow-hidden isolate rounded-[30px] border border-slate-200/80 dark:border-white/10 shadow-[0_24px_90px_rgba(15,23,42,0.18)] dark:shadow-[0_24px_90px_rgba(2,8,23,0.45)]"
+                className="absolute inset-0 overflow-hidden isolate rounded-[30px] border border-slate-200/90 dark:border-cyan-200/15 shadow-[0_24px_90px_rgba(15,23,42,0.16)] dark:shadow-[0_30px_120px_rgba(2,8,23,0.6)]"
                 onMouseMove={onPointerMove}
                 onMouseLeave={onPointerLeave}
                 style={{
@@ -72,7 +71,7 @@ const Hero3D = () => {
                     className="absolute inset-0"
                     style={{
                         background:
-                            "radial-gradient(circle at 10% 15%, rgba(14,165,233,0.24) 0%, transparent 36%), radial-gradient(circle at 85% 12%, rgba(99,102,241,0.25) 0%, transparent 42%), radial-gradient(circle at 80% 85%, rgba(168,85,247,0.2) 0%, transparent 40%), linear-gradient(140deg, rgba(248,250,252,0.9) 0%, rgba(224,231,255,0.7) 44%, rgba(238,242,255,0.8) 100%)",
+                            "radial-gradient(circle at 12% 18%, rgba(14,165,233,0.18) 0%, transparent 34%), radial-gradient(circle at 88% 16%, rgba(99,102,241,0.2) 0%, transparent 38%), linear-gradient(145deg, rgba(252,253,255,0.95) 0%, rgba(233,238,255,0.8) 48%, rgba(245,247,255,0.92) 100%)",
                     }}
                     animate={
                         isLiteMode
@@ -88,7 +87,7 @@ const Hero3D = () => {
                     className="absolute inset-0 dark:block hidden"
                     style={{
                         background:
-                            "radial-gradient(circle at 14% 20%, rgba(6,182,212,0.25) 0%, transparent 40%), radial-gradient(circle at 82% 10%, rgba(99,102,241,0.35) 0%, transparent 46%), radial-gradient(circle at 82% 84%, rgba(168,85,247,0.3) 0%, transparent 45%), linear-gradient(145deg, rgba(2,6,23,0.98) 0%, rgba(15,23,42,0.94) 45%, rgba(23,37,84,0.9) 100%)",
+                            "radial-gradient(circle at 12% 18%, rgba(34,211,238,0.26) 0%, transparent 36%), radial-gradient(circle at 88% 14%, rgba(99,102,241,0.36) 0%, transparent 42%), radial-gradient(circle at 76% 82%, rgba(168,85,247,0.28) 0%, transparent 40%), linear-gradient(148deg, rgba(2,6,23,1) 0%, rgba(10,16,36,0.96) 44%, rgba(13,23,56,0.95) 100%)",
                     }}
                     animate={
                         isLiteMode
@@ -101,18 +100,45 @@ const Hero3D = () => {
                 />
 
                 <div
-                    className="absolute inset-0 opacity-[0.04] dark:opacity-[0.08]"
+                    className="absolute inset-0 opacity-[0.025] dark:opacity-[0.06]"
                     style={{
                         backgroundImage:
                             "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
                     }}
                 />
 
+                <div className="absolute inset-0 dark:bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(2,6,23,0.45)_100%)]" />
+
+                {!isLiteMode && (
+                    <>
+                        <motion.div
+                            className="absolute -top-16 left-[8%] h-[170%] w-28 rotate-[16deg]"
+                            style={{
+                                background: "linear-gradient(to right, rgba(34,211,238,0.16), transparent)",
+                                filter: "blur(2px)",
+                                transform: "translateZ(-12px)",
+                            }}
+                            animate={{ opacity: [0.22, 0.45, 0.22], x: [-10, 16, -10] }}
+                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        <motion.div
+                            className="absolute -top-20 right-[10%] h-[180%] w-24 -rotate-[14deg]"
+                            style={{
+                                background: "linear-gradient(to left, rgba(99,102,241,0.2), transparent)",
+                                filter: "blur(2px)",
+                                transform: "translateZ(-8px)",
+                            }}
+                            animate={{ opacity: [0.15, 0.38, 0.15], x: [12, -12, 12] }}
+                            transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                    </>
+                )}
+
                 <motion.div
                     className="absolute left-1/2 top-[55%] h-[42%] w-[140%] -translate-x-1/2 [transform:translateZ(-80px)_rotateX(76deg)]"
                     style={{
                         backgroundImage:
-                            "linear-gradient(to right, rgba(99,102,241,0.24) 1px, transparent 1px), linear-gradient(to bottom, rgba(99,102,241,0.2) 1px, transparent 1px)",
+                            "linear-gradient(to right, rgba(99,102,241,0.28) 1px, transparent 1px), linear-gradient(to bottom, rgba(99,102,241,0.22) 1px, transparent 1px)",
                         backgroundSize: "42px 42px",
                         maskImage:
                             "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.35) 46%, rgba(0,0,0,0) 100%)",
@@ -130,39 +156,53 @@ const Hero3D = () => {
                 />
 
                 <motion.div
-                    className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    className="absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full"
                     style={{
                         transform: "translateZ(35px)",
                         background:
-                            "conic-gradient(from 0deg, rgba(99,102,241,0.45), rgba(6,182,212,0.25), rgba(168,85,247,0.4), rgba(99,102,241,0.45))",
+                            "conic-gradient(from 0deg, rgba(99,102,241,0.62), rgba(34,211,238,0.3), rgba(168,85,247,0.5), rgba(99,102,241,0.62))",
                         filter: "blur(1px)",
                     }}
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
                 />
 
-                <div className="absolute left-1/2 top-1/2 h-[312px] w-[312px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/30 dark:border-white/15 bg-white/45 dark:bg-slate-950/35 backdrop-blur-xl" style={{ transform: "translateZ(45px)" }} />
+                <div className="absolute left-1/2 top-1/2 h-[302px] w-[302px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/35 dark:border-cyan-100/20 bg-white/55 dark:bg-slate-950/45 backdrop-blur-xl" style={{ transform: "translateZ(45px)" }} />
 
                 <motion.div
-                    className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/40 dark:border-white/20 bg-white/65 dark:bg-slate-900/55 backdrop-blur-xl"
-                    style={{ transform: "translateZ(75px)" }}
+                    className="absolute left-1/2 top-1/2 h-36 w-44 -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/45 dark:border-cyan-100/25 bg-white/70 dark:bg-slate-900/65 backdrop-blur-xl overflow-hidden"
+                    style={{ transform: "translateZ(76px)" }}
                     animate={isLiteMode ? undefined : { y: [-4, 4, -4] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/20 via-cyan-500/10 to-purple-500/20" />
-                    <div className="absolute inset-0 flex items-center justify-center text-[11px] font-bold tracking-[0.16em] text-slate-700 dark:text-slate-200">
-                        NEXT
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/18 via-cyan-500/12 to-purple-500/18" />
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-cyan-400/60 dark:bg-cyan-300/70" />
+                    <div className="absolute top-4 left-4 text-[10px] font-semibold tracking-[0.18em] text-slate-500 dark:text-cyan-100/80">
+                        CONTROL CORE
+                    </div>
+                    <div className="absolute left-4 right-4 top-11 space-y-2">
+                        <div className="h-2.5 rounded-full bg-slate-300/75 dark:bg-cyan-300/40" />
+                        <div className="h-2.5 w-[72%] rounded-full bg-slate-300/65 dark:bg-indigo-300/35" />
+                        <div className="h-2.5 w-[46%] rounded-full bg-slate-300/55 dark:bg-violet-300/35" />
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2">
+                        <span className="h-2 w-2 rounded-full bg-emerald-400/85" />
+                        <span className="h-2 w-2 rounded-full bg-cyan-400/80" />
+                        <span className="h-2 w-2 rounded-full bg-indigo-400/80" />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center text-[11px] font-bold tracking-[0.18em] text-slate-800/80 dark:text-white/75">
+                        FUTURE
                     </div>
                 </motion.div>
 
                 {!isLiteMode &&
-                    TREND_TAGS.map((tag) => (
+                    INSIGHT_CHIPS.map((tag) => (
                         <motion.div
                             key={tag.text}
-                            className="absolute px-3 py-1.5 rounded-full border border-white/40 dark:border-white/15 bg-white/55 dark:bg-slate-900/45 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold tracking-wide text-slate-700 dark:text-slate-200"
+                            className="absolute px-3 py-1.5 rounded-full border border-white/55 dark:border-cyan-100/20 bg-white/70 dark:bg-slate-900/55 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold tracking-wide text-slate-700 dark:text-cyan-100"
                             style={{
                                 ...tag,
-                                transform: "translateZ(65px)",
+                                transform: "translateZ(64px)",
                             }}
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: [0, -6, 0] }}
@@ -176,7 +216,7 @@ const Hero3D = () => {
                     particles.map((particle) => (
                         <motion.span
                             key={particle.id}
-                            className="absolute rounded-full bg-indigo-500/35 dark:bg-indigo-300/45"
+                            className="absolute rounded-full bg-indigo-500/40 dark:bg-cyan-300/65"
                             style={{
                                 left: `${particle.x}%`,
                                 top: `${particle.y}%`,
@@ -201,14 +241,15 @@ const Hero3D = () => {
                     className="absolute -inset-[45%] pointer-events-none"
                     style={{
                         background:
-                            "linear-gradient(110deg, transparent 25%, rgba(255,255,255,0.35) 48%, transparent 72%)",
+                            "linear-gradient(110deg, transparent 22%, rgba(255,255,255,0.45) 48%, transparent 72%)",
                         transform: "translateZ(120px)",
                     }}
                     animate={isLiteMode ? undefined : { x: ["-30%", "35%"] }}
                     transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }}
                 />
 
-                <div className="absolute inset-0 rounded-[30px] border border-white/40 dark:border-white/10 pointer-events-none" />
+                <div className="absolute inset-0 rounded-[30px] border border-white/55 dark:border-cyan-100/15 pointer-events-none" />
+                <div className="absolute inset-0 rounded-[30px] pointer-events-none shadow-[inset_0_0_120px_rgba(99,102,241,0.16)] dark:shadow-[inset_0_0_140px_rgba(6,182,212,0.2)]" />
             </motion.div>
         </div>
     );
