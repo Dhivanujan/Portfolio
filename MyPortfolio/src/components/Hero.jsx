@@ -386,10 +386,10 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[280px] sm:min-h-[340px]"
+                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[280px] sm:min-h-[340px] mt-6 sm:mt-8 lg:mt-10"
                 >
                     <div className="relative w-full max-w-[450px] sm:max-w-[540px] aspect-[5/6] flex items-center justify-center">
-                        <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-x-0 top-4 sm:top-6 md:top-8 bottom-0 z-0">
                             <Hero3D variant={HERO_3D_VARIANT} />
                         </div>
 
