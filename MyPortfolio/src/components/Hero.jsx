@@ -47,7 +47,7 @@ const Hero = () => {
     return (
         <section
             id="hero"
-            className="min-h-[100svh] lg:h-screen flex items-center justify-center relative overflow-x-hidden pt-24 sm:pt-20 md:pt-16 lg:pt-8 pb-10 md:pb-8 lg:pb-6"
+            className="min-h-[100svh] lg:h-screen flex items-center justify-center relative isolate overflow-hidden pt-24 sm:pt-20 md:pt-16 lg:pt-8 pb-10 md:pb-8 lg:pb-6"
         >
             {/* Background Effects */}
             <motion.div
