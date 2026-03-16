@@ -1,44 +1,139 @@
-const VARIANT_STYLES = {
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Float, MeshDistortMaterial } from "@react-three/drei";
+import * as THREE from "three";
+
+const VARIANT_COLORS = {
     enterprise: {
-        accent: "from-indigo-500/20 via-cyan-500/10 to-purple-500/20",
-        ring: "border-indigo-400/35 dark:border-cyan-300/25",
+        primary: "#6366f1",
+        secondary: "#06b6d4",
+        emissive: "#4338ca",
     },
     cinematic: {
-        accent: "from-indigo-500/25 via-purple-500/15 to-cyan-500/25",
-        ring: "border-purple-400/35 dark:border-indigo-300/25",
+        primary: "#8b5cf6",
+        secondary: "#ec4899",
+        emissive: "#6d28d9",
     },
     cyber: {
-        accent: "from-cyan-500/25 via-indigo-500/15 to-fuchsia-500/25",
-        ring: "border-cyan-400/40 dark:border-cyan-200/30",
+        primary: "#06b6d4",
+        secondary: "#a855f7",
+        emissive: "#0891b2",
     },
 };
 
-const Hero3D = ({ variant = "enterprise" }) => {
-    const active = VARIANT_STYLES[variant] || VARIANT_STYLES.enterprise;
+/* ── Floating Torus Knot ── */
+const FloatingMesh = ({ variant = "enterprise" }) => {
+    const meshRef = useRef();
+    const mouseRef = useRef({ x: 0, y: 0 });
+    const { viewport } = useThree();
+    const colors = VARIANT_COLORS[variant] || VARIANT_COLORS.enterprise;
+
+    const colorPrimary = useMemo(() => new THREE.Color(colors.primary), [colors.primary]);
+    const colorEmissive = useMemo(() => new THREE.Color(colors.emissive), [colors.emissive]);
+
+    useFrame(({ clock, pointer }) => {
+        if (!meshRef.current) return;
+
+        // Smooth mouse follow
+        mouseRef.current.x += (pointer.x * 0.3 - mouseRef.current.x) * 0.05;
+        mouseRef.current.y += (pointer.y * 0.3 - mouseRef.current.y) * 0.05;
+
+        const t = clock.getElapsedTime();
+
+        // Gentle auto-rotation + mouse parallax
+        meshRef.current.rotation.x = Math.sin(t * 0.15) * 0.2 + mouseRef.current.y * 0.4;
+        meshRef.current.rotation.y = t * 0.12 + mouseRef.current.x * 0.4;
+        meshRef.current.rotation.z = Math.cos(t * 0.1) * 0.1;
+
+        // Subtle breathing scale
+        const breathe = 1 + Math.sin(t * 0.6) * 0.03;
+        meshRef.current.scale.setScalar(breathe);
+    });
+
+    const scaleFactor = Math.min(viewport.width, viewport.height) * 0.22;
 
     return (
-        <div className="w-full h-full relative pointer-events-none" aria-hidden="true">
-            <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-white/70 to-slate-100/50 dark:from-slate-900/80 dark:to-slate-800/60" />
+        <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.6}>
+            <mesh ref={meshRef} scale={scaleFactor}>
+                <torusKnotGeometry args={[1, 0.35, 200, 32, 2, 3]} />
+                <MeshDistortMaterial
+                    color={colorPrimary}
+                    emissive={colorEmissive}
+                    emissiveIntensity={0.35}
+                    roughness={0.2}
+                    metalness={0.8}
+                    distort={0.25}
+                    speed={2}
+                    transparent
+                    opacity={0.85}
+                />
+            </mesh>
+        </Float>
+    );
+};
 
-            <div className={`absolute inset-0 rounded-[30px] bg-gradient-to-br ${active.accent}`} />
+/* ── Ambient Particles ── */
+const Particles = ({ count = 40, variant = "enterprise" }) => {
+    const ref = useRef();
+    const colors = VARIANT_COLORS[variant] || VARIANT_COLORS.enterprise;
 
-            <div className="absolute left-1/2 top-1/2 h-52 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/45 dark:bg-slate-900/55 blur-2xl" />
+    const positions = useMemo(() => {
+        const pos = new Float32Array(count * 3);
+        for (let i = 0; i < count; i++) {
+            pos[i * 3] = (Math.random() - 0.5) * 8;
+            pos[i * 3 + 1] = (Math.random() - 0.5) * 8;
+            pos[i * 3 + 2] = (Math.random() - 0.5) * 4;
+        }
+        return pos;
+    }, [count]);
 
-            <div
-                className={`absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border ${active.ring}`}
+    useFrame(({ clock }) => {
+        if (!ref.current) return;
+        const t = clock.getElapsedTime();
+        const posArr = ref.current.geometry.attributes.position.array;
+        for (let i = 0; i < count; i++) {
+            posArr[i * 3 + 1] += Math.sin(t * 0.3 + i) * 0.002;
+        }
+        ref.current.geometry.attributes.position.needsUpdate = true;
+    });
+
+    return (
+        <points ref={ref}>
+            <bufferGeometry>
+                <bufferAttribute
+                    attach="attributes-position"
+                    count={count}
+                    array={positions}
+                    itemSize={3}
+                />
+            </bufferGeometry>
+            <pointsMaterial
+                size={0.04}
+                color={colors.secondary}
+                transparent
+                opacity={0.6}
+                sizeAttenuation
             />
+        </points>
+    );
+};
 
-            <div className="absolute left-1/2 top-1/2 h-44 w-56 -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/50 dark:border-slate-300/15 bg-white/60 dark:bg-slate-900/65 backdrop-blur-md shadow-[0_16px_40px_rgba(15,23,42,0.16)]">
-                <div className="absolute top-4 left-4 right-4 h-2 rounded-full bg-slate-300/70 dark:bg-cyan-300/25" />
-                <div className="absolute top-9 left-4 right-10 h-2 rounded-full bg-slate-300/55 dark:bg-indigo-300/20" />
-                <div className="absolute top-14 left-4 right-16 h-2 rounded-full bg-slate-300/40 dark:bg-purple-300/20" />
-
-                <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400/85" />
-                    <span className="h-2 w-2 rounded-full bg-cyan-400/80" />
-                    <span className="h-2 w-2 rounded-full bg-indigo-400/80" />
-                </div>
-            </div>
+/* ── Main Hero3D Component ── */
+const Hero3D = ({ variant = "enterprise" }) => {
+    return (
+        <div className="w-full h-full relative pointer-events-none" aria-hidden="true">
+            <Canvas
+                dpr={[1, 1.5]}
+                gl={{ antialias: true, alpha: true }}
+                camera={{ position: [0, 0, 5], fov: 45 }}
+                style={{ background: "transparent" }}
+            >
+                <ambientLight intensity={0.4} />
+                <directionalLight position={[5, 5, 5]} intensity={0.8} />
+                <directionalLight position={[-3, -3, 2]} intensity={0.3} color="#8b5cf6" />
+                <FloatingMesh variant={variant} />
+                <Particles variant={variant} />
+            </Canvas>
         </div>
     );
 };

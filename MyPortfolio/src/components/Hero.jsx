@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { lazy, Suspense, useEffect, useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
 import {
     ArrowRight,
     Cloud,
@@ -7,7 +7,9 @@ import {
     Github,
     Linkedin,
     Shield,
-    Sparkles
+    Sparkles,
+    Braces,
+    Zap
 } from "lucide-react";
 import { Link } from "react-scroll";
 
@@ -16,21 +18,138 @@ const Hero3D = lazy(() => import("./Hero3D"));
 
 // Static data
 const HIGHLIGHTS = [
-    { text: "AI/ML Delivery", icon: Sparkles },
-    { text: "Cloud Architecture", icon: Cloud },
-    { text: "Secure DevOps", icon: Shield }
+    { text: "AI/ML Delivery", icon: Sparkles, color: "from-violet-500 to-indigo-500" },
+    { text: "Cloud Architecture", icon: Cloud, color: "from-cyan-500 to-blue-500" },
+    { text: "Secure DevOps", icon: Shield, color: "from-emerald-500 to-teal-500" }
 ];
 
 const FLOATING_STATS = [
-    { value: "50+", label: "Projects", delay: 0 },
-    { value: "99%", label: "Uptime", delay: 0.1 },
-    { value: "3+", label: "Years Exp", delay: 0.2 }
+    { value: 50, suffix: "+", label: "Projects", icon: Braces },
+    { value: 99, suffix: "%", label: "Uptime", icon: Zap },
+    { value: 3, suffix: "+", label: "Years Exp", icon: Sparkles }
 ];
+
+const ROLES = ["AI Engineer", "Cloud Architect", "DevOps Specialist", "Full-Stack Developer"];
 
 // Constants
 const NAV_OFFSET = -88;
+
+// ── Word-by-word stagger animation ──
+const headingContainer = {
+    hidden: {},
+    visible: {
+        transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+    }
+};
+
+const wordVariant = {
+    hidden: { opacity: 0, y: 40, rotateX: -40 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }
+    }
+};
+
+// ── Count-up Hook ──
+const useCountUp = (target, duration = 2000, startDelay = 500) => {
+    const [count, setCount] = useState(0);
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true });
+
+    useEffect(() => {
+        if (!inView) return;
+        const timer = setTimeout(() => {
+            const start = performance.now();
+            const step = (now) => {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                setCount(Math.floor(eased * target));
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }, startDelay);
+        return () => clearTimeout(timer);
+    }, [inView, target, duration, startDelay]);
+
+    return { count, ref };
+};
+
+// ── Typing Role Animation ──
+const RoleTyper = () => {
+    const [roleIndex, setRoleIndex] = useState(0);
+    const [charIndex, setCharIndex] = useState(0);
+    const [deleting, setDeleting] = useState(false);
+
+    useEffect(() => {
+        const role = ROLES[roleIndex];
+        const speed = deleting ? 40 : 80;
+
+        if (!deleting && charIndex === role.length) {
+            const pause = setTimeout(() => setDeleting(true), 2000);
+            return () => clearTimeout(pause);
+        }
+
+        if (deleting && charIndex === 0) {
+            setDeleting(false);
+            setRoleIndex((prev) => (prev + 1) % ROLES.length);
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            setCharIndex((prev) => prev + (deleting ? -1 : 1));
+        }, speed);
+
+        return () => clearTimeout(timer);
+    }, [charIndex, deleting, roleIndex]);
+
+    return (
+        <span className="text-indigo-500 dark:text-indigo-400 font-bold">
+            {ROLES[roleIndex].slice(0, charIndex)}
+            <span className="animate-pulse text-indigo-400">|</span>
+        </span>
+    );
+};
+
+// ── Stat Card ──
+const StatCard = ({ stat, index }) => {
+    const { count, ref } = useCountUp(stat.value, 1800, 600 + index * 200);
+    const Icon = stat.icon;
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.6 + index * 0.12, type: "spring", stiffness: 100 }}
+            className="
+                group relative flex flex-col items-center gap-1.5 px-5 py-4 rounded-2xl
+                bg-white/60 dark:bg-white/[0.04]
+                border border-slate-200/80 dark:border-white/[0.08]
+                backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-black/20
+                hover:border-indigo-400/50 dark:hover:border-indigo-500/30
+                hover:shadow-indigo-500/10
+                transition-all duration-300 min-w-[90px]
+            "
+        >
+            <Icon className="w-4 h-4 text-indigo-500/70 dark:text-indigo-400/60 mb-0.5" />
+            <div className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                {count}{stat.suffix}
+            </div>
+            <div className="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">
+                {stat.label}
+            </div>
+        </motion.div>
+    );
+};
+
 const Hero = () => {
     const [showHero3D, setShowHero3D] = useState(false);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+    const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+    const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
     useEffect(() => {
         const canRender3D =
@@ -53,151 +172,182 @@ const Hero = () => {
         return () => window.clearTimeout(timeoutId);
     }, []);
 
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        mouseX.set(x * 20);
+        mouseY.set(y * 20);
+    };
+
+    const headingWords = ["Crafting", "Intelligent", "&", "Resilient"];
+
     return (
         <section
             id="hero"
-            className="min-h-[100svh] lg:h-screen flex items-center justify-center relative isolate overflow-hidden pt-24 sm:pt-20 md:pt-16 lg:pt-8 pb-10 md:pb-8 lg:pb-6"
+            className="min-h-[100svh] lg:h-screen flex items-center justify-center relative isolate overflow-hidden pt-24 sm:pt-20 md:pt-16 lg:pt-20 pb-10 md:pb-8 lg:pb-6"
+            onMouseMove={handleMouseMove}
         >
-            {/* Static lightweight background */}
-            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(99,102,241,0.14),transparent_36%),radial-gradient(circle_at_85%_18%,rgba(6,182,212,0.12),transparent_34%),radial-gradient(circle_at_50%_80%,rgba(168,85,247,0.12),transparent_40%)]" />
+            {/* ── Layered Background ── */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* Soft radial glows */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_15%_20%,rgba(99,102,241,0.18),transparent_40%),radial-gradient(ellipse_at_85%_15%,rgba(6,182,212,0.14),transparent_38%),radial-gradient(ellipse_at_50%_85%,rgba(168,85,247,0.12),transparent_45%)]" />
 
-            <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px)
-                    `,
-                    backgroundSize: "60px 60px",
-                    maskImage:
-                        "radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 80%)",
-                    WebkitMaskImage:
-                        "radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 80%)"
-                }}
-            />
-
-            {/* Hero Content */}
-            <motion.div
-                className="container mx-auto px-4 sm:px-6 md:px-10 grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start lg:items-center relative z-10 w-full max-w-6xl pt-4 sm:pt-2 md:pt-0"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-            >
-                {/* Text Section */}
+                {/* Grid pattern */}
                 <div
-                    className="
-                        flex flex-col items-center lg:items-start lg:justify-center
-                        text-center lg:text-left
-                        z-10 order-2 lg:order-1
-                    "
-                >
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px)
+                        `,
+                        backgroundSize: "80px 80px",
+                        maskImage:
+                            "radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%)",
+                        WebkitMaskImage:
+                            "radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%)"
+                    }}
+                />
+
+                {/* Diagonal accent line */}
+                <div className="absolute top-0 right-0 w-[1px] h-[60%] bg-gradient-to-b from-indigo-500/30 via-purple-500/20 to-transparent rotate-[20deg] origin-top-right translate-x-[-40vw]" />
+            </div>
+
+            {/* ── Hero Content ── */}
+            <motion.div
+                className="container mx-auto px-4 sm:px-6 md:px-10 grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-start lg:items-center relative z-10 w-full max-w-7xl pt-4 sm:pt-2 md:pt-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                {/* ── Text Section ── */}
+                <div className="flex flex-col items-center lg:items-start lg:justify-center text-center lg:text-left z-10 order-2 lg:order-1">
+
+                    {/* Status badge */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: 14 }}
+                        initial={{ opacity: 0, scale: 0.9, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                         className="
-                            mb-4 sm:mb-5 inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full
-                            border border-indigo-500/30
-                            bg-gradient-to-r from-indigo-500/10 to-purple-500/10
+                            mb-5 inline-flex items-center gap-3 px-5 py-2.5 rounded-full
+                            border border-indigo-500/20 dark:border-indigo-400/15
+                            bg-white/70 dark:bg-white/[0.04]
                             backdrop-blur-xl shadow-lg shadow-indigo-500/5
                         "
                     >
                         <span className="relative flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                            <span className="absolute inline-flex h-[150%] w-[150%] -top-[25%] -left-[25%] rounded-full bg-emerald-400/20 animate-pulse" />
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                         </span>
-
                         <span className="text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
                             Available for new opportunities
                         </span>
                     </motion.div>
 
+                    {/* ── Cinematic Heading ── */}
                     <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+                        variants={headingContainer}
+                        initial="hidden"
+                        animate="visible"
                         className="
-                            text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-[3.25rem]
+                            text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-[3.5rem]
                             font-heading font-bold tracking-tight
-                            mb-3 sm:mb-4
-                            leading-[1.12]
+                            mb-2 sm:mb-3 leading-[1.12]
+                            perspective-1000
                         "
                     >
-                        <span className="bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-300">
-                            Crafting Intelligent
+                        <span className="flex flex-wrap justify-center lg:justify-start gap-x-3">
+                            {headingWords.map((word, i) => (
+                                <motion.span
+                                    key={i}
+                                    variants={wordVariant}
+                                    className={
+                                        i < 2
+                                            ? "bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-300"
+                                            : "bg-clip-text text-transparent bg-gradient-to-r from-slate-700 to-slate-500 dark:from-slate-300 dark:to-slate-400"
+                                    }
+                                    style={{ display: "inline-block" }}
+                                >
+                                    {word}
+                                </motion.span>
+                            ))}
                         </span>
-                        <br />
 
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400">
-                            &amp; Resilient
-                        </span>{" "}
-
-                        <span className="relative">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-400 heading-glow">
+                        <motion.span
+                            variants={wordVariant}
+                            className="relative inline-block mt-1"
+                        >
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-400 heading-glow animate-text-shimmer bg-[length:200%_100%]">
                                 Systems
                             </span>
-
-                            <span
-                                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
-                                style={{ transformOrigin: "left", transform: "scaleX(1)" }}
-                            />
-                        </span>
+                            <span className="absolute -bottom-2 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 animate-shimmer bg-[length:200%_100%]" />
+                        </motion.span>
                     </motion.h1>
 
+                    {/* ── Role Typer ── */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                        className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-5 h-9"
+                    >
+                        <RoleTyper />
+                    </motion.div>
+
+                    {/* ── Description ── */}
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-4 sm:mb-6 leading-relaxed"
+                        transition={{ delay: 0.4, duration: 0.6 }}
+                        className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-5 sm:mb-6 leading-relaxed"
                     >
                         Specializing in{" "}
-                        <span className="text-indigo-600 dark:text-indigo-400 font-semibold">
-                            AI/ML
-                        </span>
-                        ,{" "}
-                        <span className="text-purple-600 dark:text-purple-400 font-semibold">
-                            Cloud
-                        </span>
-                        , and{" "}
-                        <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
-                            DevOps
-                        </span>{" "}
+                        <span className="text-indigo-600 dark:text-indigo-400 font-semibold">AI/ML</span>,{" "}
+                        <span className="text-purple-600 dark:text-purple-400 font-semibold">Cloud</span>, and{" "}
+                        <span className="text-cyan-600 dark:text-cyan-400 font-semibold">DevOps</span>{" "}
                         engineering. I build production-ready systems that scale, secure, and
                         deliver measurable business impact.
                     </motion.p>
 
+                    {/* ── Highlight Pills ── */}
                     <motion.div
                         initial={{ opacity: 0, y: 14 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.25, duration: 0.55 }}
-                        className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-4 sm:mb-6"
+                        transition={{ delay: 0.5, duration: 0.55 }}
+                        className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-6"
                     >
                         {HIGHLIGHTS.map((item, idx) => (
                             <motion.span
                                 key={item.text}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.3 + idx * 0.1 }}
+                                transition={{ delay: 0.55 + idx * 0.1 }}
                                 className="
-                                    group inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl
-                                    bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10
+                                    group inline-flex items-center gap-2 px-4 py-2.5 rounded-xl
+                                    bg-white/80 dark:bg-white/[0.04]
+                                    border border-slate-200 dark:border-white/[0.08]
                                     text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200
-                                    shadow-sm hover:shadow-md
-                                    hover:border-indigo-300 dark:hover:border-indigo-500/50
-                                    transition-colors duration-200
+                                    shadow-sm hover:shadow-lg
+                                    transition-all duration-300
+                                    hover:-translate-y-0.5
+                                    hover:border-indigo-300 dark:hover:border-indigo-500/40
                                 "
                             >
-                                <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
+                                <span className={`p-1 rounded-lg bg-gradient-to-br ${item.color} shadow-sm`}>
+                                    <item.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
+                                </span>
                                 {item.text}
                             </motion.span>
                         ))}
                     </motion.div>
 
+                    {/* ── CTA Buttons ── */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.35, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 w-full sm:w-auto"
+                        transition={{ delay: 0.6, duration: 0.6 }}
+                        className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-auto"
                     >
                         <Link
                             to="projects"
@@ -205,17 +355,23 @@ const Hero = () => {
                             duration={500}
                             offset={NAV_OFFSET}
                             className="
-                                group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5
+                                group relative inline-flex items-center justify-center px-7 py-3.5
                                 text-white font-semibold focus:outline-none cursor-pointer rounded-xl
+                                overflow-hidden isolate
                                 transition-all duration-300
-                                bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600
-                                shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40
-                                overflow-hidden
                             "
                         >
+                            {/* Animated gradient bg */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-[length:200%_100%] animate-gradient rounded-xl" />
+                            {/* Shine sweep */}
+                            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                            </span>
+                            {/* Shadow */}
+                            <span className="absolute inset-0 rounded-xl shadow-lg shadow-indigo-600/30 group-hover:shadow-indigo-500/50 transition-shadow duration-300" />
                             <span className="relative flex items-center tracking-wide text-sm">
                                 Explore My Work
-                                <ArrowRight className="ml-2 w-4 h-4" />
+                                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                             </span>
                         </Link>
 
@@ -223,137 +379,106 @@ const Hero = () => {
                             href="/resume.pdf"
                             download
                             className="
-                                group inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5
-                                text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white
-                                transition-all duration-300 font-semibold
-                                border-2 border-slate-200 dark:border-slate-700
-                                hover:border-indigo-400 dark:hover:border-indigo-500
-                                bg-white/80 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20
-                                rounded-xl shadow-sm hover:shadow-lg backdrop-blur-sm
+                                group relative inline-flex items-center justify-center px-7 py-3.5
+                                font-semibold rounded-xl overflow-hidden isolate
+                                text-slate-700 dark:text-slate-200
+                                transition-all duration-300
                             "
                         >
-                            <FileText className="mr-2 w-4 h-4 group-hover:scale-110 transition-transform" />
-                            <span className="text-sm tracking-wide">Get Resume</span>
+                            {/* Rotating gradient border */}
+                            <span className="absolute inset-0 rounded-xl p-[2px] hero-rotating-border">
+                                <span className="absolute inset-[2px] rounded-[10px] bg-white dark:bg-slate-900 transition-colors duration-300" />
+                            </span>
+                            <span className="relative flex items-center text-sm tracking-wide">
+                                <FileText className="mr-2 w-4 h-4 group-hover:scale-110 transition-transform" />
+                                Get Resume
+                            </span>
                         </a>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.45, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200 dark:border-slate-800 w-full"
-                    >
-                        <div className="flex items-center gap-3">
-                            <a
-                                href="https://github.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="
-                                    group relative p-3 rounded-xl
-                                    text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white
-                                    border border-slate-200 dark:border-slate-700
-                                    bg-white dark:bg-slate-800/50
-                                    transition-all duration-300
-                                    hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-600
-                                "
-                            >
-                                <Github className="h-5 w-5" />
-                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    GitHub
-                                </span>
-                            </a>
-
-                            <a
-                                href="https://linkedin.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="
-                                    group relative p-3 rounded-xl
-                                    text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400
-                                    border border-slate-200 dark:border-slate-700
-                                    bg-white dark:bg-slate-800/50
-                                    transition-all duration-300
-                                    hover:shadow-lg hover:border-indigo-400 dark:hover:border-indigo-600
-                                "
-                            >
-                                <Linkedin className="h-5 w-5" />
-                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    LinkedIn
-                                </span>
-                            </a>
-                        </div>
-
-                        <div className="hidden md:flex items-center gap-5 ml-auto">
-                            {FLOATING_STATS.map((stat) => (
-                                <motion.div
-                                    key={stat.label}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 + stat.delay }}
-                                    className="text-center"
-                                >
-                                    <div className="text-xl font-bold text-slate-900 dark:text-white">
-                                        {stat.value}
-                                    </div>
-                                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                                        {stat.label}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
                     </motion.div>
                 </div>
 
-                {/* Profile Visual Section */}
+                {/* ── Profile Visual Section ── */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
-                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[280px] sm:min-h-[340px] mt-6 sm:mt-8 lg:mt-10"
+                    transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+                    className="relative order-1 lg:order-2 flex justify-center items-center h-full min-h-[280px] sm:min-h-[360px] mt-6 sm:mt-8 lg:mt-10"
                 >
-                    <div className="relative w-full max-w-[450px] sm:max-w-[540px] aspect-[5/6] flex items-center justify-center">
-                        <div className="absolute inset-x-0 top-6 bottom-4 z-0 rounded-[30px] border border-slate-200/80 dark:border-slate-700/60 bg-gradient-to-br from-white/70 to-indigo-50/50 dark:from-slate-900/65 dark:to-slate-800/40 backdrop-blur-md" />
-                        {showHero3D && (
-                            <div className="absolute inset-x-0 top-6 bottom-4 z-0 overflow-hidden rounded-[30px]">
+                    <motion.div
+                        style={{ x: springX, y: springY }}
+                        className="relative w-full max-w-[480px] sm:max-w-[560px] aspect-[5/6] flex items-center justify-center"
+                    >
+                        {/* Morphing Blob Background */}
+                        <div className="absolute inset-[-10%] hero-blob opacity-60 dark:opacity-40" />
+
+                        {/* 3D Background */}
+                        <div className="absolute inset-x-0 top-4 bottom-2 z-0 rounded-[34px] overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-indigo-50/40 dark:from-slate-900/60 dark:to-slate-800/40 backdrop-blur-sm rounded-[34px] border border-slate-200/50 dark:border-slate-700/40" />
+                            {showHero3D && (
                                 <Suspense fallback={null}>
                                     <Hero3D variant="enterprise" />
                                 </Suspense>
-                            </div>
-                        )}
+                            )}
+                        </div>
 
+                        {/* Floating Decoration Dots */}
                         <motion.div
-                            initial={{ scale: 0.92, opacity: 0 }}
+                            animate={{ y: [0, -12, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute top-8 right-8 w-3 h-3 rounded-full bg-indigo-500/40 blur-[1px] z-20"
+                        />
+                        <motion.div
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                            className="absolute bottom-16 left-8 w-2.5 h-2.5 rounded-full bg-purple-500/40 blur-[1px] z-20"
+                        />
+                        <motion.div
+                            animate={{ y: [0, -8, 0], x: [0, 6, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                            className="absolute top-1/3 left-4 w-2 h-2 rounded-full bg-cyan-500/40 blur-[1px] z-20"
+                        />
+
+                        {/* Profile Photo with Rotating Gradient Border */}
+                        <motion.div
+                            initial={{ scale: 0.88, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.6, type: "spring", stiffness: 80 }}
                             className="relative z-10 w-48 h-56 sm:w-56 sm:h-64 md:w-64 md:h-72 rounded-[28px] isolate group"
                         >
-                            <div className="absolute -inset-1 rounded-[30px] bg-gradient-to-r from-indigo-500/70 via-purple-500/65 to-cyan-500/70 opacity-70 blur-sm" />
+                            {/* Rotating gradient glow */}
+                            <div className="absolute -inset-1.5 rounded-[32px] hero-rotating-border opacity-80 blur-[2px]" />
 
-                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-indigo-600 via-purple-500 to-cyan-500 p-[2px] shadow-[0_0_50px_rgba(99,102,241,0.25)]">
-                                <div className="absolute inset-0 bg-slate-900 dark:bg-slate-950 rounded-[26px] m-[2px] overflow-hidden">
+                            {/* Inner rotating border */}
+                            <div className="absolute -inset-0.5 rounded-[30px] hero-rotating-border">
+                                <div className="absolute inset-[2px] bg-slate-900 dark:bg-slate-950 rounded-[28px] overflow-hidden">
                                     <img
                                         src={profile}
                                         alt="Portrait of Dhivanujan"
-                                        className="w-full h-full object-cover opacity-95"
+                                        className="w-full h-full object-cover opacity-95 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
                                     />
-
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
                                 </div>
                             </div>
                         </motion.div>
-                    </div>
+                    </motion.div>
                 </motion.div>
             </motion.div>
 
-            {/* Scroll Indicator */}
-            <div className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 opacity-70">
-                <div className="w-5 h-8 border-2 border-slate-600 dark:border-slate-700 rounded-full flex justify-center pt-1.5 relative">
-                    <div className="w-1 h-1.5 bg-indigo-500 rounded-full shadow-[0_0_6px_rgba(99,102,241,0.5)]" />
-                </div>
+            {/* ── Scroll Indicator ── */}
+            <div className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 opacity-60">
+                <motion.div
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-5 h-9 border-2 border-slate-400 dark:border-slate-600 rounded-full flex justify-center pt-2"
+                >
+                    <div className="w-1 h-2 bg-indigo-500 rounded-full shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
+                </motion.div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 font-medium">
+                    Scroll
+                </span>
             </div>
         </section>
     );
 };
 
 export default Hero;
-

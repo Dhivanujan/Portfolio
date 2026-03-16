@@ -294,4 +294,80 @@
   ::selection {
     @apply bg-indigo-500/30 text-indigo-900 dark:text-indigo-100;
   }
+
+  /* ── Hero Morphing Blob ── */
+  @keyframes morph {
+    0%, 100% {
+      border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      border-radius: 73% 27% 38% 62% / 50% 62% 38% 50%;
+      transform: rotate(45deg) scale(1.02);
+    }
+    50% {
+      border-radius: 28% 72% 44% 56% / 65% 35% 65% 35%;
+      transform: rotate(90deg) scale(0.98);
+    }
+    75% {
+      border-radius: 60% 40% 30% 70% / 38% 55% 45% 62%;
+      transform: rotate(135deg) scale(1.01);
+    }
+  }
+
+  .hero-blob {
+    background: radial-gradient(
+      ellipse at 30% 40%,
+      rgba(99, 102, 241, 0.25),
+      rgba(168, 85, 247, 0.18) 40%,
+      rgba(6, 182, 212, 0.12) 70%,
+      transparent 100%
+    );
+    animation: morph 12s ease-in-out infinite;
+    filter: blur(40px);
+  }
+
+  .dark .hero-blob {
+    background: radial-gradient(
+      ellipse at 30% 40%,
+      rgba(99, 102, 241, 0.2),
+      rgba(168, 85, 247, 0.15) 40%,
+      rgba(6, 182, 212, 0.1) 70%,
+      transparent 100%
+    );
+  }
+
+  /* ── Rotating Gradient Border ── */
+  @keyframes rotate-gradient {
+    0% { --gradient-angle: 0deg; }
+    100% { --gradient-angle: 360deg; }
+  }
+
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .hero-rotating-border {
+    background: conic-gradient(
+      from var(--gradient-angle),
+      #6366f1,
+      #8b5cf6,
+      #06b6d4,
+      #a855f7,
+      #6366f1
+    );
+    animation: rotate-gradient 4s linear infinite;
+  }
+
+  /* ── Text Shimmer ── */
+  @keyframes text-shimmer {
+    0% { background-position: -200% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  .animate-text-shimmer {
+    animation: text-shimmer 4s ease-in-out infinite;
+  }
 }
