@@ -14,7 +14,7 @@ const projects = [
         github: "#",
         demo: "#",
         featured: true,
-        stats: { stars: 42, forks: 11 }
+        stats: { stars: 0, forks: 0 }
     },
     {
         title: "PerfectCV – AI-Powered Resume Improver",
@@ -26,7 +26,7 @@ const projects = [
         github: "https://github.com/Dhivanujan/MiniProject-PerfectCV",
         demo: "#",
         featured: true,
-        stats: { stars: 58, forks: 15 }
+        stats: { stars: 0, forks: 0 }
     },
     {
         title: "Network Packet Analyzer",
@@ -38,7 +38,7 @@ const projects = [
         github: "https://github.com/Dhivanujan/Network-Packet-Analyzer",
         demo: "#",
         featured: false,
-        stats: { stars: 33, forks: 7 }
+        stats: { stars: 0, forks: 0 }
     },
     {
         title: "Smart Mall Management System",
@@ -50,7 +50,7 @@ const projects = [
         github: "https://github.com/Dhivanujan/Smart-Mall-Management-System",
         demo: "#",
         featured: false,
-        stats: { stars: 26, forks: 6 }
+        stats: { stars: 0, forks: 0 }
     },
     {
         title: "Smart Firewall Controller",
@@ -62,7 +62,7 @@ const projects = [
         github: "https://github.com/Dhivanujan/Firewall-Rule-Manager",
         demo: "#",
         featured: true,
-        stats: { stars: 20, forks: 4 }
+        stats: { stars: 0, forks: 0 }
     },
     {
         title: "Expense Tracker",
@@ -74,7 +74,7 @@ const projects = [
         github: "https://github.com/Dhivanujan/Expense-Tracker-Web-App",
         demo: "#",
         featured: false,
-        stats: { stars: 20, forks: 4 }
+        stats: { stars: 0, forks: 0 }
     },
     {
         title: "Wearero – Clothing E-commerce Platform",
@@ -86,7 +86,7 @@ const projects = [
         github: "https://github.com/Dhivanujan/Wearero",
         demo: "#",
         featured: false,
-        stats: { stars: 24, forks: 5 }
+        stats: { stars: 0, forks: 0 }
     },
     {
     title: "React Calculator – Interactive Web Calculator",
@@ -98,7 +98,7 @@ const projects = [
     github: "https://github.com/Dhivanujan/Calculator",
     demo: "#",
     featured: false,
-    stats: { stars: 10, forks: 2 }
+    stats: { stars: 0, forks: 0 }
 }
 ];
 const ProjectCard = ({ project, index }) => {
