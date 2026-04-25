@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, FileText, Github, Linkedin, Terminal, Cloud, Shield, Leaf } from "lucide-react";
+import { ArrowRight, FileText, Github, Linkedin, Terminal, Cloud, Shield, Leaf, Network, TerminalIcon } from "lucide-react";
 import { Link } from "react-scroll";
 
 import profile from "../assets/Profile.JPG";
@@ -39,9 +39,9 @@ const scaleIn = {
 };
 
 const SKILLS = [
-    { icon: Terminal, text: "AI Engineering" },
-    { icon: Cloud, text: "Cloud Architecture" },
-    { icon: Shield, text: "DevSecOps" },
+    { icon: TerminalIcon, text: "Software Engineering" },
+    { icon: Cloud, text: "Cloud Computing" },
+    { icon: Network, text: "Networking" },
 ];
 
 const Hero = () => {
@@ -69,7 +69,7 @@ const Hero = () => {
                         <div className="rounded-full p-[3px] bg-white dark:bg-[#020205]">
                             <img
                                 src={profile}
-                                alt="Dhivanujan — AI Engineer"
+                                alt="Dhivanujan — Software Engineer"
                                 className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover"
                                 width="128"
                                 height="128"
@@ -79,13 +79,6 @@ const Hero = () => {
                     </div>
                 </motion.div>
 
-                {/* ── Eco Badge — unique green software identifier ── */}
-                <motion.div variants={itemVariants} className="mb-4">
-                    <span className="eco-badge">
-                        <Leaf className="w-4 h-4" />
-                        Eco-Friendly Portfolio — Built with Green Software Principles
-                    </span>
-                </motion.div>
 
                 {/* ── Status Badge ── */}
                 <motion.div
@@ -104,9 +97,9 @@ const Hero = () => {
                     variants={itemVariants}
                     className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-5"
                 >
-                    Building Scalable{" "}
+                    Designing Scalable{" "}
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-500 to-emerald-500 dark:from-indigo-400 dark:via-purple-400 dark:to-emerald-400 animate-text-shimmer bg-[length:200%_100%]">
-                        Cloud & AI Solutions
+                        Software Systems with Cloud & Networking Expertise
                     </span>
                 </motion.h1>
 
@@ -116,8 +109,7 @@ const Hero = () => {
                     className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed mb-8"
                 >
                     <span className="typing-cursor">
-                        I bridge the gap between complex AI models and production infrastructure —
-                        designing secure, cost-effective, and automated systems that drive real business value
+                        I bridge the gap between software development and cloud infrastructure—designing secure, scalable, and efficient systems that deliver real-world impact.
                     </span>
                 </motion.p>
 
