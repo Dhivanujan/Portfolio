@@ -86,7 +86,7 @@ const Navbar = () => {
           // Smooth background transitions based on scroll and theme
           scrolled
             ? isDark
-              ? "bg-obsidian/80 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20"
+              ? "bg-[#020205]/85 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/20"
               : "bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-md"
             : "bg-transparent"
         )}
@@ -262,7 +262,7 @@ const Navbar = () => {
                 className={cn(
                   "absolute inset-0",
                   isDark
-                    ? "bg-obsidian/90 backdrop-blur-sm"
+                    ? "bg-[#020205]/90 backdrop-blur-sm"
                     : "bg-slate-900/20 backdrop-blur-sm"
                 )}
               />
@@ -277,7 +277,7 @@ const Navbar = () => {
               className={cn(
                 "fixed top-0 right-0 bottom-0 z-50 w-full sm:w-80 lg:hidden overflow-y-auto",
                 isDark
-                  ? "bg-obsidian/95 backdrop-blur-xl border-l border-white/10"
+                  ? "bg-[#020205]/95 backdrop-blur-xl border-l border-white/10"
                   : "bg-white backdrop-blur-xl border-l border-slate-200 shadow-2xl"
               )}
               id="mobile-menu"
