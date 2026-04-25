@@ -10,6 +10,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   build: {
     // Chunk splitting for optimal caching
     rollupOptions: {
@@ -22,13 +25,5 @@ export default defineConfig({
     },
     // Target modern browsers for smaller output
     target: 'es2020',
-    // Enable minification
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
   },
 })
