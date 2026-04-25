@@ -45,8 +45,7 @@ const Footer = () => {
                             </span>
                         </Link>
                         <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-md mb-6">
-                            AI, Cloud & DevOps Engineer crafting intelligent systems and scalable infrastructure.
-                            Let's build something amazing together.
+                            Software, Cloud & DevOps Engineer building scalable systems and reliable infrastructure. Let’s create impactful solutions together.
                         </p>
 
                         {/* Social Links */}
@@ -149,15 +148,6 @@ const Footer = () => {
                                 Built with Green Software Principles
                             </span>
                         </div>
-                        <div className="flex items-center gap-4 text-xs text-emerald-600 dark:text-emerald-400/80">
-                            <span className="flex items-center gap-1.5">
-                                <Zap className="w-3.5 h-3.5" />
-                                No WebGL • No 3D libraries • CSS-only animations
-                            </span>
-                        </div>
-                        <span className="text-[11px] text-emerald-500/70 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
-                            Verify on websitecarbon.com →
-                        </span>
                     </a>
                 </div>
 
