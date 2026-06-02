@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
+import emailjs from "emailjs-com";
 
 const contactInfo = [
   {
@@ -45,16 +46,42 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
+  const [submitError, setSubmitError] = useState("");
   const formRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formRef.current || isSubmitting) {
+      return;
+    }
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setSubmitError("Email service is not configured yet.");
+      return;
+    }
+
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    formRef.current?.reset();
-    setTimeout(() => setIsSubmitted(false), 4000);
+    setSubmitError("");
+
+    try {
+      await emailjs.sendForm(
+        serviceId,
+        templateId,
+        formRef.current,
+        publicKey
+      );
+      setIsSubmitted(true);
+      formRef.current.reset();
+      setTimeout(() => setIsSubmitted(false), 4000);
+    } catch (error) {
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -218,6 +245,7 @@ const Contact = () => {
                   <input
                     type="text"
                     id="name"
+                    name="from_name"
                     required
                     onFocus={() => setFocusedField("name")}
                     onBlur={() => setFocusedField(null)}
@@ -244,6 +272,7 @@ const Contact = () => {
                   <input
                     type="email"
                     id="email"
+                    name="reply_to"
                     required
                     onFocus={() => setFocusedField("email")}
                     onBlur={() => setFocusedField(null)}
@@ -271,6 +300,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="subject"
+                  name="subject"
                   onFocus={() => setFocusedField("subject")}
                   onBlur={() => setFocusedField(null)}
                   className="relative peer w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 text-slate-900 dark:text-white placeholder-transparent outline-none transition-all duration-300"
@@ -295,6 +325,7 @@ const Contact = () => {
                 />
                 <textarea
                   id="message"
+                  name="message"
                   rows="5"
                   required
                   onFocus={() => setFocusedField("message")}
@@ -332,6 +363,11 @@ const Contact = () => {
                   </>
                 )}
               </motion.button>
+              {submitError ? (
+                <p className="text-sm text-rose-600 dark:text-rose-400">
+                  {submitError}
+                </p>
+              ) : null}
             </form>
           </div>
         </motion.div>
